@@ -1,0 +1,20 @@
+{
+  "name": "escapavelo",
+  "version": "1.0.0",
+  "description": "",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packageManager": "npm@11.6.1",
+  "keywords": [],
+  "author": "Virgile Bourse",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "turbo": "^2.6.0"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
+  }
+}

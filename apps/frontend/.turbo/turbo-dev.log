@@ -1,0 +1,30 @@
+
+> escapavelo@0.1.0 dev
+> next dev --turbopack -p 4000
+
+   ▲ Next.js 15.5.5 (Turbopack)
+   - Local:        http://localhost:4000
+   - Network:      http://10.241.76.122:4000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Compiled middleware in 235ms
+ ✓ Ready in 1907ms
+ ○ Compiling /admin/blog/create ...
+ ✓ Compiled /admin/blog/create in 4.2s
+ GET /admin/blog/create 200 in 4718ms
+ ✓ Compiled /_not-found/page in 318ms
+ GET /assets/tinymce/skins/content/default/content.css 404 in 510ms
+ ✓ Compiled in 185ms
+ ✓ Compiled in 142ms
+ GET /admin/blog/create 200 in 321ms
+ GET /assets/tinymce/skins/content/default/content.css 404 in 155ms
+ ✓ Compiled in 128ms
+ ✓ Compiled in 131ms
+ GET /admin/blog/create 200 in 283ms
+ GET /assets/tinymce/skins/content/default/content.css 404 in 186ms
+ ✓ Compiled in 135ms
+ GET /admin/blog/create 200 in 276ms
+ GET /assets/tinymce/skins/content/default/content.css 404 in 141ms
+ ✓ Compiled in 140ms
+ GET /admin/blog/create 200 in 292ms

@@ -1,0 +1,102 @@
+
+> dev
+> nest start --watch
+
+
+ Info  Webpack is building your sources...
+
+webpack 5.97.1 compiled [1m[32msuccessfully[39m[22m in 4244 ms
+(node:16180) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+No errors found.
+Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'C:\DumpStack.log.tmp'
+Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'C:\swapfile.sys'
+Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'C:\pagefile.sys'
+
+ Info  Webpack is building your sources...
+
+webpack 5.97.1 compiled [1m[32msuccessfully[39m[22m in 280 ms
+No errors found.
+
+ Info  Webpack is building your sources...
+
+webpack 5.97.1 compiled [1m[32msuccessfully[39m[22m in 199 ms
+No errors found.
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +21ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMailerModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMailerCoreModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +13ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmCoreModule dependencies initialized[39m[38;5;3m +79ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypeOrmModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mContactModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTripsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mBlogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +4ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUploadController {/upload}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/upload/image, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/upload/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTripsController {/trips}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/trips, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/trips/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/trips, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/trips/:id, PUT} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/trips/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mBlogController {/blog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/blog, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/blog/latest, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/blog/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/blog, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/blog/:id, PUT} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/blog/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mContactController {/contact}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/contact, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/contact/subscribe, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/create, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23700  - [39m10/11/2025 12:12:15 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +2ms[39m
+Application API is running on: http://localhost:3000 undefined
+[31m[Nest] 23700  - [39m10/11/2025 12:36:51 [31m  ERROR[39m [38;5;3m[ExceptionsHandler] [39m[31mCould not load the "sharp" module using the win32-x64 runtime
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=win32 --cpu=x64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install[39m
+Error: Could not load the "sharp" module using the win32-x64 runtime
+Possible solutions:
+- Ensure optional dependencies can be installed:
+    npm install --include=optional sharp
+- Ensure your package manager supports multi-platform installation:
+    See https://sharp.pixelplumbing.com/install#cross-platform
+- Add platform-specific dependencies:
+    npm install --os=win32 --cpu=x64 sharp
+- Consult the installation documentation:
+    See https://sharp.pixelplumbing.com/install
+    at ../../node_modules/sharp/lib/sharp.js (C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:313373:9)
+    at __webpack_require__ (C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:328134:42)
+    at ../../node_modules/sharp/lib/constructor.js (C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:308232:1)
+    at __webpack_require__ (C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:328134:42)
+    at ../../node_modules/sharp/lib/index.js (C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:308737:15)
+    at __webpack_require__ (C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:328134:42)
+    at UploadController.uploadFile (C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:170146:23)
+    at C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:16430:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Erreur Sharp : TypeError: sharp is not a function
+    at UploadController.uploadFile (C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:170156:19)
+    at C:\Users\Utilisateur\Documents\escapavelo\apps\backend\dist\main.js:16430:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)

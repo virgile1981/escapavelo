@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+.bg-sable {
+  background-color: #EDE6DB;
+}
+
+.filter-sable {
+  filter: brightness(0) saturate(100%) invert(95%) sepia(10%) saturate(460%) hue-rotate(323deg) brightness(103%) contrast(86%);
+}
+
+.filter-noir {
+  filter: invert(10%) sepia(7%) saturate(560%) hue-rotate(185deg) brightness(90%) contrast(95%);
+}
+
+.filter-vegetal {
+  filter: invert(12%) sepia(90%) saturate(350%) hue-rotate(92deg) brightness(146%) contrast(95%);
+}
+
+/* Title definitions */
+h1 {
+  font-family: "Calibri" ;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: "Calibri";
+  font-weight:200;
+  font-style: normal;
+}
+
+h3 {
+  font-family: "Calibri";
+  font-weight:100;
+  font-style: normal;
+}
+
+.prose {
+  max-width: 120ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose img {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border-radius: 0.5rem;
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  line-height: 1.8;
+}
+
+.prose h2 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.prose h3 {
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+  list-style-type:disc
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose a {
+  color: #14532d;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #166534;
+}
