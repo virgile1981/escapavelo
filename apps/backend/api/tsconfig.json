@@ -22,10 +22,5 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  },
-  "references": [
-    {
-      "path": "../../../packages/shared-types"
-    }
-  ]
+  }
 }

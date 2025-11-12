@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
-import { BlogService } from '../../services/blogService';
+import { blogService } from '@/services/blogService';
 import PostPreview from '../blog/PostPreview';
+import { FullBlogPost } from '@/types/blog';
 
 interface Props {
   background?: string;
@@ -15,11 +16,10 @@ export default function BlogPreview({
   background = 'bg-green-900',
   textColor = 'text-white',
 }: Props) {
-  const [recentPosts, setRecentPosts] = useState<any[]>([]);
+  const [recentPosts, setRecentPosts] = useState<FullBlogPost[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const blogService = new BlogService();
 
     const fetchPosts = async () => {
       try {

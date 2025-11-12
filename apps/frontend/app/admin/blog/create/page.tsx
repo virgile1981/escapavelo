@@ -2,14 +2,12 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { BlogService } from '@/services/blogService'
 import BlogForm from '@/components/blog/BlogForm'
 import { BlogPost } from '@/types/blog'
+import { blogService } from '@/services/blogService'
 
 export default function EditPostPage() {
     const router = useRouter()
-    const blogService = new BlogService()
-
     const [error, setError] = useState('')
 
 
@@ -19,9 +17,9 @@ export default function EditPostPage() {
             setError('')
             await blogService.createPost(newPost)
             router.push('/admin/blog')
-        } catch (err: any) {
+        } catch (err) {
             console.error('Erreur lors de la sauvegarde:', err)
-            setError(err.message || 'Une erreur est survenue lors de la sauvegarde')
+            setError('Une erreur est survenue lors de la sauvegarde')
         }
     }
 

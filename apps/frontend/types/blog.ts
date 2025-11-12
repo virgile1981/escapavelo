@@ -1,8 +1,9 @@
+import { Status } from "@escapavelo/shared-types";
 import { MultiFormatImageUrl } from "./common"
 
-export type PostStatus = 'draft' | 'published';
-
 export type BlogAttribute = keyof BlogPost;
+export type BlogAttributesTypes = BlogPost[BlogAttribute];
+export type FullBlogPost = BlogPost & {id: string}
 
 export class BlogPost {
   id?: string;
@@ -11,7 +12,7 @@ export class BlogPost {
   excerpt: string;
   content: string;
   imageUrl: MultiFormatImageUrl | null;
-  status: PostStatus;
+  status: Status;
   date?: string;
 
   constructor() {

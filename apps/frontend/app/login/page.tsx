@@ -18,6 +18,7 @@ export default function LoginPage() {
 
         if (!response.success) {
             const msg = await response.text();
+            setError(msg || 'Identifiants invalides');
             throw new Error(msg || 'Identifiants invalides');
         }
 

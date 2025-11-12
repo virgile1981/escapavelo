@@ -1,17 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BlogService } from '@/services/blogService';
 import PostPreview from '@/components/blog/PostPreview';
+import { blogService } from '@/services/blogService';
+import { FullBlogPost } from '@/types/blog';
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<FullBlogPost[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const blogService = new BlogService();
         const postData = await blogService.getAllPosts("published");
         setPosts(postData);
       } catch (err) {

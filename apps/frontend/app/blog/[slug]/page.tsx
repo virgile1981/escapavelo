@@ -1,18 +1,22 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ChevronLeft } from 'lucide-react';
-
-import { BlogPost } from '@/types/blog';
-import { BlogService } from '@/services/blogService';
+import { FullBlogPost } from '@/types/blog';
+import { blogService } from '@/services/blogService';
 
 export default function BlogPostPage() {
-  const params = useParams();
+  const params = useParams()
+  if (Array.isArray(params.slug)) {
+    notFound();
+  }
+
   const slug = params?.slug as string;
 
-  const [post, setPost] = useState<BlogPost | null>(null);
+  const [post, setPost] = useState<FullBlogPost>();
   const [error, setError] = useState<string | null>(null);
 
   const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_IMAGES_URL || '';
@@ -20,11 +24,10 @@ export default function BlogPostPage() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const blogService = new BlogService();
         const posts = await blogService.getAllPosts("published");
-        const found = posts.find((p: BlogPost) => p.slug === slug);
+        const found = posts.find((p: FullBlogPost) => p.slug === slug);
         if (!found) {
-          setError('Article non trouvé');
+          notFound();
         } else {
           setPost(found);
         }
@@ -78,11 +81,12 @@ export default function BlogPostPage() {
     <div className="pt-24">
       <div className="max-w-4xl mx-auto px-4 py-12">
         <article className="prose prose-lg mx-auto">
-          <img
+          {post.imageUrl && (<Image
             src={`${uploadedImagesUrl}/${post.imageUrl.url}`}
+            height={150} width={300}
             alt={post.title}
             className="w-full h-64 object-cover rounded-lg mb-8"
-          />
+          />)}
           <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
           <div className="text-gray-600 mb-4">{formatDate(post.date)}</div>
           {/* contenu HTML directement injecté */}

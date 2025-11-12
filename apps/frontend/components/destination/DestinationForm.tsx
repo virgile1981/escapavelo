@@ -1,12 +1,13 @@
 "use client";
 
-import { Destination, DestinationAttribute, DestinationStatus, DestinationType } from "@/types/trip";
-import { useState, useEffect } from "react";
+import { Destination } from "@/types/trip";
+import { useState } from "react";
 import ImageUploader from "../form/ImageUploader";
 import TinyMCE from "@/components/form/HtmlEditor";
 import DestinationInclusionsSection from "./DestinationInclusionSection";
 import DestinationItinerarySection from "./DestinationItinerarySection";
 import { MultiFormatImageUrl } from "@/types/common";
+import { Status, TravelType } from "@escapavelo/shared-types";
 
 interface TravelFormProps {
     destination?: Destination;
@@ -168,7 +169,7 @@ export default function DestinationForm({
                             <select
                                 id="travelType"
                                 value={localDestination.travelType}
-                                onChange={(e) => handleChange("travelType", e.target.value as DestinationType)}
+                                onChange={(e) => handleChange("travelType", e.target.value as TravelType)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             >
                                 <option value="friends">Entre amis</option>
@@ -185,7 +186,7 @@ export default function DestinationForm({
                             <select
                                 id="status"
                                 value={localDestination.status}
-                                onChange={(e) => handleChange("status", e.target.value as DestinationStatus)}
+                                onChange={(e) => handleChange("status", e.target.value as Status)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             >
                                 <option value="draft">Brouillon</option>

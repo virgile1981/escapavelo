@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Instagram, Facebook, Phone, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,36 +18,36 @@ export default function Header() {
         {/* Desktop logo */}
         <div className="flex items-center justify-between px-8">
           <Link href="/" className="hidden md:flex items-center space-x-2">
-            <img src="/assets/logo.png" className="h-14 w-14" alt="Logo" />
+            <Image src="/assets/logo.png" height={30} width={30} className="h-14 w-14" alt="Logo" />
             <span className="text-xl font-bold">Escapavélo</span>
           </Link>
         </div>
 
         {/* Desktop icons */}
         <div className="hidden md:inline-flex space-x-1 items-center">
-          <a
+          <Link
             href="https://www.instagram.com/escapavelo"
             target="_blank"
             rel="noopener noreferrer"
             className="group p-1 hover:shadow-lg transition-all transform hover:scale-110"
           >
             <Instagram className="w-6 h-6 text-white group-hover:rotate-12 transition-transform" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://www.facebook.com/carnetdespossibles/"
             target="_blank"
             rel="noopener noreferrer"
             className="group p-1 hover:shadow-lg transition-all transform hover:scale-110"
           >
             <Facebook className="w-6 h-6 text-white group-hover:rotate-12 transition-transform" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="tel:+33782232016"
             className="flex items-center px-2 py-1 text-white font-medium hover:underline border border-white rounded-full mx-auto"
           >
             <Phone className="w-4 h-4 mr-2" />
             +33 7 82 23 20 16
-          </a>
+          </Link>
         </div>
 
         {/* Mobile menu button */}
@@ -117,10 +118,11 @@ export default function Header() {
       {isRootPage && (
         <div className="relative h-[110vh] overflow-hidden">
           <div className="absolute inset-0 -top-[7rem]">
-            <img
+            <Image
               src="/assets/full-quercy-cartoon.webp"
               alt="vue du quercy à vélo"
               className="w-full h-full object-cover object-[25%_50%]"
+              fill
             />
           </div>
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.4)_0%,rgba(20,83,45,0.1)_80%,rgba(237,230,219,1.0)_100%)]"></div>

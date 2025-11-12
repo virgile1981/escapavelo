@@ -4,21 +4,22 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { ChevronLeft } from 'lucide-react'
 import ContactForm from '@/components/contact/ContactForm'
-import { DestinationService } from '@/services/destinationService'
 import JustifiedGallery from '@/components/shared/JustifiedGallery'
-import { MultiFormatImageUrl } from '@/types/common'
 import DifficultyIndicator from '@/components/shared/DifficultyIndicator'
-import { Destination } from '@/types/trip'
+import { CreatedDestination, Destination, TripDay } from '@/types/trip'
+import { destinationService } from '@/services/destinationService'
+import { MultiFormatImageUrl } from '@/types/common'
+import Link from 'next/link'
+import Image from 'next/image'
 
 const DestinationPage = () => {
   const params = useParams()
   const slug = params?.slug
-  const travelService = new DestinationService()
 
   const [destination, setDestination] = useState<Destination>()
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
-  const [selectedImage, setSelectedImage] = useState<any>(null)
+  const [selectedImage, setSelectedImage] = useState<MultiFormatImageUrl | null>(null)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ''
@@ -26,9 +27,9 @@ const DestinationPage = () => {
   useEffect(() => {
     const fetchDestination = async () => {
       try {
-        const travels = await travelService.getAllTrips()
+        const travels = await destinationService.getAllTrips()
         const foundDestination = travels.find(
-          (t: any) => t.slug === slug && t.status === 'published'
+          (t: CreatedDestination) => t.slug === slug && t.status === 'published'
         )
         if (!foundDestination) {
           setError('Destination non trouvée')
@@ -64,14 +65,14 @@ const DestinationPage = () => {
       <div className="text-center py-12">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Destination non trouvée</h2>
         <p className="text-gray-600 mb-8">
-          La destination que vous recherchez n'existe pas ou a été déplacée.
+          La destination que vous recherchez n&apos;existe pas ou a été déplacée.
         </p>
-        <a
+        <Link
           href="/destination"
           className="inline-flex items-center bg-green-900 text-white px-6 py-3 rounded-lg hover:bg-green-800"
         >
           Retour aux destinations
-        </a>
+        </Link>
       </div>
     )
   }
@@ -80,8 +81,9 @@ const DestinationPage = () => {
     <div className="pt-24">
       {/* Hero Section */}
       <div className="relative h-96 overflow-hidden">
-        {destination.imageUrl && <img
+        {destination.imageUrl && <Image
           src={`${baseUrl}/uploads/${destination.imageUrl.url}`}
+          height={150} width={300}
           alt={destination.title}
           className="object-cover"
         />}
@@ -120,7 +122,7 @@ const DestinationPage = () => {
               <section className="mb-12">
                 <h2 className="text-3xl font-bold mb-6">Itinéraire détaillé</h2>
                 <div className="space-y-6">
-                  {destination.program.map((day: any) => (
+                  {destination.program.map((day: TripDay) => (
                     <div key={day.day} className="bg-white border rounded-lg p-6 shadow-sm">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-xl font-semibold">
@@ -224,12 +226,12 @@ const DestinationPage = () => {
                   Une question ? Contactez-nous
                 </p>
                 <div className="text-center">
-                  <a
+                  <Link
                     href="tel:+33782232016"
                     className="text-green-900 font-medium hover:underline"
                   >
                     +33 7 82 23 20 16
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -238,10 +240,10 @@ const DestinationPage = () => {
 
         {/* Navigation */}
         <div className="mt-12 pt-8 border-t">
-          <a href="/destination" className="inline-flex items-center text-green-900 hover:text-green-700">
+          <Link href="/destination" className="inline-flex items-center text-green-900 hover:text-green-700">
             <ChevronLeft className="h-5 w-5 mr-2" />
             Retour aux destinations
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -252,11 +254,11 @@ const DestinationPage = () => {
           onClick={closeImageModal}
         >
           <div className="max-w-4xl max-h-full p-4">
-            <img
+            <Image
               src={`${baseUrl}/uploads/${selectedImage.resizedUrl}`}
               alt=""
-              width={1600}
-              height={1200}
+              width={200}
+              height={100}
               className="max-w-full max-h-full object-contain"
             />
           </div>

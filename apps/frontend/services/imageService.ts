@@ -1,6 +1,6 @@
 import { MultiFormatImageUrl } from "@/types/common";
 
-export class ImageService {
+class ImageService {
   private baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 
@@ -22,3 +22,5 @@ export class ImageService {
     return response.json();
   }
 }
+
+export const imageService = new ImageService();

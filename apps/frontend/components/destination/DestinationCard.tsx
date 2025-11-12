@@ -1,7 +1,8 @@
 import { Destination } from "@/types/trip";
-import { Calendar, Link, MapPin } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 import DifficultyIndicator from "../shared/DifficultyIndicator";
-
+import Link from "next/link";
+import Image from "next/image";
 
 export default function DestinationCard({ destination }: { destination: Destination }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -13,9 +14,11 @@ export default function DestinationCard({ destination }: { destination: Destinat
     >
 
       {destination.imageUrl && (
-        <img
+        <Image
           src={`${baseUrl}/uploads/${destination.imageUrl.resizedUrl}`}
           alt={destination.title}
+          height={400}
+          width={800}
           className="w-full h-48 object-cover"
         />
       )}
@@ -44,12 +47,12 @@ export default function DestinationCard({ destination }: { destination: Destinat
             <div>À partir de</div>
             <div className="text-2xl font-bold text-green-900">{destination.price}€</div>
           </div>
-          <a
+          <Link
             href={`/destination/${destination.slug}`}
             className="bg-green-900 text-white px-4 py-2 hover:bg-green-800 transition-colors"
           >
             Voir le détail
-          </a>
+          </Link>
         </div>
       </div>
     </div>

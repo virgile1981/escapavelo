@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { ImageService } from '@/services/imageService'
 import { cleanFilename } from '@/utils/files'
 import { MultiFormatImageUrl } from '@/types/common'
+import Image from 'next/image'
+import { imageService } from '@/services/imageService'
 
 interface ImageUploaderProps {
     value: MultiFormatImageUrl | MultiFormatImageUrl[] | null
@@ -22,9 +23,8 @@ export default function ImageUploader({
 }: ImageUploaderProps) {
     const [error, setError] = useState('')
     const inputRef = useRef<HTMLInputElement | null>(null)
-    const imageService = new ImageService()
 
-    const images: any[] = multiple ? (Array.isArray(value) ? value : []) : value ? [value] : []
+    const images: MultiFormatImageUrl[] = (multiple ? value : [value]) as MultiFormatImageUrl[]
 
     const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setError('')
@@ -100,8 +100,9 @@ export default function ImageUploader({
                 {multiple
                     ? images.map((img, idx) => (
                         <div key={idx} className="thumb relative">
-                            <img
+                            <Image
                                 src={`${uploadedImagesUrl}/${img.resizedUrl}`}
+                                height={150} width={300}
                                 alt="Aperçu"
                                 className="max-w-[100px] border rounded"
                             />
@@ -116,8 +117,9 @@ export default function ImageUploader({
                     ))
                     : images[0] && (
                         <div className="thumb relative">
-                            <img
+                            <Image
                                 src={`${uploadedImagesUrl}/${images[0].resizedUrl}`}
+                                height={100} width={100}
                                 alt="Aperçu"
                                 className="max-w-[100px] border rounded"
                             />

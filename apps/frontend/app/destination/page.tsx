@@ -1,16 +1,12 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { Search, Calendar, MapPin } from 'lucide-react'
-import Link from 'next/link'
-import DifficultyIndicator from '@/components/shared/DifficultyIndicator'
-import { DestinationService } from '@/services/destinationService'
+import { Search, MapPin } from 'lucide-react'
 import { Destination } from '@/types/trip'
 import DestinationCard from '@/components/destination/DestinationCard'
+import { destinationService } from '@/services/destinationService'
 
 export default function DestinationsPage() {
-  const travelService = new DestinationService()
-
   const [destinations, setDestinations] = useState<Destination[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -26,14 +22,12 @@ export default function DestinationsPage() {
     search: '',
   })
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-
   useEffect(() => {
     const load = async () => {
       try {
         setLoading(true)
         setError('')
-        const allTravels = await travelService.getAllTrips()
+        const allTravels = await destinationService.getAllTrips()
         setDestinations(allTravels.filter((t: Destination) => t.status === 'published'))
       } catch (err) {
         console.error(err)

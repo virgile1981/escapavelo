@@ -1,12 +1,11 @@
 {
   "name": "@escapavelo/shared-types",
-  "type": "module",
   "version": "1.0.0",
   "description": "common types for destination",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc -b"
   },
   "keywords": [],
   "author": "Virgile",

@@ -4,13 +4,13 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import TinyMCE from '@/components/form/HtmlEditor'
 import ImageUploader from '@/components/form/ImageUploader'
-import { BlogAttribute, BlogPost } from '@/types/blog'
+import { BlogAttribute, BlogAttributesTypes, BlogPost } from '@/types/blog'
+import Link from 'next/link'
 import { MultiFormatImageUrl } from '@/types/common'
 
 interface BlogFormProps {
     postToUpdate?: BlogPost
-    onSubmit: (post: any) => void
-    isEdit?: boolean
+    onSubmit: (post: BlogPost) => void
     isSaving?: boolean
     error?: string
 }
@@ -18,16 +18,16 @@ interface BlogFormProps {
 export default function BlogForm({
     postToUpdate,
     onSubmit,
-    isEdit = false,
     isSaving = false,
     error = ''
 }: BlogFormProps) {
     const router = useRouter();
-    const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_IMAGES_URL as string; 
+    const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_IMAGES_URL as string;
     // On stocke les données dans un état React
+    const isEdit = !!postToUpdate;
     const [localPost, setLocalPost] = useState<BlogPost>(postToUpdate ?? new BlogPost())
     const handleChange = (
-        name: BlogAttribute, value: any
+        name: BlogAttribute, value: BlogAttributesTypes
     ) => {
         console.log(`Changement de ${name} :`, value)
         setLocalPost(post => ({ ...post, [name]: value }))
@@ -42,12 +42,12 @@ export default function BlogForm({
         <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-4xl font-bold">{isEdit ? "Modifier l'article" : "Créer un article"}</h1>
-                <a
+                <Link
                     href="/admin/blog"
                     className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
                 >
                     Retour
-                </a>
+                </Link>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6">
@@ -95,7 +95,7 @@ export default function BlogForm({
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Contenu
                         </label>
-                        <TinyMCE value={localPost.content} onChange={(content: string) => handleChange("content", content)} uploadedImagesUrl={uploadedImagesUrl}/>
+                        <TinyMCE value={localPost.content} onChange={(content: string) => handleChange("content", content)} uploadedImagesUrl={uploadedImagesUrl} />
                     </div>
 
                     <div>
@@ -104,7 +104,7 @@ export default function BlogForm({
                         </label>
                         <ImageUploader
                             value={localPost.imageUrl}
-                            onChange={(imageUrl) => handleChange("imageUrl", imageUrl)}
+                            onChange={(imageUrl) => handleChange("imageUrl", imageUrl as MultiFormatImageUrl | null)}
                             multiple={false}
                         />
                     </div>

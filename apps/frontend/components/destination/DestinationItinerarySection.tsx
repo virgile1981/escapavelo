@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 
-export interface ItineraryDay {
+export type Day = {
     day: number;
     title: string;
     description: string;
@@ -10,9 +10,11 @@ export interface ItineraryDay {
     accommodation?: string;
 }
 
+export type DayAttributesTypes = Day[keyof Day];
+
 interface DestinationItinerarySectionProps {
-    itinerary: ItineraryDay[];
-    onUpdateItinerary: (itinerary: ItineraryDay[]) => void;
+    itinerary: Day[];
+    onUpdateItinerary: (itinerary: Day[]) => void;
 }
 
 const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
@@ -37,7 +39,7 @@ const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
         onUpdateItinerary(newItinerary);
     };
 
-    const updateDay = (index: number, field: keyof ItineraryDay, value: any) => {
+    const updateDay = (index: number, field: keyof Day, value: string | number) => {
         const newItinerary = [...itinerary];
         newItinerary[index] = { ...newItinerary[index], [field]: value };
         onUpdateItinerary(newItinerary);

@@ -4,14 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Destination } from "@/types/trip"; // si vous avez renommé Travel → Destination
 import DestinationForm from "@/components/destination/DestinationForm";
-import { DestinationService } from "@/services/destinationService";
+import { destinationService } from "@/services/destinationService";
 
 export default function CreateTripPage() {
     const router = useRouter();
-    const destinationService = new DestinationService();
-
-    const [travel, setTravel] = useState<Destination>();
-
     const [isSaving, setIsSaving] = useState(false);
     const [error, setError] = useState("");
 
@@ -29,9 +25,9 @@ export default function CreateTripPage() {
 
             await destinationService.createTrip(cleanedTravel);
             router.push("/admin/destination");
-        } catch (err: any) {
+        } catch (err) {
             console.error("Erreur lors de la sauvegarde :", err);
-            setError(err.message || "Une erreur est survenue lors de la sauvegarde");
+            setError("Une erreur est survenue lors de la sauvegarde");
         } finally {
             setIsSaving(false);
         }

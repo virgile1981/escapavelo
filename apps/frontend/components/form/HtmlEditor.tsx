@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { ImageService } from '@/services/imageService'
+import { Editor } from '@/public/assets/tinymce/tinymce'
+import { imageService } from '@/services/imageService'
 
 interface TinyMCEProps {
     value: string
@@ -11,27 +12,24 @@ interface TinyMCEProps {
 
 export default function TinyMCEEditor({ value, onChange, uploadedImagesUrl }: TinyMCEProps) {
     const editorRef = useRef<HTMLTextAreaElement | null>(null)
-    const imageService = new ImageService()
 
     useEffect(() => {
         if (!editorRef.current) return
-
+        const editorTarget = editorRef.current; // Copier la valeur locale
         // Charger le script TinyMCE
         const script = document.createElement('script')
         script.src = '/assets/tinymce/tinymce.min.js'
         script.onload = () => {
-            // @ts-ignore
             if (window.tinymce) {
-                // @ts-ignore
                 window.tinymce.init({
-                    target: editorRef.current,
+                    target: editorTarget,
                     height: 400,
                     promotion: false,
                     plugins: 'image table link lists preview fullscreen code',
                     toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | image link',
                     skin_url: '/assets/tinymce/skins/ui/oxide',
                     content_css: '/assets/tinymce/skins/content/default/content.css',
-                    setup: (editor: any) => {
+                    setup: (editor: Editor) => {
                         editor.on('Change', () => {
                             onChange(editor.getContent())
                         })
@@ -39,7 +37,7 @@ export default function TinyMCEEditor({ value, onChange, uploadedImagesUrl }: Ti
                             editor.setContent(value || '')
                         })
                     },
-                    file_picker_callback: (callback: any) => {
+                    file_picker_callback: (callback: (imageUrl: string) => void) => {
                         const input = document.createElement('input')
                         input.setAttribute('type', 'file')
                         input.setAttribute('accept', 'image/*')
@@ -51,10 +49,8 @@ export default function TinyMCEEditor({ value, onChange, uploadedImagesUrl }: Ti
                                     const data = await imageService.upload(file)
                                     const imageUrl = `${uploadedImagesUrl}/${data.url}`
                                     callback(imageUrl)
-                                    // @ts-ignore
                                     if (window.tinymce) {
-                                        // @ts-ignore
-                                        const editor = window.tinymce.get(editorRef.current.id)
+                                        const editor = editorRef.current?.id && window.tinymce.get(editorRef.current.id) as Editor
                                         if (editor) {
                                             onChange(editor.getContent()) // <-- appeler après insertion
                                         }
@@ -77,19 +73,15 @@ export default function TinyMCEEditor({ value, onChange, uploadedImagesUrl }: Ti
 
         return () => {
             // Nettoyer TinyMCE à la destruction du composant
-            // @ts-ignore
             if (window.tinymce) {
-                // @ts-ignore
-                window.tinymce.remove(editorRef.current)
+                window.tinymce.remove(editorTarget)
             }
         }
     }, [uploadedImagesUrl])
 
     // Synchroniser les changements externes sur value
     useEffect(() => {
-        // @ts-ignore
         if (window.tinymce && editorRef.current) {
-            // @ts-ignore
             const editor = window.tinymce.get(editorRef.current.id)
             if (editor && value !== editor.getContent()) {
                 editor.setContent(value || '')

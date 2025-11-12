@@ -60,7 +60,7 @@ export default function SearchForm({
               >
                 <option value="">Toutes les durées</option>
                 {durationMax.map((option) => (
-                  <option value={option.id}>{option.label}</option>
+                  <option key={option.id} value={option.id}>{option.label}</option>
                 ))}
               </select>
             </div>

@@ -1,18 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { notFound, useParams, useRouter } from 'next/navigation'
 import { Destination } from '@/types/trip'
 import DestinationForm from '@/components/destination/DestinationForm'
-import { DestinationService } from '@/services/destinationService'
+import { destinationService } from '@/services/destinationService'
 
 export default function EditTripPage() {
-    const router = useRouter()
     const params = useParams()
+    if (Array.isArray(params.slug)) {
+        notFound();
+    }
+
+    const router = useRouter()
     const id = params?.slug as string
-
-    const travelService = new DestinationService()
-
     const [destination, setDestination] = useState<Destination>()
 
     const [loading, setLoading] = useState(true)
@@ -24,7 +25,7 @@ export default function EditTripPage() {
         const loadTravel = async () => {
             try {
                 setLoading(true)
-                const data = await travelService.getTrip(id)
+                const data = await destinationService.getTrip(id)
                 setDestination(data)
             } catch (err) {
                 console.error('Erreur lors du chargement du voyage :', err)
@@ -45,11 +46,11 @@ export default function EditTripPage() {
             destination.included = destination.included.filter(i => i.trim() !== '')
             destination.notIncluded = destination.notIncluded.filter(i => i.trim() !== '')
 
-            await travelService.updateTrip(id, destination)
+            await destinationService.updateTrip(id, destination)
             router.push('/admin/destination')
-        } catch (err: any) {
+        } catch (err) {
             console.error('Erreur lors de la sauvegarde :', err)
-            setError(err.message || 'Une erreur est survenue lors de la sauvegarde')
+            setError('Une erreur est survenue lors de la sauvegarde')
         } finally {
             setIsSaving(false)
         }
@@ -85,7 +86,7 @@ export default function EditTripPage() {
                             href="/admin"
                             className="mt-4 inline-block bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800"
                         >
-                            Retour à l'administration
+                            Retour à l&apos;administration
                         </a>
                     </div>
                 )}

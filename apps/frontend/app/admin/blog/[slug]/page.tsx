@@ -1,25 +1,29 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter, useParams } from 'next/navigation'
-import { BlogService } from '@/services/blogService'
+import { useRouter, useParams, notFound } from 'next/navigation'
 import BlogForm from '@/components/blog/BlogForm'
-import { BlogPost } from '@/types/blog'
+import { BlogPost, FullBlogPost } from '@/types/blog'
+import { blogService } from '@/services/blogService'
 
 export default function EditPostPage() {
-    const router = useRouter()
     const params = useParams()
-    const blogService = new BlogService()
+    if (Array.isArray(params.slug)) {
+        notFound();
+    }
 
-    const [post, setPost] = useState<BlogPost>()
+    const router = useRouter()
+
+    const [post, setPost] = useState<FullBlogPost>()
 
     const [error, setError] = useState('')
-    const postId = params.slug;
+    const postId = params.slug as string;
 
     // Chargement du post existant
     useEffect(() => {
         const loadPost = async () => {
             try {
+                if (!postId) setError("ID de l'article manquant")
                 const postData = await blogService.getPost(postId)
                 setPost(postData)
             } catch (err) {
@@ -37,9 +41,9 @@ export default function EditPostPage() {
             setError('')
             await blogService.updatePost(postId, updatedPost)
             router.push('/admin/blog')
-        } catch (err: any) {
+        } catch (err) {
             console.error('Erreur lors de la sauvegarde:', err)
-            setError(err.message || 'Une erreur est survenue lors de la sauvegarde')
+            setError('Une erreur est survenue lors de la sauvegarde')
         }
     }
 

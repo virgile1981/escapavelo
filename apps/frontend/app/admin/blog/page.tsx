@@ -1,20 +1,20 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { BlogService } from '@/services/blogService'
+import Link from 'next/link'
+import { FullBlogPost } from '@/types/blog'
+import { blogService } from '@/services/blogService'
 
 export default function AdminBlogPage() {
 
-    const blogService = new BlogService()
-
-    const [posts, setPosts] = useState<any[]>([])
+    const [posts, setPosts] = useState<FullBlogPost[]>([])
     const [deletingId, setDeletingId] = useState<string | null>(null)
     const [error, setError] = useState('')
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const postsData = await blogService.getAllPosts()
+                const postsData = await blogService.getAllPosts('published')
                 setPosts(postsData)
             } catch (err) {
                 setError("Erreur lors du chargement des articles")
@@ -46,12 +46,12 @@ export default function AdminBlogPage() {
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-4xl font-bold">Administration du blog</h1>
                 <div className="flex items-center space-x-4">
-                    <a
+                    <Link
                         href="/admin/blog/create"
                         className="bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-colors"
                     >
                         Nouvel article
-                    </a>
+                    </Link>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@ export default function AdminBlogPage() {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {posts.map((post) => (
+                        {posts.map((post: FullBlogPost) => (
                             <tr key={post.id}>
                                 <td className="px-6 py-4 whitespace-nowrap">{post.title}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{post.date}</td>

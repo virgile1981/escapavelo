@@ -24,6 +24,6 @@ export class BlogPost {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column({ default: 'draft' })
+  @Column({ default: 'draft', type: 'varchar' })
   status: Status;
 }

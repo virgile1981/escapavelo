@@ -1,21 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { DestinationService } from '../../services/destinationService';
 import { Destination } from '../../types/trip';
 import DestinationCard from '../destination/DestinationCard';
+import { destinationService } from '@/services/destinationService';
+import Link from 'next/link';
 
 export default function PopularTrips({ background = 'bg-sable', textColor = 'text-green-900' }) {
   const [trips, setTrips] = useState<Destination[]>([]);
   const [error, setError] = useState<string>();
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // équivalent à runtimeConfig.public.baseUrl
-  const travelService = new DestinationService();
-
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const travelsData = await travelService.getPromotedTrips();
+        const travelsData = await destinationService.getPromotedTrips();
         setTrips(travelsData);
       } catch (err) {
         console.error('Erreur :', err);
@@ -43,12 +41,12 @@ export default function PopularTrips({ background = 'bg-sable', textColor = 'tex
         </div>
 
         <div className="text-center mt-12">
-          <a
+          <Link
             href="/destination"
             className="inline-flex items-center bg-sable text-black px-6 py-3 text-lg font-medium hover:bg-white/90 transition-colors"
           >
             Découvrez nos séjours à vélo
-          </a>
+          </Link>
         </div>
       </div>
     </div>

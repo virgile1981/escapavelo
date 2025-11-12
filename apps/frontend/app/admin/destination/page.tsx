@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { CreatedDestination, Destination } from '@/types/trip'
-import { DestinationService } from '@/services/destinationService'
+import { CreatedDestination } from '@/types/trip'
+import { destinationService } from '@/services/destinationService'
 
 
 export default function TripAdminPage() {
@@ -11,7 +11,6 @@ export default function TripAdminPage() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
     const [deletingId, setDeletingId] = useState<number | null>(null)
-    const destinationService = new DestinationService()
     const loadTravels = async () => {
         try {
             setLoading(true)
@@ -58,7 +57,7 @@ export default function TripAdminPage() {
             <div className="text-center py-12">
                 <p className="text-red-600">{error}</p>
                 <button
-                    onClick={loadTravels}
+                    onClick={() => loadTravels()}
                     className="mt-4 bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800"
                 >
                     Réessayer

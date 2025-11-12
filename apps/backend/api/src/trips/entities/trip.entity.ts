@@ -27,7 +27,7 @@ export class Trip {
   @Column()
   difficulty: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   travelType: TravelType;
 
   @Column()
@@ -39,7 +39,7 @@ export class Trip {
   @Column()
   distance: number;
 
-  @Column({ default: 'draft' })
+  @Column({ default: 'draft', type: 'varchar' })
   status: Status;
 
   @Column('simple-json', { nullable: true })

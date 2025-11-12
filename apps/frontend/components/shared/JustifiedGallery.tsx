@@ -3,7 +3,7 @@
 import { JustifiedGalleryProps } from '@/types/common'
 import { useState, useEffect } from 'react'
 import styles from '@/styles/justifiedGallery.module.css'
-
+import Image from 'next/image'
 
 const JustifiedGallery: React.FC<JustifiedGalleryProps> = ({ images, baseUrl }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -16,7 +16,7 @@ const JustifiedGallery: React.FC<JustifiedGalleryProps> = ({ images, baseUrl }) 
   }
 
   const closeModal = () => {
-       setIsModalOpen(false)
+    setIsModalOpen(false)
     document.body.style.overflow = 'auto'
   }
 
@@ -68,8 +68,9 @@ const JustifiedGallery: React.FC<JustifiedGalleryProps> = ({ images, baseUrl }) 
             className={`${styles['gallery-item']} ${getItemClass(index)}`}
             onClick={() => openModal(index)}
           >
-            <img
+            <Image
               src={`${baseUrl}/uploads/${image.resizedUrl}`}
+              height={150} width={300}
               alt={`Photo ${index + 1}`}
               className={styles['gallery-image']}
               loading="lazy"
@@ -107,8 +108,9 @@ const JustifiedGallery: React.FC<JustifiedGalleryProps> = ({ images, baseUrl }) 
             </button>
 
             <div className={styles['modal-image-container']}>
-              <img
+              <Image
                 src={`${baseUrl}/uploads/${images[currentImageIndex].url}`}
+                height={100} width={600}
                 alt={`Photo ${currentImageIndex + 1}`}
                 className="modal-image"
               />

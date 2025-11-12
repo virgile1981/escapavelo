@@ -1,6 +1,6 @@
 import { CreatedDestination, Destination } from "../types/trip"
 
-export class DestinationService {
+class DestinationService {
 
   private baseUrl = process.env.NEXT_PUBLIC_API_URL + '/trips'
 
@@ -74,3 +74,5 @@ export class DestinationService {
     }
   }
 }
+
+export const destinationService = new DestinationService()
