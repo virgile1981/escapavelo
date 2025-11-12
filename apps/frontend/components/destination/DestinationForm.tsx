@@ -23,6 +23,7 @@ export default function DestinationForm({
     onSubmit,
     onCancel,
 }: TravelFormProps) {
+    const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_IMAGES_URL as string;
     const [localDestination, setLocalDestination] = useState<Destination>(
         destination ?? new Destination()
     );
@@ -36,10 +37,10 @@ export default function DestinationForm({
         name: K,
         value: Destination[K]
     ) {
-        setLocalDestination({
-            ...localDestination,
+        setLocalDestination(destination => ({
+            ...destination,
             [name]: value,
-        });
+        }));
     }
 
     return (
@@ -229,6 +230,7 @@ export default function DestinationForm({
                         <TinyMCE
                             value={localDestination.longDescription}
                             onChange={(content) => handleChange("longDescription", content)}
+                            uploadedImagesUrl={uploadedImagesUrl}
                         />
                     </div>
 

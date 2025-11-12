@@ -1,8 +1,7 @@
+import { Status, TravelType } from "@escapavelo/shared-types";
 import { MultiFormatImageUrl } from "./common"
-export type DestinationType = 'family' | 'couple' | 'friends' | 'solo';
 export type NewDestination = Omit<Destination, "id">;
 export type CreatedDestination = Destination & { id: number };
-export type DestinationStatus = 'draft' | 'published';
 export type DestinationAttribute = keyof Destination;
 
 export class Destination {
@@ -17,7 +16,7 @@ export class Destination {
   longDescription: string
   imageUrl: MultiFormatImageUrl | null
   imageUrls: MultiFormatImageUrl[]
-  status: DestinationStatus
+  status: Status
   difficulty: number
   distance: number
   included: string[]
@@ -25,7 +24,7 @@ export class Destination {
   program: TripDay[]
   createdAt?: string
   updatedAt?: string
-  travelType?: DestinationType
+  travelType?: TravelType
 
   constructor() {
     this.promoted = false

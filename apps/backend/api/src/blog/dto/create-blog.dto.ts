@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString, IsOptional, ValidateNested } from 'class-validator';
 import { Image } from '@root/common/dto/image.dto';
 import { Type } from 'class-transformer';
+import { Status } from '@escapavelo/shared-types';
 
 export class CreateBlogDto {
   @IsString()
@@ -20,11 +21,11 @@ export class CreateBlogDto {
   excerpt: string;
 
    @IsOptional()
-   @ValidateNested({ each: true })
+   @ValidateNested()
    @Type(() => Image)
   imageUrl: Image;
 
   @IsString()
   @IsOptional()
-  status?: 'draft' | 'published';
+  status?: Status;
 }

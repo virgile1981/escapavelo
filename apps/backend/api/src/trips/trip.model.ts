@@ -1,3 +1,4 @@
+import { Status, TravelType } from '@escapavelo/shared-types';
 import { Image } from '@root/common/dto/image.dto';
 export interface DayTrip {
   day: number;
@@ -16,7 +17,7 @@ export interface Trip {
   travelType: 'family' | 'couple' | 'friends';
   duration: number;
   price: number;
-  status: 'draft' | 'published';
+  status: Status;
   imageUrl: string;
   included?: string[];
   notIncluded?: string[];
@@ -29,10 +30,10 @@ export class CreateTripDto {
   title: string;
   description: string;
   difficulty: number;
-  travelType: 'family' | 'couple' | 'friends';
+  travelType: TravelType;
   duration: number;
   price: number;
-  status: 'draft' | 'published';
+  status: Status;
   imageUrl: string;
   longDescription?: string;
   included?: string[];
@@ -46,11 +47,11 @@ export class UpdateTripDto {
   title?: string;
   description?: string;
   difficulty?: number;
-  travelType?: 'family' | 'couple' | 'friends';
+  travelType?: TravelType;
   duration?: number;
   price?: number;
   imageUrl?: string;
-  status: 'draft' | 'published';
+  status: Status;
   longDescription?: string;
   included?: string[];
   notIncluded?: string[];

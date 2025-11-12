@@ -1,5 +1,7 @@
-.angular
+.turbo/
+.vscode
 dist
 node_modules
 package-lock.json
 uploads
+.env

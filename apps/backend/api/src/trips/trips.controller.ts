@@ -2,8 +2,8 @@ import { Controller, Get, Post, Put, Delete, Body, Param, Query, ParseIntPipe, U
 import { TripsService } from './trips.service';
 import { Trip } from './entities/trip.entity';
 import { CreateTripDto } from './dto/create-trip.dto';
-import { UpdateTripDto } from './dto/update-trip.dto';
 import { JwtAuthGuard } from '@root/auth/jwt-auth.guard';
+import { TravelType } from '@escapavelo/shared-types';
 
 @Controller('trips')
 export class TripsController {
@@ -12,7 +12,7 @@ export class TripsController {
   @Get()
   getAllTrips(
     @Query('difficulty') difficulty?: number,
-    @Query('travelType') travelType?: 'family' | 'couple' | 'friends',
+    @Query('travelType') travelType?: TravelType,
     @Query('duration') duration?: number,
     @Query('promoted') promoted?: boolean
   ): Promise<Trip[]> {
@@ -39,8 +39,9 @@ export class TripsController {
   @Put(':id')
   updateTrip(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateTripDto: UpdateTripDto,
+    @Body() updateTripDto: Partial<CreateTripDto>,
   ): Promise<Trip> {
+    console.log("Updating trip id", id, "with data", updateTripDto);
     return this.tripsService.updateTrip(id, updateTripDto);
   }
 

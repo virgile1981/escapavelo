@@ -1,3 +1,4 @@
+import { Status } from "@escapavelo/shared-types"
 import { BlogPost } from "../types/blog"
 
 
@@ -30,7 +31,7 @@ export class BlogService {
     return response.json()
   }
 
-  async getAllPosts(status: 'draft' | 'published' | undefined): Promise<BlogPost[]> {
+  async getAllPosts(status: Status | undefined): Promise<BlogPost[]> {
     const statusQuery = status ? `?status=${status}` : ''
 
     const response = await fetch(`${this.baseUrl}${statusQuery}`)

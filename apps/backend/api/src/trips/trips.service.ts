@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like, Between } from 'typeorm';
+import { Repository, Between } from 'typeorm';
 import { Trip } from './entities/trip.entity';
 import { CreateTripDto } from './dto/create-trip.dto';
-import { UpdateTripDto } from './dto/update-trip.dto';
+import { TravelType } from '@escapavelo/shared-types';
 
 @Injectable()
 export class TripsService {
@@ -12,7 +12,7 @@ export class TripsService {
     private tripsRepository: Repository<Trip>,
   ) {
   }
-  async getAllTrips(difficulty?: number, travelType?: 'family' | 'couple' | 'friends', promoted? :boolean, duration?: number): Promise<Trip[]> {
+  async getAllTrips(difficulty?: number, travelType?: TravelType, promoted? :boolean, duration?: number): Promise<Trip[]> {
     const query: any = {};
     
     if (difficulty !== undefined) {
@@ -54,14 +54,10 @@ export class TripsService {
     const trip = this.tripsRepository.create(createTripDto);
     return this.tripsRepository.save(trip);
   }
-
-  async updateTrip(id: number, updateTripDto: UpdateTripDto): Promise<Trip> {
-    const trip = await this.getTripById(id);
-    
-    // Mettre à jour les propriétés
-    Object.assign(trip, updateTripDto);
-    
-    return this.tripsRepository.save(trip);
+ 
+  async updateTrip(id: number, updateTripDto: Partial<CreateTripDto>): Promise<Trip> {
+    this.tripsRepository.update(id,updateTripDto);
+    return this.tripsRepository.findOneBy({id});
   }
 
   async deleteTrip(id: number): Promise<void> {

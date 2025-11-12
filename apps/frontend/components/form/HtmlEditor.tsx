@@ -6,10 +6,10 @@ import { ImageService } from '@/services/imageService'
 interface TinyMCEProps {
     value: string
     onChange: (value: string) => void
-    uploadedImagesUrl?: string
+    uploadedImagesUrl: string
 }
 
-export default function TinyMCEEditor({ value, onChange, uploadedImagesUrl = '' }: TinyMCEProps) {
+export default function TinyMCEEditor({ value, onChange, uploadedImagesUrl }: TinyMCEProps) {
     const editorRef = useRef<HTMLTextAreaElement | null>(null)
     const imageService = new ImageService()
 
@@ -32,7 +32,7 @@ export default function TinyMCEEditor({ value, onChange, uploadedImagesUrl = '' 
                     skin_url: '/assets/tinymce/skins/ui/oxide',
                     content_css: '/assets/tinymce/skins/content/default/content.css',
                     setup: (editor: any) => {
-                        editor.on('KeyUp', () => {
+                        editor.on('Change', () => {
                             onChange(editor.getContent())
                         })
                         editor.on('init', () => {
@@ -49,8 +49,16 @@ export default function TinyMCEEditor({ value, onChange, uploadedImagesUrl = '' 
                             if (file) {
                                 try {
                                     const data = await imageService.upload(file)
-                                    const imageUrl = data.url
-                                    callback(`${uploadedImagesUrl}/${imageUrl}`)
+                                    const imageUrl = `${uploadedImagesUrl}/${data.url}`
+                                    callback(imageUrl)
+                                    // @ts-ignore
+                                    if (window.tinymce) {
+                                        // @ts-ignore
+                                        const editor = window.tinymce.get(editorRef.current.id)
+                                        if (editor) {
+                                            onChange(editor.getContent()) // <-- appeler après insertion
+                                        }
+                                    }
                                 } catch (err) {
                                     console.error("Erreur lors du téléchargement de l'image", err)
                                 }

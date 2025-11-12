@@ -25,6 +25,7 @@
     "@angular/platform-server": "^19.0.0",
     "@angular/router": "^19.0.0",
     "@angular/ssr": "^19.0.0",
+    "@escapavelo/shared-types": "*",
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/common": "^10.3.3",
     "@nestjs/config": "^4.0.1",
@@ -54,8 +55,8 @@
     "reflect-metadata": "^0.2.1",
     "rxjs": "^7.8.1",
     "serve-static": "^1.16.2",
-    "tslib": "^2.5.0",
     "sharp": "0.34.2",
+    "tslib": "^2.5.0",
     "typeorm": "^0.3.20",
     "zone.js": "~0.15"
   },

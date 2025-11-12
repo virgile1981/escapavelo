@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 import { Image } from '@root/common/dto/image.dto';
+import { Status } from '@escapavelo/shared-types';
 @Entity()
 export class BlogPost {
   @PrimaryGeneratedColumn()
@@ -24,5 +25,5 @@ export class BlogPost {
   createdAt: Date;
 
   @Column({ default: 'draft' })
-  status: 'draft' | 'published';
+  status: Status;
 }

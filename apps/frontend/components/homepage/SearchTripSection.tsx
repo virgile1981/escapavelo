@@ -24,6 +24,8 @@ export default function SearchForm({
     search: '',
   });
 
+  const durationMax = [{ id: 2, label: "1-2 jours" }, { id: 4, label: "3-4 jours" }, { id: 7, label: "5-7 jours" }, { id: 99, label: "8+ jours" }] as { id: number, label: string }[];
+
   const handleChange = (field: keyof SearchFilters, value: string) => {
     setSearchFilters((prev) => ({ ...prev, [field]: value }));
   };
@@ -57,10 +59,9 @@ export default function SearchForm({
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 <option value="">Toutes les durées</option>
-                <option value="1-2">1-2 jours</option>
-                <option value="3-4">3-4 jours</option>
-                <option value="5-7">5-7 jours</option>
-                <option value="8+">8+ jours</option>
+                {durationMax.map((option) => (
+                  <option value={option.id}>{option.label}</option>
+                ))}
               </select>
             </div>
 

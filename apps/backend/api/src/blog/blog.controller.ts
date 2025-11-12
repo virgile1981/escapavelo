@@ -3,13 +3,14 @@ import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { BlogPost } from './entities/blog.entity';
 import { JwtAuthGuard } from '@root/auth/jwt-auth.guard';
+import { Status } from '@escapavelo/shared-types';
 
 @Controller('blog')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
   @Get()
-  findAll(@Query('status') status: 'draft' | 'published' ): Promise<BlogPost[]> {
+  findAll(@Query('status') status: Status ): Promise<BlogPost[]> {
     return this.blogService.findAll(status);
   }
 

@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Image } from '@root/common/dto/image.dto';
+import { Status, TravelType } from '@escapavelo/shared-types';
 @Entity()
 export class Trip {
   @PrimaryGeneratedColumn()
@@ -27,7 +28,7 @@ export class Trip {
   difficulty: number;
 
   @Column()
-  travelType: string;
+  travelType: TravelType;
 
   @Column()
   duration: number;
@@ -39,7 +40,7 @@ export class Trip {
   distance: number;
 
   @Column({ default: 'draft' })
-  status: 'draft' | 'published';
+  status: Status;
 
   @Column('simple-json', { nullable: true })
   included: string[];

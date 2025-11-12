@@ -1,6 +1,8 @@
 import { IsNotEmpty, IsNumber, IsString, IsOptional, IsArray, IsEnum, Min, ValidateNested, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 import { Image } from '@root/common/dto/image.dto';
+import { Status, TravelType } from '@escapavelo/shared-types'
+
 class DayTrip {
   @IsNumber()
   @Min(1)
@@ -48,12 +50,10 @@ export class CreateTripDto {
   difficulty: number;
 
   @IsString()
-  @IsEnum(['family', 'couple', 'friends'])
-  travelType: 'family' | 'couple' | 'friends';
+  travelType: TravelType;
 
   @IsString()
-  @IsEnum(['draft', 'published'])
-  status: 'draft' | 'published';
+  status: Status;
 
   @IsNumber()
   @Min(1)
@@ -68,7 +68,7 @@ export class CreateTripDto {
   price: number;
 
   @IsOptional()
-  @ValidateNested({ each: true })
+  @ValidateNested()
   @Type(() => Image)
   imageUrl: Image;
 

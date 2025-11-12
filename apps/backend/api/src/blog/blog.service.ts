@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BlogPost } from './entities/blog.entity';
 import { CreateBlogDto } from './dto/create-blog.dto';
+import { Status } from '@escapavelo/shared-types';
 
 @Injectable()
 export class BlogService {
@@ -13,7 +14,7 @@ export class BlogService {
   }
 
 
-  async findAll(status: 'draft' | 'published'): Promise<BlogPost[]> {
+  async findAll(status: Status): Promise<BlogPost[]> {
     return this.blogRepository.find({
       where: status ? { status } : {},
       order: { createdAt: 'DESC' }

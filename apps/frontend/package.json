@@ -9,11 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@escapavelo/shared-types": "^1.0.0",
+    "@reduxjs/toolkit": "^2.10.1",
     "@tinymce/tinymce-react": "^6.3.0",
     "lucide-react": "^0.546.0",
     "next": "15.5.5",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -21,6 +24,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-redux": "^7.1.34",
     "eslint": "^9",
     "eslint-config-next": "15.5.5",
     "tailwindcss": "^4",

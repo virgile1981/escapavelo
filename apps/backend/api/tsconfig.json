@@ -11,7 +11,9 @@
     "outDir": "../dist",
     "baseUrl": "./",
     "paths": {
-      "@root/*": ["./src/*"]
+      "@root/*": [
+        "./src/*"
+      ]
     },
     "incremental": true,
     "skipLibCheck": true,
@@ -20,5 +22,10 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "references": [
+    {
+      "path": "../../../packages/shared-types"
+    }
+  ]
 }
