@@ -1,0 +1,16 @@
+{
+  "name": "@escapavelo/utils",
+  "version": "1.0.0",
+  "description": "functions shared by the different packages",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b --force"
+  },
+  "keywords": [],
+  "author": "Virgile",
+  "license": "ISC",
+  "dependencies": {
+   "@escapavelo/shared-types": "^1.0.0"
+  }
+}

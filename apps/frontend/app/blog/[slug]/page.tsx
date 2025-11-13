@@ -19,7 +19,7 @@ export default function BlogPostPage() {
   const [post, setPost] = useState<FullBlogPost>();
   const [error, setError] = useState<string | null>(null);
 
-  const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_IMAGES_URL || '';
+  const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
 
   useEffect(() => {
     const fetchPost = async () => {

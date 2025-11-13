@@ -29,7 +29,7 @@ import { AuthModule } from './auth/auth.module';
       useFactory: (configService: ConfigService) =>  {
         return {
         type: 'mariadb',
-        host: configService.get<string>('DB_URL', 'localhost'),
+        host: configService.get<string>('DB_HOST', 'localhost'),
         port: configService.get<number>('DB_PORT', 3306),
         username: configService.get<string>('DB_USERNAME', 'root'),
         password: configService.get<string>('DB_PASSWORD', 'root'),

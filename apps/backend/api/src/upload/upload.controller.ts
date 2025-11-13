@@ -1,4 +1,4 @@
-import { Controller, Delete, HttpException, HttpStatus, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Controller, Delete, HttpException, HttpStatus, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'path';
@@ -8,12 +8,25 @@ import { JwtAuthGuard } from '@root/auth/jwt-auth.guard';
 
 @Controller('upload')
 export class UploadController {
+  
   @UseGuards(JwtAuthGuard)
-  @Post('image')
+  @Post(':folder/image')
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
-        destination: './uploads/tmp', // Stockage temporaire du fichier original
+        destination:  (req, file, callback) => {
+          const folder = req.params.folder
+          const uploadPath = path.join('./uploads', folder, 'tmp')
+          
+          // Vérifie que le répertoire existe
+          if (!fs.existsSync(uploadPath)) {
+            return callback(
+              new BadRequestException(`Le répertoire '${uploadPath}' n'existe pas.`),
+              uploadPath,
+            )
+          }
+          callback(null, uploadPath)
+        },// Stockage temporaire du fichier original
         filename: (req, file, callback) => {
           const ext = path.extname(file.originalname);
           const baseName = uuidv4();
@@ -25,14 +38,15 @@ export class UploadController {
       },
     })
   )
-  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+  
+  async uploadFile(@UploadedFile() file: Express.Multer.File, @Param('folder') folder: string) {
     const sharp = require('sharp');
 
     if (!file) {
       throw new Error('Aucun fichier téléchargé');
     }
 
-    const uploadsDir = path.join(__dirname, '..', 'uploads');
+    const uploadsDir = path.join(__dirname, '..', 'uploads',folder);
     const tmpPath = path.join(uploadsDir, 'tmp', file.filename);
 
     const baseName = path.parse(file.filename).name;

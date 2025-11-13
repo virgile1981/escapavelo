@@ -5,12 +5,14 @@ import { cleanFilename } from '@/utils/files'
 import { MultiFormatImageUrl } from '@/types/common'
 import Image from 'next/image'
 import { imageService } from '@/services/imageService'
+import { Context } from '@escapavelo/shared-types'
+import { getImagesUrl } from '@escapavelo/utils'
 
 interface ImageUploaderProps {
     value: MultiFormatImageUrl | MultiFormatImageUrl[] | null
     onChange: (value: MultiFormatImageUrl | MultiFormatImageUrl[] | null) => void
+    context: Context
     multiple?: boolean
-    uploadedImagesUrl?: string
 }
 
 const MAX_SIZE_MB = 7
@@ -18,11 +20,12 @@ const MAX_SIZE_MB = 7
 export default function ImageUploader({
     value,
     onChange,
-    multiple = false,
-    uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_IMAGES_URL || '',
+    context,
+    multiple = false
 }: ImageUploaderProps) {
     const [error, setError] = useState('')
     const inputRef = useRef<HTMLInputElement | null>(null)
+    const uploadedImagesUrl = getImagesUrl(context);
 
     const images: MultiFormatImageUrl[] = (multiple ? value : [value]) as MultiFormatImageUrl[]
 
@@ -38,7 +41,7 @@ export default function ImageUploader({
             }
 
             try {
-                const data = await imageService.upload(file)
+                const data = await imageService.upload(file, context)
                 if (multiple) {
                     onChange([...images, data])
                 } else {

@@ -8,7 +8,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/uploads/:path*',
+        source: '/images/:path*',
         destination: 'http://localhost:3000/uploads/:path*', // proxy
       },
     ];

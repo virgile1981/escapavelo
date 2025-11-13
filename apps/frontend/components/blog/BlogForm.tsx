@@ -22,7 +22,7 @@ export default function BlogForm({
     error = ''
 }: BlogFormProps) {
     const router = useRouter();
-    const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_IMAGES_URL as string;
+
     // On stocke les données dans un état React
     const isEdit = !!postToUpdate;
     const [localPost, setLocalPost] = useState<BlogPost>(postToUpdate ?? new BlogPost())
@@ -95,7 +95,7 @@ export default function BlogForm({
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Contenu
                         </label>
-                        <TinyMCE value={localPost.content} onChange={(content: string) => handleChange("content", content)} uploadedImagesUrl={uploadedImagesUrl} />
+                        <TinyMCE value={localPost.content} onChange={(content: string) => handleChange("content", content)} context="blog" />
                     </div>
 
                     <div>
@@ -106,6 +106,7 @@ export default function BlogForm({
                             value={localPost.imageUrl}
                             onChange={(imageUrl) => handleChange("imageUrl", imageUrl as MultiFormatImageUrl | null)}
                             multiple={false}
+                            context="blog"
                         />
                     </div>
 

@@ -17,5 +17,10 @@
   },
   "dependencies": {
     "sharp": "^0.34.5"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "start:backend": "npm --workspace apps/backend start",
+    "start:frontend": "npm --workspace apps/frontend start"
   }
 }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@escapavelo/shared-types": "^1.0.0",
+    "@escapavelo/utils": "^1.0.0",
     "@reduxjs/toolkit": "^2.10.1",
     "@tinymce/tinymce-react": "^6.3.0",
     "lucide-react": "^0.546.0",

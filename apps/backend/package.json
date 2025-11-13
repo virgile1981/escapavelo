@@ -2,12 +2,13 @@
   "name": "nestjs-server",
   "private": true,
   "scripts": {
-    "start:api:prod": "node dist/main.js",
+    "start": "node dist/main.js",
     "dev": "nest start --watch",
-    "build:api": "nest build"
+    "build": "nest build"
   },
   "dependencies": {
-    "@escapavelo/shared-types": "*",
+    "@escapavelo/shared-types": "^1.0.0",
+    "@escapavelo/utils": "^1.0.0",
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/common": "^10.3.3",
     "@nestjs/config": "^4.0.1",

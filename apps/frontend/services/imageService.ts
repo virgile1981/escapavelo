@@ -1,15 +1,16 @@
 import { MultiFormatImageUrl } from "@/types/common";
+import { Context } from "@escapavelo/shared-types";
 
 class ImageService {
   private baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 
-  async upload(file: string | Blob): Promise<MultiFormatImageUrl> {
+  async upload(file: string | Blob, context: Context): Promise<MultiFormatImageUrl> {
     const formData = new FormData();
     formData.append('file', file);
 
     // Envoi du fichier vers le serveur
-    const response = await fetch(`${this.baseUrl}/upload/image`, {
+    const response = await fetch(`${this.baseUrl}/upload/${context}/image`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
