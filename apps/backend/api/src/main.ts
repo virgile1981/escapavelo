@@ -10,9 +10,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   // Servir les fichiers statiques du répertoire 'uploads' sous l'URL '/static'
-  app.use('/uploads',serveStatic(path.join(__dirname, '..', 'uploads')));
+  app.use('/images',serveStatic(path.join(__dirname, '..', 'uploads')));
   app.enableCors({
-      origin: process.env.URL_FRONT || 'http://localhost:4000', // ou l'URL de votre front Nuxt
+      origin: process.env.URL_FRONT || 'http://localhost:4000', // ou l'URL de votre front Next
       credentials: true, // ✅ Obligatoire pour autoriser les cookies
     }
   );

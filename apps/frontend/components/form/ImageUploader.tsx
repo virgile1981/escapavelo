@@ -6,7 +6,7 @@ import { MultiFormatImageUrl } from '@/types/common'
 import Image from 'next/image'
 import { imageService } from '@/services/imageService'
 import { Context } from '@escapavelo/shared-types'
-import { getImagesUrl } from '@escapavelo/utils'
+import { serverImageUrlBuilder } from '@/utils/imageBuilder'
 
 interface ImageUploaderProps {
     value: MultiFormatImageUrl | MultiFormatImageUrl[] | null
@@ -25,7 +25,7 @@ export default function ImageUploader({
 }: ImageUploaderProps) {
     const [error, setError] = useState('')
     const inputRef = useRef<HTMLInputElement | null>(null)
-    const uploadedImagesUrl = getImagesUrl(context);
+    const uploadedImagesUrl = serverImageUrlBuilder(context);
 
     const images: MultiFormatImageUrl[] = (multiple ? value : [value]) as MultiFormatImageUrl[]
 
@@ -60,8 +60,8 @@ export default function ImageUploader({
     const removeImageFile = async (index?: number) => {
         const file = multiple ? images[index!] : images[0]
         if (!file) return
-        const filenameCleaned = cleanFilename(file.url)
         try {
+            const filenameCleaned = cleanFilename(file.url)
             await imageService.delete(filenameCleaned)
         } catch (err) {
             console.error('Erreur lors de la suppression du fichier:', err)

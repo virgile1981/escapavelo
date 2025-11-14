@@ -1,17 +1,20 @@
-import type { NextConfig } from "next";
+const dev = process.env.NODE_ENV === 'development';
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
     domains: ['localhost','escapavelo.fr'],
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/images/:path*',
-        destination: 'http://localhost:3000/uploads/:path*', // proxy
-      },
-    ];
+    unoptimized: true
+},
+ async rewrites() {
+    if (dev) {
+      return [
+        {
+          source: '/images/:path*',
+          destination: 'http://localhost:3000/images/:path*', // proxy vers backend local
+        }
+      ];
+    }
+    return [];
   },
 };
 

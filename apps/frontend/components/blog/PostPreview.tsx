@@ -1,13 +1,13 @@
 import { BlogPost } from '@/types/blog';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getImagesUrl } from '@escapavelo/utils';
+import { serverImageUrlBuilder } from '@/utils/imageBuilder';
 interface Props {
   post: BlogPost;
 }
 
 export default function PostPreview({ post }: Props) {
-  const uploadedImagesUrl = getImagesUrl('blog');
+  const uploadedImagesUrl = serverImageUrlBuilder('blog');
 
   return (
     <article className="bg-white shadow-md overflow-hidden">
