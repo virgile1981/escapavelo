@@ -1,6 +1,6 @@
-import type { FormData, SubscriberNewsletter } from "../types/contact";
+import type { ContactFields, SubscriberNewsletter } from "../types/contact";
 
-export class ContactService {
+class ContactService {
    private baseUrl = process.env.NEXT_PUBLIC_API_URL + '/contact'
 
    
@@ -16,7 +16,7 @@ export class ContactService {
     return response.json()
    }
 
-   async sendEmail(form: FormData): Promise<string> {
+   async sendEmail(form: ContactFields): Promise<string> {
       
       const response =  await fetch(this.baseUrl, {
             method: 'POST',
@@ -29,3 +29,5 @@ export class ContactService {
       return response.json()
    }
 }
+
+export const contactService = new ContactService();

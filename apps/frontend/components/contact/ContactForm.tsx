@@ -1,52 +1,22 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
-import { ContactService } from '../../services/contactService';
-import {FormData} from '../../types/contact';
-interface Props {
-  background?: string;
-  textColor?: string;
-  onSubmit?: () => void; // équivalent du `emit('submit')`
-}
-
+import { useActionState } from 'react';
+import { StyleProps } from '@/types/common';
+import { contactAction } from './ContactAction';
+import { State } from '@/types/actionState';
+import { ContactFields } from '@/types/contact';
+import { ErrorMessage } from '@/components/shared/ErrorMessage';
 
 export default function ContactForm({
   background = 'bg-green-900',
   textColor = 'text-white',
-  onSubmit,
-}: Props) {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const contactService = new ContactService();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      await contactService.sendEmail(formData);
-      alert('Message envoyé avec succès !');
-      setFormData({ name: '', email: '', message: '' });
-      onSubmit?.(); // équivalent à `emit('submit')`
-    } catch (error) {
-      console.error('Erreur:', error);
-      alert("Erreur lors de l'envoi du message. Veuillez réessayer.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+}: StyleProps) {
+  const initialState: State<ContactFields> = { success: false };
+  const [state, formAction, pending] = useActionState<State<ContactFields>, FormData>(contactAction, initialState);
 
   return (
     <form
-      onSubmit={handleSubmit}
+      action={formAction}
       className={`space-y-6 bg-white/10 p-6 rounded-lg backdrop-blur-sm ${background}`}
     >
       <div>
@@ -58,13 +28,16 @@ export default function ContactForm({
         </label>
         <input
           type="text"
-          id="name"
-          value={formData.name}
-          onChange={handleChange}
+          name="name"
           required
-          disabled={isSubmitting}
+          disabled={pending}
+          defaultValue={state.payload?.name}
           className="w-full px-4 py-2 bg-white/90 border-0 rounded-lg focus:ring-2 focus:ring-white focus:bg-white transition-colors"
         />
+        <div className="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+          {state?.errors?.name && <p style={{ color: 'red' }}>{state.errors.name[0]}</p>}
+        </div>
+        <ErrorMessage messages={state?.errors?.name}></ErrorMessage>
       </div>
 
       <div>
@@ -76,13 +49,13 @@ export default function ContactForm({
         </label>
         <input
           type="email"
-          id="email"
-          value={formData.email}
-          onChange={handleChange}
+          name="email"
           required
-          disabled={isSubmitting}
+          disabled={pending}
+          defaultValue={state.payload?.email}
           className="w-full px-4 py-2 bg-white/90 border-0 rounded-lg focus:ring-2 focus:ring-white focus:bg-white transition-colors"
         />
+        <ErrorMessage messages={state?.errors?.email}></ErrorMessage>
       </div>
 
       <div>
@@ -93,25 +66,26 @@ export default function ContactForm({
           Message
         </label>
         <textarea
-          id="message"
+          name="message"
           rows={4}
-          value={formData.message}
-          onChange={handleChange}
           required
-          disabled={isSubmitting}
+          disabled={pending}
+          defaultValue={state.payload?.message}
           className="w-full px-4 py-2 bg-white/90 border-0 rounded-lg focus:ring-2 focus:ring-white focus:bg-white transition-colors"
         ></textarea>
+        <ErrorMessage messages={state?.errors?.message}></ErrorMessage>
       </div>
 
       <button
         type="submit"
-        disabled={isSubmitting}
-        className={`w-full bg-white text-green-900 px-6 py-3 rounded-lg text-lg font-medium transition-colors ${
-          isSubmitting ? 'opacity-75 cursor-not-allowed' : 'hover:bg-white/90'
-        }`}
+        disabled={pending}
+        className={`w-full bg-white text-green-900 px-6 py-3 rounded-lg text-lg font-medium transition-colors ${pending ? 'opacity-75 cursor-not-allowed' : 'hover:bg-white/90'
+          }`}
       >
-        {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+        {pending ? 'Envoi en cours...' : 'Envoyer le message'}
       </button>
+      {state?.success && <p style={{ color: 'green' }}>Message envoyé avec succès !</p>}
+      <ErrorMessage messages={state?.errors?.general}></ErrorMessage>
     </form>
   );
 }

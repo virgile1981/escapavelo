@@ -11,13 +11,17 @@ export default function PostPreview({ post }: Props) {
 
   return (
     <article className="bg-white shadow-md overflow-hidden">
-      {post.imageUrl && (<Image
-        src={`${uploadedImagesUrl}/${post.imageUrl.resizedUrl}`}
-        alt={post.title}
-        className="w-full h-48 object-cover"
-        width={100}
-        height={100}
-      />)}
+      {
+        post.imageUrl && (
+          <Image
+            src={`${uploadedImagesUrl}/${post.imageUrl.resizedUrl}`}
+            alt={post.title}
+            className="w-full h-48 object-cover"
+            width={100}
+            height={100}
+          />
+        )
+      }
       <div className="p-6">
         <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
         <p className="text-gray-600 mb-4">{post.excerpt}</p>
