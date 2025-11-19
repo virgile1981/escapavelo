@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react"
 import DestinationSearchForm from "./DestinationSearchForm"
 import { MapPin } from "lucide-react"
 import DestinationCard from "./DestinationCard"
+import { useSearchParams } from "next/navigation"
 
 interface DestinationResultsProps {
     regions: string[]
@@ -17,17 +18,13 @@ export function DestinationResults({ regions }: DestinationResultsProps) {
     const [error, setError] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [sortBy, setSortBy] = useState('title')
-
+    const searchParams = useSearchParams();
     const itemsPerPage = 12
-    const [searchFilters, setSearchFilters] = useState<SearchFilters>({
-        region: '',
-        duration: 'courte',
-        difficulty: 'facile',
-        maxPrice: '',
-        search: '',
-    })
 
+    const [searchFilters, setSearchFilters] = useState<SearchFilters>({})
     useEffect(() => {
+        const params: SearchFilters = Object.fromEntries(searchParams.entries());
+        setSearchFilters(() => params)
         const load = async () => {
             try {
                 setLoading(true)
@@ -51,7 +48,7 @@ export function DestinationResults({ regions }: DestinationResultsProps) {
     const filteredDestinations = useMemo(() => {
         return destinations.filter(d => {
             if (searchFilters.region && d.region !== searchFilters.region) return false
-            if (searchFilters.difficulty && d.difficulty === searchFilters.difficulty) return false
+            if (searchFilters.difficulty && d.difficulty !== searchFilters.difficulty) return false
             if (searchFilters.maxPrice && d.price > parseInt(searchFilters.maxPrice)) return false
 
             if (searchFilters.duration) {
@@ -89,7 +86,7 @@ export function DestinationResults({ regions }: DestinationResultsProps) {
     const totalPages = Math.ceil(filteredDestinations.length / itemsPerPage)
 
     const resetFilters = () => {
-        setSearchFilters({ region: '', duration: 'courte', difficulty: 'facile', maxPrice: '', search: '' })
+        setSearchFilters({})
         setSortBy('title')
         setCurrentPage(1)
     }
@@ -112,7 +109,7 @@ export function DestinationResults({ regions }: DestinationResultsProps) {
 
                 {/* --- FORMULAIRE --- */}
                 <div className="bg-white shadow-md p-6 mb-12">
-                    <DestinationSearchForm regionsList={regions} onSubmit={handleSearch}></DestinationSearchForm>
+                    <DestinationSearchForm regionsList={regions} filters={searchFilters} onSubmit={handleSearch}></DestinationSearchForm>
                 </div>
 
                 {/* --- ÉTATS --- */}

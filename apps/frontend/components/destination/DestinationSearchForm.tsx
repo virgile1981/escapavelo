@@ -2,21 +2,21 @@
 import { SearchFilters } from "@/types/destination";
 import { DurationRecord, DifficultyRecord, PriceRecord } from "@escapavelo/shared-types";
 import { Search } from "lucide-react";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface SearchFormProps {
     onSubmit: (filters: SearchFilters) => void
     regionsList: string[]
+    filters?: SearchFilters
 }
 
-export default function DestinationSearchForm({ onSubmit, regionsList }: SearchFormProps) {
+export default function DestinationSearchForm({ onSubmit, regionsList, filters }: SearchFormProps) {
 
+    const [searchFilters, setSearchFilters] = useState<SearchFilters>(filters || {})
 
-    const [searchFilters, setSearchFilters] = useState<SearchFilters>({
-        region: '',
-        maxPrice: '',
-        search: '',
-    })
+    useEffect(() => {
+        setSearchFilters(() => filters || {})
+    }, [filters])
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,11 +37,11 @@ export default function DestinationSearchForm({ onSubmit, regionsList }: SearchF
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Région</label>
                     <select
-                        value={searchFilters.region}
+                        value={searchFilters.region ?? "default"}
                         onChange={e => handleChange('region', e.target.value)}
                         className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                     >
-                        <option value="">Toutes les régions</option>
+                        <option value="default">Toutes les régions</option>
                         {regionsList.map(region => (
                             <option key={region} value={region}>
                                 {region}
@@ -55,11 +55,11 @@ export default function DestinationSearchForm({ onSubmit, regionsList }: SearchF
                     <label className="block text-sm font-medium text-gray-700 mb-2">Durée</label>
                     <select
                         id="duration"
-                        value={searchFilters.duration} // <-- Contrôlé par useState
+                        value={searchFilters.duration ?? "default"} // <-- Contrôlé par useState
                         onChange={(e) => handleChange('duration', e.target.value)} // <-- Géré par handleChange
                         className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                     >
-                        <option value="">Toutes les durées</option>
+                        <option value="default">Toutes les durées</option>
                         {Object.keys(DurationRecord).map((key) => {
                             return (<option key={key} value={key}>{key}</option>)
                         })}
@@ -71,11 +71,11 @@ export default function DestinationSearchForm({ onSubmit, regionsList }: SearchF
                     <label className="block text-sm font-medium text-gray-700 mb-2">Difficulté</label>
                     <select
                         id="difficulty"
-                        value={searchFilters.difficulty} // <-- Contrôlé par useState
+                        value={searchFilters.difficulty ?? "default"} // <-- Contrôlé par useState
                         onChange={(e) => handleChange('difficulty', e.target.value)} // <-- Géré par handleChange
                         className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                     >
-                        <option value="">Toutes les difficultés</option>
+                        <option value="default">Toutes les difficultés</option>
                         {
                             Object.keys(DifficultyRecord).map((key) => (
                                 <option key={key} value={key}>{key}</option>
@@ -89,11 +89,11 @@ export default function DestinationSearchForm({ onSubmit, regionsList }: SearchF
                     <label className="block text-sm font-medium text-gray-700 mb-2">Prix maximum</label>
                     <select
                         id="maxPrice"
-                        value={searchFilters.maxPrice}
+                        value={searchFilters.maxPrice ?? "default"}
                         onChange={(e) => handleChange('maxPrice', e.target.value)} // <-- Géré par handleChange
                         className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                     >
-                        <option value="">Tous les prix</option>
+                        <option value="default">Tous les prix</option>
                         {
                             Object.keys(PriceRecord).map((key) => (
                                 <option key={key} value={key}>{key}</option>
