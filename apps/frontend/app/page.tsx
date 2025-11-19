@@ -10,7 +10,7 @@ export default async function Home() {
 
   const regions = await fetchRegions()
   return (
-    <div>
+    <div className="flex flex-col items-center">
 
       <SearchTripSection regionsList={regions} />
 

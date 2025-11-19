@@ -62,3 +62,10 @@ export type SearchFilters = {
   maxPrice?: string,
   search?: string
 }
+export const defaultSearchFilters: SearchFilters = {
+  region: undefined,
+  duration: undefined,
+  difficulty: undefined,
+  maxPrice: undefined,
+  search: undefined,
+};

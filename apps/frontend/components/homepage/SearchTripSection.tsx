@@ -22,6 +22,8 @@ export default function SearchForm({
   };
 
   return (
-    <DestinationSearchForm regionsList={regionsList} onSubmit={handleSearch}></DestinationSearchForm>
+    <div className="w-[90%] m-9 inline-flex justify-center">
+      <DestinationSearchForm regionsList={regionsList} shownFilters={["region", "duration", "difficulty"]} onSubmit={handleSearch}></DestinationSearchForm>
+    </div>
   )
 }

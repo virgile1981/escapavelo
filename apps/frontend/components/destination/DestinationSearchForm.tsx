@@ -1,5 +1,5 @@
 'use client'
-import { SearchFilters } from "@/types/destination";
+import { defaultSearchFilters, SearchFilters } from "@/types/destination";
 import { DurationRecord, DifficultyRecord, PriceRecord } from "@escapavelo/shared-types";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react"
@@ -8,15 +8,16 @@ interface SearchFormProps {
     onSubmit: (filters: SearchFilters) => void
     regionsList: string[]
     filters?: SearchFilters
+    shownFilters?: (keyof SearchFilters)[]
 }
 
-export default function DestinationSearchForm({ onSubmit, regionsList, filters }: SearchFormProps) {
+export default function DestinationSearchForm({ onSubmit, regionsList, filters: filterValues, shownFilters }: SearchFormProps) {
 
-    const [searchFilters, setSearchFilters] = useState<SearchFilters>(filters || {})
-
+    const [searchFilters, setSearchFilters] = useState<SearchFilters>(filterValues || {})
+    const filtersToDisplay = shownFilters ? shownFilters : Object.keys(defaultSearchFilters)
     useEffect(() => {
-        setSearchFilters(() => filters || {})
-    }, [filters])
+        setSearchFilters(() => filterValues || {})
+    }, [filterValues])
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,62 +31,65 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters }
     return (
         <form
             onSubmit={handleSearch}
-            className="space-y-6"
+            className="space-y-6 w-full"
         >
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid md:grid-cols-3 gap-4">
                 {/* Région */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Région</label>
-                    <select
-                        value={searchFilters.region ?? "default"}
-                        onChange={e => handleChange('region', e.target.value)}
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    >
-                        <option value="default">Toutes les régions</option>
-                        {regionsList.map(region => (
-                            <option key={region} value={region}>
-                                {region}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                {filtersToDisplay.some(filter => filter === "region")
+                    && <div >
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Région</label>
+                        <select
+                            value={searchFilters.region ?? "default"}
+                            onChange={e => handleChange('region', e.target.value)}
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        >
+                            <option value="default">Toutes les régions</option>
+                            {regionsList.map(region => (
+                                <option key={region} value={region}>
+                                    {region}
+                                </option>
+                            ))}
+                        </select>
+                    </div>}
 
                 {/* Durée */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Durée</label>
-                    <select
-                        id="duration"
-                        value={searchFilters.duration ?? "default"} // <-- Contrôlé par useState
-                        onChange={(e) => handleChange('duration', e.target.value)} // <-- Géré par handleChange
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    >
-                        <option value="default">Toutes les durées</option>
-                        {Object.keys(DurationRecord).map((key) => {
-                            return (<option key={key} value={key}>{key}</option>)
-                        })}
-                    </select>
-                </div>
+                {filtersToDisplay.some(filter => filter === "duration") &&
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Durée</label>
+                        <select
+                            id="duration"
+                            value={searchFilters.duration ?? "default"} // <-- Contrôlé par useState
+                            onChange={(e) => handleChange('duration', e.target.value)} // <-- Géré par handleChange
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        >
+                            <option value="default">Toutes les durées</option>
+                            {Object.keys(DurationRecord).map((key) => {
+                                return (<option key={key} value={key}>{key}</option>)
+                            })}
+                        </select>
+                    </div>}
 
                 {/* Difficulté */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Difficulté</label>
-                    <select
-                        id="difficulty"
-                        value={searchFilters.difficulty ?? "default"} // <-- Contrôlé par useState
-                        onChange={(e) => handleChange('difficulty', e.target.value)} // <-- Géré par handleChange
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    >
-                        <option value="default">Toutes les difficultés</option>
-                        {
-                            Object.keys(DifficultyRecord).map((key) => (
-                                <option key={key} value={key}>{key}</option>
-                            ))
-                        }
-                    </select>
-                </div>
+                {filtersToDisplay.some(filter => filter === "difficulty") &&
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Difficulté</label>
+                        <select
+                            id="difficulty"
+                            value={searchFilters.difficulty ?? "default"} // <-- Contrôlé par useState
+                            onChange={(e) => handleChange('difficulty', e.target.value)} // <-- Géré par handleChange
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        >
+                            <option value="default">Toutes les difficultés</option>
+                            {
+                                Object.keys(DifficultyRecord).map((key) => (
+                                    <option key={key} value={key}>{key}</option>
+                                ))
+                            }
+                        </select>
+                    </div>}
 
                 {/* Prix max */}
-                <div>
+                {filtersToDisplay.some(filter => filter === "maxPrice") && <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Prix maximum</label>
                     <select
                         id="maxPrice"
@@ -100,11 +104,11 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters }
                             ))
                         }
                     </select>
-                </div>
+                </div>}
             </div>
 
             {/* Recherche textuelle */}
-            <div>
+            {filtersToDisplay.some(filter => filter === "search") && <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Recherche libre</label>
                 <div className="relative">
                     <input
@@ -116,7 +120,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters }
                     />
                     <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                 </div>
-            </div>
+            </div>}
 
             {/* Boutons */}
             <div className="flex justify-between items-center">
