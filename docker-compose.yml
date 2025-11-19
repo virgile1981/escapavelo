@@ -7,7 +7,6 @@ services:
       dockerfile: docker/Dockerfiles/frontend.Dockerfile
     container_name: escapavelo-frontend 
     environment:
-
       - NODE_ENV=production
       - PORT=4000
     env_file:
@@ -36,8 +35,6 @@ services:
       - "3000:3000"
     depends_on:
       - mariadb
-    volumes:
-      - ./uploads:/app/uploads
 
   mariadb:
     image: mariadb:11
@@ -60,6 +57,5 @@ services:
     depends_on:
       - frontend
       - backend
-
 volumes:
   mariadb_data:
