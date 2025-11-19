@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Destination } from '../../types/trip';
+import { Destination } from '../../types/destination';
 import DestinationCard from '../destination/DestinationCard';
 import { destinationService } from '@/services/destinationService';
 import Link from 'next/link';

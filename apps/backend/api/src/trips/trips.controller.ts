@@ -3,7 +3,7 @@ import { TripsService } from './trips.service';
 import { Trip } from './entities/trip.entity';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { JwtAuthGuard } from '@root/auth/jwt-auth.guard';
-import { TravelType } from '@escapavelo/shared-types';
+import { DifficultyType, TravelType } from '@escapavelo/shared-types';
 
 @Controller('trips')
 export class TripsController {
@@ -11,13 +11,13 @@ export class TripsController {
 
   @Get()
   getAllTrips(
-    @Query('difficulty') difficulty?: number,
+    @Query('difficulty') difficulty?: DifficultyType,
     @Query('travelType') travelType?: TravelType,
     @Query('duration') duration?: number,
     @Query('promoted') promoted?: boolean
   ): Promise<Trip[]> {
     return this.tripsService.getAllTrips(
-      difficulty ? +difficulty : undefined,
+      difficulty,
       travelType,
       promoted,
       duration ? +duration : undefined

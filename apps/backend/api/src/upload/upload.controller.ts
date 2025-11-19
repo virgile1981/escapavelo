@@ -66,7 +66,7 @@ export class UploadController {
         .toFile(outputResized);
 
       // Supprimer le fichier temporaire
-      fs.unlinkSync(tmpPath);
+      // fs.unlinkSync(tmpPath);
 
     } catch (err) {
       console.error('Erreur Sharp :', err);

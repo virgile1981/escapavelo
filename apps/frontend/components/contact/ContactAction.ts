@@ -12,7 +12,7 @@ const contactSchema = z.object({
   message: z.string().min(10, 'Le message est trop court'),
 });
 
-export async function contactAction(state: any, formData: FormData): Promise<State<ContactFields>> {
+export async function contactAction(state: State<ContactFields>, formData: FormData): Promise<State<ContactFields>> {
   const payload = {
     name: String(formData.get('name') ?? ''),
     email: String(formData.get('email') ?? ''),

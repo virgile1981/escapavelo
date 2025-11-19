@@ -5,7 +5,7 @@ import { Editor as TinyMCEEditorType } from '@/public/assets/tinymce/tinymce'
 import { useRef } from 'react'
 import { imageService } from '@/services/imageService'
 import { Context } from '@escapavelo/shared-types'
-import { serverImageUrlBuilder } from '@/utils/imageBuilder'
+import { publicImageUrlBuilder } from '@/utils/imageBuilder'
 
 interface TinyMCEProps {
     value: string
@@ -15,7 +15,7 @@ interface TinyMCEProps {
 
 export default function TinyMCEEditor({ value, onChange, context }: TinyMCEProps) {
     const editorRef = useRef<TinyMCEEditorType | null>(null)
-    const uploadedImagesUrl = serverImageUrlBuilder(context);
+    const uploadedImagesUrl = publicImageUrlBuilder(context);
     return (
         <Editor
             tinymceScriptSrc="/assets/tinymce/tinymce.min.js" // <- script local, pas de clé Cloud

@@ -1,3 +1,4 @@
+import { fetchRegions } from "@/utils/data";
 import AboutSection from "../components/homepage/AboutSection";
 import BlogPreview from "../components/homepage/BlogPreview";
 import ContactSection from "../components/homepage/ContactSection";
@@ -5,11 +6,13 @@ import FeaturesSection from "../components/homepage/FeaturesSection";
 import PopularTrips from "../components/homepage/PopularTrips";
 import SearchTripSection from "../components/homepage/SearchTripSection";
 
-export default function Home() {
+export default async function Home() {
+
+  const regions = await fetchRegions()
   return (
     <div>
 
-      <SearchTripSection background="bg-sable" textColor="text-green-900" />
+      <SearchTripSection regionsList={regions} />
 
       <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 border-dirt-brown -mb-12 bg-[url('/assets/border.png')] filter-sable"></div>
       <FeaturesSection background="bg-green-900 bg-[url('/assets/heightmap.png')]" textColor="text-white" />

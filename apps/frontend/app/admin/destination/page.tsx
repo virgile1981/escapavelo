@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { CreatedDestination } from '@/types/trip'
+import { CreatedDestination } from '@/types/destination'
 import { destinationService } from '@/services/destinationService'
 
 

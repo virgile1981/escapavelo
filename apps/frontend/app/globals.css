@@ -89,3 +89,11 @@ h3 {
 .prose a:hover {
   color: #166534;
 }
+
+.bike {
+  color:#EDE6DB
+}
+
+.bike.active {
+  color: #14532d;
+}

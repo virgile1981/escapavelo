@@ -1,0 +1,132 @@
+'use client'
+import { SearchFilters } from "@/types/destination";
+import { DurationRecord, DifficultyRecord, PriceRecord } from "@escapavelo/shared-types";
+import { Search } from "lucide-react";
+import { useState } from "react"
+
+interface SearchFormProps {
+    onSubmit: (filters: SearchFilters) => void
+    regionsList: string[]
+}
+
+export default function DestinationSearchForm({ onSubmit, regionsList }: SearchFormProps) {
+
+
+    const [searchFilters, setSearchFilters] = useState<SearchFilters>({
+        region: '',
+        maxPrice: '',
+        search: '',
+    })
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        onSubmit(searchFilters)
+    };
+
+    const handleChange = (field: keyof SearchFilters, value: string) => {
+        setSearchFilters((prev) => ({ ...prev, [field]: value }));
+    };
+
+    return (
+        <form
+            onSubmit={handleSearch}
+            className="space-y-6"
+        >
+            <div className="grid md:grid-cols-4 gap-4">
+                {/* Région */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Région</label>
+                    <select
+                        value={searchFilters.region}
+                        onChange={e => handleChange('region', e.target.value)}
+                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    >
+                        <option value="">Toutes les régions</option>
+                        {regionsList.map(region => (
+                            <option key={region} value={region}>
+                                {region}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Durée */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Durée</label>
+                    <select
+                        id="duration"
+                        value={searchFilters.duration} // <-- Contrôlé par useState
+                        onChange={(e) => handleChange('duration', e.target.value)} // <-- Géré par handleChange
+                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    >
+                        <option value="">Toutes les durées</option>
+                        {Object.keys(DurationRecord).map((key) => {
+                            return (<option key={key} value={key}>{key}</option>)
+                        })}
+                    </select>
+                </div>
+
+                {/* Difficulté */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Difficulté</label>
+                    <select
+                        id="difficulty"
+                        value={searchFilters.difficulty} // <-- Contrôlé par useState
+                        onChange={(e) => handleChange('difficulty', e.target.value)} // <-- Géré par handleChange
+                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    >
+                        <option value="">Toutes les difficultés</option>
+                        {
+                            Object.keys(DifficultyRecord).map((key) => (
+                                <option key={key} value={key}>{key}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+
+                {/* Prix max */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Prix maximum</label>
+                    <select
+                        id="maxPrice"
+                        value={searchFilters.maxPrice}
+                        onChange={(e) => handleChange('maxPrice', e.target.value)} // <-- Géré par handleChange
+                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    >
+                        <option value="">Tous les prix</option>
+                        {
+                            Object.keys(PriceRecord).map((key) => (
+                                <option key={key} value={key}>{key}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+            </div>
+
+            {/* Recherche textuelle */}
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Recherche libre</label>
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Rechercher par nom, région, description..."
+                        value={searchFilters.search}
+                        onChange={e => handleChange('search', e.target.value)}
+                        className="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    />
+                    <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                </div>
+            </div>
+
+            {/* Boutons */}
+            <div className="flex justify-between items-center">
+                <button
+                    type="submit"
+                    className="bg-green-900 text-white px-6 py-2 hover:bg-green-800 transition-colors"
+                >
+                    Rechercher
+                </button>
+            </div>
+        </form>
+    )
+}

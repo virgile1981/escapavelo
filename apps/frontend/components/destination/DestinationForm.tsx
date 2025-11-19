@@ -1,13 +1,13 @@
 "use client";
 
-import { Destination } from "@/types/trip";
+import { Destination } from "@/types/destination";
 import { useState } from "react";
 import ImageUploader from "../form/ImageUploader";
 import TinyMCE from "@/components/form/HtmlEditor";
 import DestinationInclusionsSection from "./DestinationInclusionSection";
 import DestinationItinerarySection from "./DestinationItinerarySection";
 import { MultiFormatImageUrl } from "@/types/common";
-import { Status, TravelType } from "@escapavelo/shared-types";
+import { DifficultyRecord, DifficultyType, Status, TravelType } from "@escapavelo/shared-types";
 
 interface TravelFormProps {
     destination?: Destination;
@@ -152,12 +152,14 @@ export default function DestinationForm({
                             <select
                                 id="difficulty"
                                 value={localDestination.difficulty}
-                                onChange={(e) => handleChange("difficulty", Number(e.target.value))}
+                                onChange={(e) => handleChange("difficulty", e.target.value as DifficultyType)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             >
-                                <option value="1">Facile</option>
-                                <option value="2">Modéré</option>
-                                <option value="3">Difficile</option>
+                                {
+                                    Object.keys(DifficultyRecord).map((key) => (
+                                        <option key={key} value={key}>{key}</option>
+                                    ))
+                                }
                             </select>
                         </div>
 

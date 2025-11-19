@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsNumber, IsString, IsOptional, IsArray, IsEnum, Min, ValidateNested, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 import { Image } from '@root/common/dto/image.dto';
-import { Status, TravelType } from '@escapavelo/shared-types'
+import { DifficultyType, Status, TravelType } from '@escapavelo/shared-types'
 
 class DayTrip {
   @IsNumber()
@@ -45,9 +45,8 @@ export class CreateTripDto {
   @IsNotEmpty()
   longDescription: string;
 
-  @IsNumber()
-  @Min(1)
-  difficulty: number;
+  @IsString()
+  difficulty: DifficultyType;
 
   @IsString()
   travelType: TravelType;

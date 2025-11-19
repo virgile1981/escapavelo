@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { notFound, useParams, useRouter } from 'next/navigation'
-import { Destination } from '@/types/trip'
+import { Destination } from '@/types/destination'
 import DestinationForm from '@/components/destination/DestinationForm'
 import { destinationService } from '@/services/destinationService'
 

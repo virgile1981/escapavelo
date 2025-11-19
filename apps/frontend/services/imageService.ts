@@ -2,7 +2,7 @@ import { MultiFormatImageUrl } from "@/types/common";
 import { Context } from "@escapavelo/shared-types";
 
 class ImageService {
-  private baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  private apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 
   async upload(file: string | Blob, context: Context): Promise<MultiFormatImageUrl> {
@@ -10,7 +10,7 @@ class ImageService {
     formData.append('file', file);
 
     // Envoi du fichier vers le serveur
-    const response = await fetch(`${this.baseUrl}/upload/${context}/image`, {
+    const response = await fetch(`${this.apiUrl}/upload/${context}/image`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
@@ -19,7 +19,7 @@ class ImageService {
   }
 
   async delete(fileName: string): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/upload/${fileName}`, { method: 'DELETE', credentials: 'include' });
+    const response = await fetch(`${this.apiUrl}/upload/${fileName}`, { method: 'DELETE', credentials: 'include' });
     return response.json();
   }
 }

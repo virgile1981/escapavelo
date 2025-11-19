@@ -1,4 +1,4 @@
-import { CreatedDestination, Destination } from "../types/trip"
+import { CreatedDestination, Destination } from "../types/destination"
 
 class DestinationService {
 

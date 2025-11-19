@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between } from 'typeorm';
 import { Trip } from './entities/trip.entity';
 import { CreateTripDto } from './dto/create-trip.dto';
-import { TravelType } from '@escapavelo/shared-types';
+import { DifficultyType, TravelType } from '@escapavelo/shared-types';
 
 @Injectable()
 export class TripsService {
@@ -12,7 +12,7 @@ export class TripsService {
     private tripsRepository: Repository<Trip>,
   ) {
   }
-  async getAllTrips(difficulty?: number, travelType?: TravelType, promoted? :boolean, duration?: number): Promise<Trip[]> {
+  async getAllTrips(difficulty?: DifficultyType, travelType?: TravelType, promoted? :boolean, duration?: number): Promise<Trip[]> {
     const query: any = {};
     
     if (difficulty !== undefined) {

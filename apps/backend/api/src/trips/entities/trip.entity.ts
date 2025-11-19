@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Image } from '@root/common/dto/image.dto';
-import { Status, TravelType } from '@escapavelo/shared-types';
+import { DifficultyType, DurationType, Status, TravelType } from '@escapavelo/shared-types';
 @Entity()
 export class Trip {
   @PrimaryGeneratedColumn()
@@ -24,8 +24,8 @@ export class Trip {
   @Column('text')
   longDescription: string;
 
-  @Column()
-  difficulty: number;
+  @Column({ type: 'varchar' })
+  difficulty: DifficultyType;
 
   @Column({ type: 'varchar' })
   travelType: TravelType;

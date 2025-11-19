@@ -6,7 +6,7 @@ import { MultiFormatImageUrl } from '@/types/common'
 import Image from 'next/image'
 import { imageService } from '@/services/imageService'
 import { Context } from '@escapavelo/shared-types'
-import { serverImageUrlBuilder } from '@/utils/imageBuilder'
+import { publicImageUrlBuilder } from '@/utils/imageBuilder'
 
 interface ImageUploaderProps {
     value: MultiFormatImageUrl | MultiFormatImageUrl[] | null
@@ -25,7 +25,7 @@ export default function ImageUploader({
 }: ImageUploaderProps) {
     const [error, setError] = useState('')
     const inputRef = useRef<HTMLInputElement | null>(null)
-    const uploadedImagesUrl = serverImageUrlBuilder(context);
+    const uploadedImagesUrl = publicImageUrlBuilder(context);
 
     const images: MultiFormatImageUrl[] = (multiple ? value : [value]) as MultiFormatImageUrl[]
 

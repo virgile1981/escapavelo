@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Destination } from "@/types/trip"; // si vous avez renommé Travel → Destination
+import { Destination } from "@/types/destination"; // si vous avez renommé Travel → Destination
 import DestinationForm from "@/components/destination/DestinationForm";
 import { destinationService } from "@/services/destinationService";
 

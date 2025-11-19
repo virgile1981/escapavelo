@@ -6,7 +6,7 @@ import { ChevronLeft } from 'lucide-react'
 import ContactForm from '@/components/contact/ContactForm'
 import JustifiedGallery from '@/components/shared/JustifiedGallery'
 import DifficultyIndicator from '@/components/shared/DifficultyIndicator'
-import { CreatedDestination, Destination, TripDay } from '@/types/trip'
+import { CreatedDestination, Destination, TripDay } from '@/types/destination'
 import { destinationService } from '@/services/destinationService'
 import { MultiFormatImageUrl } from '@/types/common'
 import Link from 'next/link'
@@ -279,7 +279,6 @@ const DestinationPage = () => {
             <ContactForm
               background="bg-green-900 bg-[url('/assets/heightmap.png')]"
               textColor="text-white"
-              onSubmit={closePopup}
             />
           </div>
         </div>

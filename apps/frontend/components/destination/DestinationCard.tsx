@@ -1,4 +1,4 @@
-import { Destination } from "@/types/trip";
+import { Destination } from "@/types/destination";
 import { Calendar, MapPin } from "lucide-react";
 import DifficultyIndicator from "../shared/DifficultyIndicator";
 import Link from "next/link";

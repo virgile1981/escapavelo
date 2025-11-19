@@ -1,4 +1,4 @@
-import { Status, TravelType } from "@escapavelo/shared-types";
+import { DifficultyType, DurationType, Status, TravelType } from "@escapavelo/shared-types";
 import { MultiFormatImageUrl } from "./common"
 export type NewDestination = Omit<Destination, "id">;
 export type CreatedDestination = Destination & { id: number };
@@ -17,7 +17,7 @@ export class Destination {
   imageUrl: MultiFormatImageUrl | null
   imageUrls: MultiFormatImageUrl[]
   status: Status
-  difficulty: number
+  difficulty: DifficultyType
   distance: number
   included: string[]
   notIncluded: string[]
@@ -38,7 +38,7 @@ export class Destination {
     this.imageUrl = null
     this.imageUrls = []
     this.status = 'draft'
-    this.difficulty = 1
+    this.difficulty = 'facile'
     this.distance = 0
     this.included = []
     this.notIncluded = []
@@ -52,4 +52,13 @@ export interface TripDay {
   description: string
   distance: number
   accommodation?: string
+}
+
+// Search definitions
+export type SearchFilters = {
+  region?: string,
+  duration?: DurationType,
+  difficulty?: DifficultyType,
+  maxPrice?: string,
+  search?: string
 }
