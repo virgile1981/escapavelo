@@ -1,5 +1,5 @@
-import { Status } from "@escapavelo/shared-types";
-import { MultiFormatImageUrl } from "./common"
+import { type Status } from "@escapavelo/shared-types";
+import { type MultiFormatImageUrl } from "./common"
 
 export type BlogAttribute = keyof BlogPost;
 export type BlogAttributesTypes = BlogPost[BlogAttribute];

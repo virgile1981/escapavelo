@@ -1,5 +1,5 @@
 'use client'
-import { SearchFilters } from '@/types/destination';
+import { type SearchFilters } from '@/types/destination';
 import { generateSearchParametersUrl } from '@/utils/urlBuilder';
 import DestinationSearchForm from '../destination/DestinationSearchForm';
 import { useRouter } from 'next/navigation';

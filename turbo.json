@@ -1,6 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [".env.locale"],
   "tasks": {
+    "start": {
+      "dependsOn": ["^start"],
+      "cache": false
+    },
     "dev": {
       "dependsOn": [],
       "cache": false

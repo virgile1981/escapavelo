@@ -1,81 +1,28 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { useParams } from 'next/navigation'
-import { ChevronLeft } from 'lucide-react'
-import ContactForm from '@/components/contact/ContactForm'
-import JustifiedGallery from '@/components/shared/JustifiedGallery'
-import DifficultyIndicator from '@/components/shared/DifficultyIndicator'
-import { CreatedDestination, Destination, TripDay } from '@/types/destination'
-import { destinationService } from '@/services/destinationService'
-import { MultiFormatImageUrl } from '@/types/common'
 import Link from 'next/link'
 import Image from 'next/image'
+import JustifiedGallery from '@/components/shared/JustifiedGallery'
+import DifficultyIndicator from '@/components/shared/DifficultyIndicator'
+import { type TripDay } from '@/types/destination'
+import ContactPopup from '@/components/contact/ContactPopup'
+import { ChevronLeft } from 'lucide-react'
+import { destinationService } from '@/services/destinationService'
+import { notFound } from 'next/navigation'
 
-const DestinationPage = () => {
-  const params = useParams()
-  const slug = params?.slug
+export async function generateStaticParams() {
+  const destinations = await destinationService.getAllTrips('published');
 
-  const [destination, setDestination] = useState<Destination>()
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
-  const [selectedImage, setSelectedImage] = useState<MultiFormatImageUrl | null>(null)
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
+  return destinations.map(v => ({ slug: v.slug }));
+}
 
+export default async function DestinationPage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+
+  if (Array.isArray(params.slug)) {
+    notFound();
+  }
+
+  const destination = await destinationService.getDestinationBySlug(slug);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ''
-
-  useEffect(() => {
-    const fetchDestination = async () => {
-      try {
-        const travels = await destinationService.getAllTrips()
-        const foundDestination = travels.find(
-          (t: CreatedDestination) => t.slug === slug && t.status === 'published'
-        )
-        if (!foundDestination) {
-          setError('Destination non trouvée')
-        } else {
-          setDestination(foundDestination)
-        }
-      } catch (err) {
-        console.error(err)
-        setError("Erreur lors du chargement de la destination")
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    if (slug) fetchDestination()
-  }, [slug])
-
-  //   const openImageModal = (image: MultiFormatImageUrl) => setSelectedImage(image)
-  const closeImageModal = () => setSelectedImage(null)
-  const openPopup = () => setIsPopupOpen(true)
-  const closePopup = () => setIsPopupOpen(false)
-
-  if (loading) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-gray-600">Chargement de la destination...</p>
-      </div>
-    )
-  }
-
-  if (error || !destination) {
-    return (
-      <div className="text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Destination non trouvée</h2>
-        <p className="text-gray-600 mb-8">
-          La destination que vous recherchez n&apos;existe pas ou a été déplacée.
-        </p>
-        <Link
-          href="/destination"
-          className="inline-flex items-center bg-green-900 text-white px-6 py-3 rounded-lg hover:bg-green-800"
-        >
-          Retour aux destinations
-        </Link>
-      </div>
-    )
-  }
 
   return (
     <div className="pt-24">
@@ -211,14 +158,7 @@ const DestinationPage = () => {
               </div>
 
               {/* Boutons d'action */}
-              <div className="space-y-3">
-                <button
-                  onClick={openPopup}
-                  className="w-full border border-green-900 text-green-900 py-3 px-4 rounded-lg hover:bg-green-50 transition-colors font-medium"
-                >
-                  Demander des informations
-                </button>
-              </div>
+              <ContactPopup ></ContactPopup>
 
               {/* Contact */}
               <div className="mt-6 pt-6 border-t">
@@ -246,45 +186,7 @@ const DestinationPage = () => {
           </Link>
         </div>
       </div>
-
-      {/* Modal images */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
-          onClick={closeImageModal}
-        >
-          <div className="max-w-4xl max-h-full p-4">
-            <Image
-              src={`${baseUrl}/uploads/${selectedImage.resizedUrl}`}
-              alt=""
-              width={200}
-              height={100}
-              className="max-w-full max-h-full object-contain"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Modal contact */}
-      {isPopupOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg relative max-w-lg w-full">
-            <button
-              onClick={closePopup}
-              className="absolute top-2 right-2 text-gray-500 hover:text-black text-xl"
-              aria-label="Fermer"
-            >
-              &times;
-            </button>
-            <ContactForm
-              background="bg-green-900 bg-[url('/assets/heightmap.png')]"
-              textColor="text-white"
-            />
-          </div>
-        </div>
-      )}
     </div>
   )
 }
 
-export default DestinationPage

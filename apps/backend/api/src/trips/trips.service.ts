@@ -39,7 +39,7 @@ export class TripsService {
       });
     }
     
-    return this.tripsRepository.find({ where: query });
+    return this.tripsRepository.find({ where: query, select: ['id', 'title', 'slug', 'imageUrl','description','price','difficulty','duration','region','travelType'] });
   }
 
   async getTripById(id: number): Promise<Trip> {
@@ -49,6 +49,15 @@ export class TripsService {
     }
     return trip;
   }
+
+  async getTripBySlug(slug: string): Promise<Trip> {
+    const trip = await this.tripsRepository.findOne({ where: { slug }  });
+    if (!trip) {
+      throw new NotFoundException(`Voyage avec l'ID ${slug} non trouvé`);
+    }
+    return trip;
+  }
+
 
   async createTrip(createTripDto: CreateTripDto): Promise<Trip> {
     const trip = this.tripsRepository.create(createTripDto);

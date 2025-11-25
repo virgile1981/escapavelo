@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 import { Image } from '@root/common/dto/image.dto';
 import { Status } from '@escapavelo/shared-types';
+import { DefaultEntity } from '@root/shared/entity/default.entity';
 @Entity()
-export class BlogPost {
+export class BlogPost extends DefaultEntity   {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,9 +21,6 @@ export class BlogPost {
   
   @Column('simple-json', {nullable: true})
   imageUrl: Image;
-
-  @CreateDateColumn()
-  createdAt: Date;
 
   @Column({ default: 'draft', type: 'varchar' })
   status: Status;

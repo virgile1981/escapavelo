@@ -1,8 +1,8 @@
 'use server';
 
 import { contactService } from '@/services/contactService';
-import { State } from '@/types/actionState';
-import { ContactFields } from '@/types/contact';
+import { type State } from '@/types/actionState';
+import { type ContactFields } from '@/types/contact';
 import { z } from 'zod';
 
 // Schema pour valider les données côté serveur

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useParams, notFound } from 'next/navigation'
 import BlogForm from '@/components/blog/BlogForm'
-import { BlogPost, FullBlogPost } from '@/types/blog'
+import { BlogPost, type FullBlogPost } from '@/types/blog'
 import { blogService } from '@/services/blogService'
 
 export default function EditPostPage() {

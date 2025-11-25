@@ -1,8 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Image } from '@root/common/dto/image.dto';
-import { DifficultyType, DurationType, Status, TravelType } from '@escapavelo/shared-types';
+import { DifficultyType, Status, TravelType } from '@escapavelo/shared-types';
+import { DefaultEntity } from '@root/shared/entity/default.entity';
 @Entity()
-export class Trip {
+export class Trip extends DefaultEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

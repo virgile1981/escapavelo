@@ -1,6 +1,7 @@
 const dev = process.env.NODE_ENV === 'development';
 
 const nextConfig = {
+  output: "standalone",
   images: {
     domains: ['localhost','escapavelo.fr'],
     unoptimized: true

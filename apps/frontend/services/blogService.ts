@@ -1,13 +1,21 @@
-import { Status } from "@escapavelo/shared-types"
-import { BlogPost, FullBlogPost } from "../types/blog"
-
+import { type Status } from "@escapavelo/shared-types"
+import { BlogPost, type FullBlogPost } from "../types/blog"
+import { API_URL } from '@/utils/urlBuilder';
 
 class BlogService {
    
-  private baseUrl = process.env.NEXT_PUBLIC_API_URL + '/blog'
+  private baseUrl = API_URL + '/blog'
 
   async getPost(id: string): Promise<FullBlogPost> {
-    const response = await fetch(`${this.baseUrl}/${id}`)
+    const response = await fetch(`${this.baseUrl}/id/${id}`)
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération de l\'article')
+    }
+    return response.json()
+  }
+
+  async getPostBySlug(slug: string): Promise<FullBlogPost> {
+    const response = await fetch(`${this.baseUrl}/${slug}`)
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération de l\'article')
     }
@@ -31,7 +39,7 @@ class BlogService {
     return response.json()
   }
 
-  async getAllPosts(status: Status | undefined): Promise<FullBlogPost[]> {
+  async getAllPosts(status?: Status): Promise<FullBlogPost[]> {
     const statusQuery = status ? `?status=${status}` : ''
 
     const response = await fetch(`${this.baseUrl}${statusQuery}`)

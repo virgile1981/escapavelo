@@ -1,6 +1,7 @@
+import { DefaultEntity } from "@root/shared/entity/default.entity";
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class AuthDto {
+export class AuthDto extends DefaultEntity {
     
     @IsNotEmpty()
     @IsString()

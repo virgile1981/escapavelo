@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import TinyMCE from '@/components/form/HtmlEditor'
 import ImageUploader from '@/components/form/ImageUploader'
-import { BlogAttribute, BlogAttributesTypes, BlogPost } from '@/types/blog'
+import { type BlogAttribute, type BlogAttributesTypes, BlogPost } from '@/types/blog'
 import Link from 'next/link'
-import { MultiFormatImageUrl } from '@/types/common'
+import { type MultiFormatImageUrl } from '@/types/common'
 
 interface BlogFormProps {
     postToUpdate?: BlogPost
@@ -29,7 +29,6 @@ export default function BlogForm({
     const handleChange = (
         name: BlogAttribute, value: BlogAttributesTypes
     ) => {
-        console.log(`Changement de ${name} :`, value)
         setLocalPost(post => ({ ...post, [name]: value }))
     }
 

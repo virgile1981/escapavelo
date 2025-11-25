@@ -1,5 +1,5 @@
 'use client'
-import { defaultSearchFilters, SearchFilters } from "@/types/destination";
+import { defaultSearchFilters, type SearchFilters } from "@/types/destination";
 import { DurationRecord, DifficultyRecord, PriceRecord } from "@escapavelo/shared-types";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react"

@@ -24,9 +24,14 @@ export class TripsController {
     );
   }
 
-  @Get(':id')
+  @Get('id/:id')
   getTripById(@Param('id', ParseIntPipe) id: number): Promise<Trip> {
     return this.tripsService.getTripById(id);
+  }
+
+  @Get(':slug')
+  getTripBySlug(@Param('slug') slug: string): Promise<Trip> {
+    return this.tripsService.getTripBySlug(slug);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -41,7 +46,6 @@ export class TripsController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTripDto: Partial<CreateTripDto>,
   ): Promise<Trip> {
-    console.log("Updating trip id", id, "with data", updateTripDto);
     return this.tripsService.updateTrip(id, updateTripDto);
   }
 

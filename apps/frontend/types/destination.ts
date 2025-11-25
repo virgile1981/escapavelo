@@ -1,5 +1,5 @@
-import { DifficultyType, DurationType, Status, TravelType } from "@escapavelo/shared-types";
-import { MultiFormatImageUrl } from "./common"
+import { type DifficultyType, type DurationType, type Status, type TravelType } from "@escapavelo/shared-types";
+import { type MultiFormatImageUrl } from "./common"
 export type NewDestination = Omit<Destination, "id">;
 export type CreatedDestination = Destination & { id: number };
 export type DestinationAttribute = keyof Destination;

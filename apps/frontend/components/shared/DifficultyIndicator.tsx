@@ -1,6 +1,6 @@
 'use client'
 
-import { DifficultyType, DifficultyRecord } from '@escapavelo/shared-types'
+import { type DifficultyType, DifficultyRecord } from '@escapavelo/shared-types'
 import { Bike } from 'lucide-react'
 
 type DifficultyIndicatorProps = {
@@ -13,7 +13,6 @@ const DifficultyIndicator: React.FC<DifficultyIndicatorProps> = ({ level }) => {
     <div className="flex" aria-label="Niveau de difficulté">
       {
         Object.values(DifficultyRecord).map((n) => {
-          console.log('n:', n, 'value:', value);
           return (<Bike
             key={n}
             size={24}

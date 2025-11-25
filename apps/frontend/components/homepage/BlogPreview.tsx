@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { blogService } from '@/services/blogService';
 import PostPreview from '../blog/PostPreview';
-import { FullBlogPost } from '@/types/blog';
+import { type FullBlogPost } from '@/types/blog';
 
 interface Props {
   background?: string;

@@ -25,7 +25,7 @@ export default function EditTripPage() {
         const loadTravel = async () => {
             try {
                 setLoading(true)
-                const data = await destinationService.getTrip(id)
+                const data = await destinationService.getDestination(id)
                 setDestination(data)
             } catch (err) {
                 console.error('Erreur lors du chargement du voyage :', err)

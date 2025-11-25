@@ -1,44 +1,32 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { notFound, useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronLeft } from 'lucide-react';
-import { FullBlogPost } from '@/types/blog';
 import { blogService } from '@/services/blogService';
 
-export default function BlogPostPage() {
-  const params = useParams()
+
+
+export async function generateStaticParams() {
+  const posts = await blogService.getAllPosts('published');
+
+  return posts.map(v => ({ slug: v.slug }));
+}
+
+
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+
+  const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
+
   if (Array.isArray(params.slug)) {
     notFound();
   }
 
-  const slug = params?.slug as string;
+  const post = await blogService.getPostBySlug(slug);
 
-  const [post, setPost] = useState<FullBlogPost>();
-  const [error, setError] = useState<string | null>(null);
-
-  const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const posts = await blogService.getAllPosts("published");
-        const found = posts.find((p: FullBlogPost) => p.slug === slug);
-        if (!found) {
-          notFound();
-        } else {
-          setPost(found);
-        }
-      } catch (err) {
-        console.error('Erreur lors du chargement de l’article :', err);
-        setError("Erreur lors du chargement de l'article");
-      }
-    };
-
-    if (slug) fetchPost();
-  }, [slug]);
+  if (!post) {
+    notFound();
+  }
 
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return '';
@@ -49,33 +37,6 @@ export default function BlogPostPage() {
       day: 'numeric',
     }).format(date);
   };
-
-  if (error) {
-    return (
-      <div className="pt-24">
-        <div className="max-w-4xl mx-auto px-4 py-12 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Article non trouvé</h2>
-          <p className="text-gray-600 mb-8">
-            L&apos;article que vous recherchez n&apos;existe pas ou a été déplacé.
-          </p>
-          <Link
-            href="/blog"
-            className="inline-flex items-center bg-green-900 text-white px-6 py-3 rounded-lg hover:bg-green-800"
-          >
-            Retour aux articles
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  if (!post) {
-    return (
-      <div className="pt-24 text-center text-gray-600">
-        Chargement de l&apos;article...
-      </div>
-    );
-  }
 
   return (
     <div className="pt-24">

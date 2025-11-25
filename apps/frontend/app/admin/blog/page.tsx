@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { FullBlogPost } from '@/types/blog'
+import { type FullBlogPost } from '@/types/blog'
 import { blogService } from '@/services/blogService'
 
 export default function AdminBlogPage() {
@@ -14,7 +14,7 @@ export default function AdminBlogPage() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const postsData = await blogService.getAllPosts('published')
+                const postsData = await blogService.getAllPosts()
                 setPosts(postsData)
             } catch (err) {
                 setError("Erreur lors du chargement des articles")

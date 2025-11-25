@@ -1,7 +1,6 @@
 'use client'
 
-import { destinationService } from "@/services/destinationService"
-import { Destination, SearchFilters } from "@/types/destination"
+import { Destination, type SearchFilters } from "@/types/destination"
 import { DurationRecord, DifficultyRecord } from "@escapavelo/shared-types"
 import { useEffect, useMemo, useState } from "react"
 import DestinationSearchForm from "./DestinationSearchForm"
@@ -10,35 +9,19 @@ import DestinationCard from "./DestinationCard"
 import { useSearchParams } from "next/navigation"
 
 interface DestinationResultsProps {
-    regions: string[]
+    regions: string[];
+    destinations: Destination[];
 }
-export function DestinationResults({ regions }: DestinationResultsProps) {
-    const [destinations, setDestinations] = useState<Destination[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
+export function DestinationResults({ regions, destinations }: DestinationResultsProps) {
     const [currentPage, setCurrentPage] = useState(1)
     const [sortBy, setSortBy] = useState('title')
     const searchParams = useSearchParams();
     const itemsPerPage = 12
-
     const [searchFilters, setSearchFilters] = useState<SearchFilters>({})
+
     useEffect(() => {
         const params: SearchFilters = Object.fromEntries(searchParams.entries());
         setSearchFilters(() => params)
-        const load = async () => {
-            try {
-                setLoading(true)
-                setError('')
-                const allTravels = await destinationService.getAllTrips()
-                setDestinations(allTravels.filter((t: Destination) => t.status === 'published'))
-            } catch (err) {
-                console.error(err)
-                setError('Erreur lors du chargement des destinations')
-            } finally {
-                setLoading(false)
-            }
-        }
-        load()
     }, [])
 
     const handleSearch = (filters: SearchFilters) => {
@@ -112,22 +95,7 @@ export function DestinationResults({ regions }: DestinationResultsProps) {
                     <DestinationSearchForm regionsList={regions} filters={searchFilters} onSubmit={handleSearch}></DestinationSearchForm>
                 </div>
 
-                {/* --- ÉTATS --- */}
-                {loading && <p className="text-center text-gray-600 py-12">Chargement...</p>}
-
-                {error && (
-                    <div className="text-center text-red-600 py-12">
-                        <p>{error}</p>
-                        <button
-                            onClick={() => window.location.reload()}
-                            className="mt-4 bg-green-900 text-white px-4 py-2 hover:bg-green-800"
-                        >
-                            Réessayer
-                        </button>
-                    </div>
-                )}
-
-                {!loading && !error && displayed.length === 0 && (
+                {displayed.length === 0 && (
                     <div className="text-center py-12 text-gray-500">
                         <MapPin className="mx-auto h-16 w-16 mb-4" />
                         <h3 className="text-xl font-semibold mb-2">Aucune destination trouvée</h3>

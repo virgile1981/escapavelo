@@ -17,20 +17,26 @@ export class BlogService {
   async findAll(status: Status): Promise<BlogPost[]> {
     return this.blogRepository.find({
       where: status ? { status } : {},
-      order: { createdAt: 'DESC' }
+       select: ['id', 'title', 'slug', 'imageUrl','excerpt'],
+      order: { createAt: 'DESC' }
     });
   }
 
   async findLatest(limit: number = 3): Promise<BlogPost[]> {
     return this.blogRepository.find({
       where: { status: 'published' },
-      order: { createdAt: 'DESC' },
+      select: ['id', 'title', 'slug', 'imageUrl','excerpt'],
+      order: { createAt: 'DESC' },
       take: limit
     });
   }
 
   async findOne(id: number): Promise<BlogPost> {
     return this.blogRepository.findOneBy({ id });
+  }
+
+  async findOneBySlug(slug: string): Promise<BlogPost> {
+    return this.blogRepository.findOneBy({ slug });
   }
 
   async create(createBlogDto: CreateBlogDto): Promise<BlogPost> {

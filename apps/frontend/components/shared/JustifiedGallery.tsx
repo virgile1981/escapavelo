@@ -1,6 +1,6 @@
 'use client'
 
-import { JustifiedGalleryProps } from '@/types/common'
+import { type JustifiedGalleryProps } from '@/types/common'
 import { useState, useEffect } from 'react'
 import styles from '@/styles/justifiedGallery.module.css'
 import Image from 'next/image'

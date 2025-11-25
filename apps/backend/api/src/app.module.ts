@@ -14,6 +14,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { Subscribers } from './contact/entities/subscriber.entity';
 import { User } from './auth/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 
 @Module({
@@ -53,6 +54,7 @@ import { AuthModule } from './auth/auth.module';
         from: '"formulaire contact" <contact@escapavelo>',
       },
     }),
+    CacheModule.register(),
     TripsModule,
     BlogModule,
     ContactModule,

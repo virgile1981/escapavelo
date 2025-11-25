@@ -6,8 +6,8 @@ import ImageUploader from "../form/ImageUploader";
 import TinyMCE from "@/components/form/HtmlEditor";
 import DestinationInclusionsSection from "./DestinationInclusionSection";
 import DestinationItinerarySection from "./DestinationItinerarySection";
-import { MultiFormatImageUrl } from "@/types/common";
-import { DifficultyRecord, DifficultyType, Status, TravelType } from "@escapavelo/shared-types";
+import { type MultiFormatImageUrl } from "@/types/common";
+import { DifficultyRecord, type DifficultyType, type Status, type TravelType } from "@escapavelo/shared-types";
 
 interface TravelFormProps {
     destination?: Destination;

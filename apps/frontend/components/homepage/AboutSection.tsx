@@ -1,7 +1,7 @@
 'use client'
 
 import { Send } from "lucide-react";
-import { StyleProps } from "../../types/common";
+import { type StyleProps } from "../../types/common";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -65,7 +65,7 @@ export default function AboutSection({
           </div>
         </div>
       </div>
-      <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 border-dirt-brown -mb-12 bg-[url('/assets/border.png')] filter-sable"></div>
+      <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 border-dirt-brown -mb-12 bg-[url('/assets/border.webp')] filter-sable"></div>
     </div>
   );
 }

@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2022",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "allowJs": false, // éviter le JS pour réduire les risques de transpilation lourde
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -17,6 +17,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "verbatimModuleSyntax": true, // évite les réécritures inutiles
+    "importsNotUsedAsValues": "remove", // supprime les imports inutiles
     "plugins": [
       {
         "name": "next"

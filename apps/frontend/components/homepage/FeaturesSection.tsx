@@ -1,6 +1,6 @@
 'use client';
 
-import { StyleProps } from '@/types/common';
+import { type StyleProps } from '@/types/common';
 import { Search, HeartHandshake, Sparkles } from 'lucide-react';
 
 

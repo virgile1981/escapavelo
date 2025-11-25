@@ -4,7 +4,7 @@ import { Editor } from '@tinymce/tinymce-react'
 import { Editor as TinyMCEEditorType } from '@/public/assets/tinymce/tinymce'
 import { useRef } from 'react'
 import { imageService } from '@/services/imageService'
-import { Context } from '@escapavelo/shared-types'
+import { type Context } from '@escapavelo/shared-types'
 import { publicImageUrlBuilder } from '@/utils/imageBuilder'
 
 interface TinyMCEProps {
@@ -25,7 +25,7 @@ export default function TinyMCEEditor({ value, onChange, context }: TinyMCEProps
             init={{
                 height: 400,
                 promotion: false, // désactive la bannière TinyMCE Cloud
-                plugins: 'image table link lists preview fullscreen code',
+                plugins: 'image table link lists preview fullscreen code media emoticons wordcount visualblocks insertdatetime',
                 toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | image link',
                 skin_url: '/assets/tinymce/skins/ui/oxide',
                 content_css: '/assets/tinymce/skins/content/default/content.css',

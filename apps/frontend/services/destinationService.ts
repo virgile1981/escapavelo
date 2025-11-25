@@ -1,16 +1,28 @@
-import { CreatedDestination, Destination } from "../types/destination"
+import { type Status } from "@escapavelo/shared-types"
+import { type CreatedDestination, Destination } from "../types/destination"
+import { API_URL } from "@/utils/urlBuilder"
 
 class DestinationService {
 
-  private baseUrl = process.env.NEXT_PUBLIC_API_URL + '/trips'
+  private baseUrl = API_URL + '/trips'
 
-  async getTrip(id: string): Promise<Destination> {
-    const response = await fetch(`${this.baseUrl}/${id}`)
+  async getDestination(id: string): Promise<Destination> {
+    const response = await fetch(`${this.baseUrl}/id/${id}`)
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération du voyage')
     }
     return response.json()
   }
+
+
+  async getDestinationBySlug(slug: string): Promise<Destination> {
+    const response = await fetch(`${this.baseUrl}/${slug}`)
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération du voyage')
+    }
+    return response.json()
+  }
+  
 
   async updateTrip(id: string, trip: Destination): Promise<Destination> {
     const response = await fetch(`${this.baseUrl}/${id}`, {
@@ -29,8 +41,10 @@ class DestinationService {
     return response.json()
   }
 
-  async getAllTrips(): Promise<CreatedDestination[]> {
-    const response = await fetch(this.baseUrl)
+  async getAllTrips(status?: Status): Promise<CreatedDestination[]> {
+    const statusQuery = status ? `?status=${status}` : ''
+
+    const response = await fetch(`${this.baseUrl}${statusQuery}`)
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des voyages')
     }
@@ -38,7 +52,6 @@ class DestinationService {
   }
 
   async getPromotedTrips(): Promise<Destination[]> {
-    console.log(this.baseUrl)
     const response = await fetch(this.baseUrl + '?promoted=true')
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des voyages')

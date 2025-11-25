@@ -18,3 +18,16 @@ const searchParams = new URLSearchParams();
     
     return searchParams.toString();
 }
+
+/**
+ * Détermine l'URL de l'API en fonction de l'environnement d'exécution (serveur ou client).
+ */
+export const API_URL: string = (() => {
+  if (typeof window === 'undefined') {
+    // côté serveur : SSG / SSR
+    return process.env.API_URL || 'http://localhost:3000';
+  } else {
+    // côté client : navigateur
+    return process.env.NEXT_PUBLIC_API_URL || '';
+  }
+})();

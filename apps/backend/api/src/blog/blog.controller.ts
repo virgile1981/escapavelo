@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, Query, UseGuards } from '@nestjs/common';
 import { BlogService } from './blog.service';
-import { CreateBlogDto } from './dto/create-blog.dto';
 import { BlogPost } from './entities/blog.entity';
-import { JwtAuthGuard } from '@root/auth/jwt-auth.guard';
 import { Status } from '@escapavelo/shared-types';
+import { JwtAuthGuard } from '@root/auth/jwt-auth.guard';
+import { CreateBlogDto } from './dto/create-blog.dto';
 
 @Controller('blog')
 export class BlogController {
@@ -19,9 +19,14 @@ export class BlogController {
     return this.blogService.findLatest(limit);
   }
 
-  @Get(':id')
+  @Get('id/:id')
   findOne(@Param('id') id: string): Promise<BlogPost> {
     return this.blogService.findOne(+id);
+  }
+
+  @Get(':slug')
+  findOneBySlug(@Param('slug') slug: string): Promise<BlogPost> {
+    return this.blogService.findOneBySlug(slug);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -1,10 +1,10 @@
 'use client';
 
 import { useActionState } from 'react';
-import { StyleProps } from '@/types/common';
+import { type StyleProps } from '@/types/common';
 import { contactAction } from './ContactAction';
-import { State } from '@/types/actionState';
-import { ContactFields } from '@/types/contact';
+import { type State } from '@/types/actionState';
+import { type ContactFields } from '@/types/contact';
 import { ErrorMessage } from '@/components/shared/ErrorMessage';
 
 export default function ContactForm({
