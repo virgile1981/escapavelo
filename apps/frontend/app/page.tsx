@@ -8,10 +8,9 @@ import { destinationService } from "@/services/destinationService";
 import { Destination } from "@/types/destination";
 
 export default async function Home() {
+  const destinations = await destinationService.getAllTrips('published');
+  const regions = destinations.map((t: Destination) => t.region)
 
-
-  const allTravels = await destinationService.getAllTrips('published');
-  const regions = allTravels.map((t: Destination) => t.region)
   return (
     <div className="flex flex-col items-center">
 
@@ -24,7 +23,7 @@ export default async function Home() {
       <BlogPreview background="bg-sable" textColor="text-green-900" />
 
       <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 border-dirt-brown -mb-12 bg-[url('/assets/border.webp')] filter-sable"></div>
-      <PopularTrips background="bg-green-900 bg-[url('/assets/heightmap.png')]" textColor="text-white" />
+      <PopularTrips background="bg-green-900 bg-[url('/assets/heightmap.png')]" textColor="text-white" destinations={destinations} />
 
       <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 -scale-y-[1] border-dirt-brown -mt-12 bg-[url('/assets/border.webp')] filter-sable"></div>
       <AboutSection background="bg-sable" textColor="text-gray-900"></AboutSection>

@@ -1,38 +1,16 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { blogService } from '@/services/blogService';
 import PostPreview from '../blog/PostPreview';
-import { type FullBlogPost } from '@/types/blog';
+import type { StyleProps } from '@/types/common';
 
-interface Props {
-  background?: string;
-  textColor?: string;
-}
 
-export default function BlogPreview({
+export default async function BlogPreview({
   background = 'bg-green-900',
   textColor = 'text-white',
-}: Props) {
-  const [recentPosts, setRecentPosts] = useState<FullBlogPost[]>([]);
-  const [error, setError] = useState<string | null>(null);
+}: StyleProps) {
 
-  useEffect(() => {
-
-    const fetchPosts = async () => {
-      try {
-        const postsData = await blogService.getLastPosts();
-        setRecentPosts(postsData);
-      } catch (err) {
-        console.error('Erreur:', err);
-        setError("Erreur lors du chargement de l'article");
-      }
-    };
-
-    fetchPosts();
-  }, []);
+  const recentPosts = await blogService.getLastPosts();
 
   return (
     <div
@@ -44,10 +22,6 @@ export default function BlogPreview({
         >
           Les derniers articles pour vous aider à préparer vos vacances à vélo
         </h2>
-
-        {error && (
-          <p className="text-red-500 text-center mb-6">{error}</p>
-        )}
 
         <div className="grid md:grid-cols-3 gap-8">
           {recentPosts.map((post, index) => (

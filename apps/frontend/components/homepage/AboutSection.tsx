@@ -1,5 +1,3 @@
-'use client'
-
 import { Send } from "lucide-react";
 import { type StyleProps } from "../../types/common";
 import Image from "next/image";

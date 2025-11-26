@@ -35,7 +35,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
         >
             <div className="grid md:grid-cols-3 gap-4">
                 {/* Région */}
-                {filtersToDisplay.some(filter => filter === "region")
+                {filtersToDisplay.includes("region")
                     && <div >
                         <label className="block text-sm font-medium text-gray-700 mb-2">Région</label>
                         <select
@@ -53,7 +53,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                     </div>}
 
                 {/* Durée */}
-                {filtersToDisplay.some(filter => filter === "duration") &&
+                {filtersToDisplay.includes("duration") &&
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Durée</label>
                         <select
@@ -70,7 +70,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                     </div>}
 
                 {/* Difficulté */}
-                {filtersToDisplay.some(filter => filter === "difficulty") &&
+                {filtersToDisplay.includes("difficulty") &&
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Difficulté</label>
                         <select
@@ -89,7 +89,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                     </div>}
 
                 {/* Prix max */}
-                {filtersToDisplay.some(filter => filter === "maxPrice") && <div>
+                {filtersToDisplay.includes("maxPrice") && <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Prix maximum</label>
                     <select
                         id="maxPrice"
@@ -108,7 +108,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
             </div>
 
             {/* Recherche textuelle */}
-            {filtersToDisplay.some(filter => filter === "search") && <div>
+            {filtersToDisplay.includes("search") && <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Recherche libre</label>
                 <div className="relative">
                     <input

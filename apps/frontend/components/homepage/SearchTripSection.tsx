@@ -1,8 +1,9 @@
 'use client'
 import { type SearchFilters } from '@/types/destination';
 import { generateSearchParametersUrl } from '@/utils/urlBuilder';
-import DestinationSearchForm from '../destination/DestinationSearchForm';
 import { useRouter } from 'next/navigation';
+import DestinationSearchForm from '../destination/DestinationSearchForm';
+
 
 interface SearchFormProps {
   regionsList: string[];
@@ -10,7 +11,6 @@ interface SearchFormProps {
 export default function SearchForm({
   regionsList,
 }: SearchFormProps) {
-
   const router = useRouter();
   const handleSearch = (searchFilters: SearchFilters) => {
     const queryString = generateSearchParametersUrl(searchFilters)

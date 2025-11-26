@@ -8,6 +8,36 @@ import { ChevronLeft } from 'lucide-react'
 import { destinationService } from '@/services/destinationService'
 import { notFound } from 'next/navigation'
 
+const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
+
+interface DestinationPageSSGProps {
+  params: { slug: string };
+}
+
+export async function generateMetadata({ params }: DestinationPageSSGProps) {
+  const { slug } = params;
+  const destination = await destinationService.getDestinationBySlug(slug);
+
+  if (!destination) {
+    return {
+      title: 'Destination non trouvé',
+      description: 'Cette destination n’existe pas.',
+    };
+  }
+
+  return {
+    title: destination.title,
+    description: destination.description,
+    image: destination.imageUrl ? `${uploadedImagesUrl}/${destination.imageUrl?.resizedUrl}` : undefined,
+    openGraph: {
+      title: destination.title,
+      description: destination.description,
+      images: destination.imageUrl ? [`${uploadedImagesUrl}/${destination.imageUrl?.resizedUrl}`] : [],
+      type: "website",
+    },
+  };
+}
+
 export async function generateStaticParams() {
   const destinations = await destinationService.getAllTrips('published');
 
@@ -21,8 +51,8 @@ export default async function DestinationPage({ params }: { params: { slug: stri
     notFound();
   }
 
-  const destination = await destinationService.getDestinationBySlug(slug);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ''
+  const destination = await destinationService.getDestinationBySlug(slug);
 
   return (
     <div className="pt-24">

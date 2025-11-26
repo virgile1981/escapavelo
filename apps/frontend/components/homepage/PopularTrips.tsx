@@ -1,29 +1,15 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import { Destination } from '../../types/destination';
 import DestinationCard from '../destination/DestinationCard';
-import { destinationService } from '@/services/destinationService';
 import Link from 'next/link';
+import type { StyleProps } from '@/types/common';
 
-export default function PopularTrips({ background = 'bg-sable', textColor = 'text-green-900' }) {
-  const [trips, setTrips] = useState<Destination[]>([]);
-  const [error, setError] = useState<string>();
+interface PopularTripsProps extends StyleProps {
+  destinations?: Destination[];
+}
 
-  useEffect(() => {
-    const fetchTrips = async () => {
-      try {
-        const travelsData = await destinationService.getPromotedTrips();
-        setTrips(travelsData);
-      } catch (err) {
-        console.error('Erreur :', err);
-        setError('Erreur lors du chargement des séjours');
-      }
-    };
-    fetchTrips();
+export default function PopularTrips({ background = 'bg-sable', textColor = 'text-green-900', destinations }: PopularTripsProps) {
 
-
-  }, []);
+  const promotedDestinations = destinations?.filter(dest => dest.promoted) || [];
 
   return (
     <div className={`${background} relative py-20 bg-center pt-12 xs:pt-16 sm:pt-20 md:pt-24 pb-12 xs:pb-16 sm:pb-20 md:pb-24 scroll-my-28 z-10`}>
@@ -32,11 +18,9 @@ export default function PopularTrips({ background = 'bg-sable', textColor = 'tex
           Nos séjours les plus populaires
         </h2>
 
-        {error && <div className="text-red-600 text-center mb-6">{error}</div>}
-
         <div className="grid md:grid-cols-3 gap-8">
-          {trips.map((trip) => (
-            <DestinationCard key={trip.id} destination={trip}></DestinationCard>
+          {promotedDestinations.map((destination) => (
+            <DestinationCard key={destination.id} destination={destination}></DestinationCard>
           ))}
         </div>
 

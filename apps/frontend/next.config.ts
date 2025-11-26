@@ -5,7 +5,12 @@ const nextConfig = {
   images: {
     domains: ['localhost','escapavelo.fr'],
     unoptimized: true
-},
+  },
+  i18n: {
+    locales: ['fr', 'en'],   // langues disponibles
+    defaultLocale: 'fr',     // langue par défaut
+  },
+  reactStrictMode: true,
  async rewrites() {
     if (dev) {
       return [

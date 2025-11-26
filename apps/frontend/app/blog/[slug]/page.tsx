@@ -4,7 +4,35 @@ import Image from 'next/image';
 import { ChevronLeft } from 'lucide-react';
 import { blogService } from '@/services/blogService';
 
+interface PostPageSSGProps {
+  params: { slug: string };
+}
 
+const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
+
+export async function generateMetadata({ params }: PostPageSSGProps) {
+  const { slug } = params;
+  const post = await blogService.getPostBySlug(slug);
+
+  if (!post) {
+    return {
+      title: 'Article non trouvé',
+      description: 'Cet article n’existe pas.',
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    image: post.imageUrl ? `${uploadedImagesUrl}/${post.imageUrl.resizedUrl}` : undefined,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: post.imageUrl ? [`${uploadedImagesUrl}/${post.imageUrl.resizedUrl}`] : [],
+      type: 'article',
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const posts = await blogService.getAllPosts('published');
@@ -13,10 +41,9 @@ export async function generateStaticParams() {
 }
 
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: PostPageSSGProps) {
   const { slug } = params;
 
-  const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
 
   if (Array.isArray(params.slug)) {
     notFound();

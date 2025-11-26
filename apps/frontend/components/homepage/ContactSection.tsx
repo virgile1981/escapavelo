@@ -1,5 +1,3 @@
-'use client'
-
 import { type StyleProps } from '../../types/common'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import ContactForm from '../contact/ContactForm'
