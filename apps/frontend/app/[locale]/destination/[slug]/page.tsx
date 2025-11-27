@@ -1,3 +1,4 @@
+
 import Link from 'next/link'
 import Image from 'next/image'
 import JustifiedGallery from '@/components/shared/JustifiedGallery'
@@ -7,6 +8,7 @@ import ContactPopup from '@/components/contact/ContactPopup'
 import { ChevronLeft } from 'lucide-react'
 import { destinationService } from '@/services/destinationService'
 import { notFound } from 'next/navigation'
+import { i18n } from '@/i18n.config'
 
 const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
 
@@ -41,10 +43,10 @@ export async function generateMetadata({ params }: DestinationPageSSGProps) {
 export async function generateStaticParams() {
   const destinations = await destinationService.getAllTrips('published');
 
-  return destinations.map(v => ({ slug: v.slug }));
+  return i18n.locales.flatMap((locale) => destinations.map(v => ({ locale })));
 }
 
-export default async function DestinationPage({ params }: { params: { slug: string } }) {
+export default async function DestinationPage({ params }: { params: { locale: string, slug: string } }) {
   const { slug } = params;
 
   if (Array.isArray(params.slug)) {

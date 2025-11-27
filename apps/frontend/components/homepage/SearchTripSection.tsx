@@ -11,6 +11,7 @@ interface SearchFormProps {
 export default function SearchForm({
   regionsList,
 }: SearchFormProps) {
+
   const router = useRouter();
   const handleSearch = (searchFilters: SearchFilters) => {
     const queryString = generateSearchParametersUrl(searchFilters)

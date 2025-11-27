@@ -1,15 +1,15 @@
+import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
 const dev = process.env.NODE_ENV === 'development';
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   output: "standalone",
   images: {
     domains: ['localhost','escapavelo.fr'],
     unoptimized: true
   },
-  i18n: {
-    locales: ['fr', 'en'],   // langues disponibles
-    defaultLocale: 'fr',     // langue par défaut
-  },
+  
   reactStrictMode: true,
  async rewrites() {
     if (dev) {
@@ -23,5 +23,6 @@ const nextConfig = {
     return [];
   },
 };
+const withNextIntl = createNextIntlPlugin();
+export default withNextIntl(nextConfig);
 
-export default nextConfig;

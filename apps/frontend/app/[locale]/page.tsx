@@ -1,19 +1,21 @@
-import AboutSection from "../components/homepage/AboutSection";
-import BlogPreview from "../components/homepage/BlogPreview";
-import ContactSection from "../components/homepage/ContactSection";
-import FeaturesSection from "../components/homepage/FeaturesSection";
-import PopularTrips from "../components/homepage/PopularTrips";
-import SearchTripSection from "../components/homepage/SearchTripSection";
+import { useTranslations } from "next-intl";
+import AboutSection from "../../components/homepage/AboutSection";
+import BlogPreview from "../../components/homepage/BlogPreview";
+import ContactSection from "../../components/homepage/ContactSection";
+import FeaturesSection from "../../components/homepage/FeaturesSection";
+import PopularTrips from "../../components/homepage/PopularTrips";
+import SearchTripSection from "../../components/homepage/SearchTripSection";
 import { destinationService } from "@/services/destinationService";
 import { Destination } from "@/types/destination";
+import { getTranslations } from "next-intl/server";
 
 export default async function Home() {
   const destinations = await destinationService.getAllTrips('published');
   const regions = destinations.map((t: Destination) => t.region)
-
+  const t = await getTranslations('HomePage');
   return (
     <div className="flex flex-col items-center">
-
+      <p>{t('title')}</p>
       <SearchTripSection regionsList={regions} />
 
       <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 border-dirt-brown -mb-12 bg-[url('/assets/border.webp')] filter-sable"></div>

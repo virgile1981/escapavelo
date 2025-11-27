@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import ContactForm from "@/components/contact/ContactForm";
-import Image from "next/image";
-import type { MultiFormatImageUrl } from "@/types/common";
 
 interface ContactPopupProps {
     /** Texte du bouton d'ouverture */

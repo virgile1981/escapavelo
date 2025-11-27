@@ -5,6 +5,7 @@ import { notFound, useParams, useRouter } from 'next/navigation'
 import { Destination } from '@/types/destination'
 import DestinationForm from '@/components/destination/DestinationForm'
 import { destinationService } from '@/services/destinationService'
+import Link from 'next/link'
 
 export default function EditTripPage() {
     const params = useParams()
@@ -65,12 +66,12 @@ export default function EditTripPage() {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-4xl font-bold">Modifier le voyage</h1>
-                    <a
+                    <Link
                         href="/admin"
                         className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
                     >
                         Retour
-                    </a>
+                    </Link>
                 </div>
 
                 {loading && (
@@ -82,12 +83,12 @@ export default function EditTripPage() {
                 {!loading && loadError && (
                     <div className="text-center py-12">
                         <p className="text-red-600">{loadError}</p>
-                        <a
+                        <Link
                             href="/admin"
                             className="mt-4 inline-block bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800"
                         >
                             Retour à l&apos;administration
-                        </a>
+                        </Link>
                     </div>
                 )}
 

@@ -2,6 +2,7 @@
 import { defaultSearchFilters, type SearchFilters } from "@/types/destination";
 import { DurationRecord, DifficultyRecord, PriceRecord } from "@escapavelo/shared-types";
 import { Search } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react"
 
 interface SearchFormProps {
@@ -12,9 +13,11 @@ interface SearchFormProps {
 }
 
 export default function DestinationSearchForm({ onSubmit, regionsList, filters: filterValues, shownFilters }: SearchFormProps) {
+    const t = useTranslations('searchDestination');
 
     const [searchFilters, setSearchFilters] = useState<SearchFilters>(filterValues || {})
     const filtersToDisplay = shownFilters ? shownFilters : Object.keys(defaultSearchFilters)
+
     useEffect(() => {
         setSearchFilters(() => filterValues || {})
     }, [filterValues])
@@ -25,110 +28,108 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
     };
 
     const handleChange = (field: keyof SearchFilters, value: string) => {
-        setSearchFilters((prev) => ({ ...prev, [field]: value }));
+        setSearchFilters(prev => ({ ...prev, [field]: value }));
     };
 
     return (
-        <form
-            onSubmit={handleSearch}
-            className="space-y-6 w-full"
-        >
+        <form onSubmit={handleSearch} className="space-y-6 w-full">
+
             <div className="grid md:grid-cols-3 gap-4">
+
                 {/* Région */}
-                {filtersToDisplay.includes("region")
-                    && <div >
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Région</label>
+                {filtersToDisplay.includes("region") && (
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('region')}</label>
                         <select
                             value={searchFilters.region ?? "default"}
-                            onChange={e => handleChange('region', e.target.value)}
+                            onChange={e => handleChange("region", e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                         >
-                            <option value="default">Toutes les régions</option>
+                            <option value="default">{t('allRegions')}</option>
                             {regionsList.map(region => (
-                                <option key={region} value={region}>
-                                    {region}
-                                </option>
+                                <option key={region} value={region}>{region}</option>
                             ))}
                         </select>
-                    </div>}
+                    </div>
+                )}
 
                 {/* Durée */}
-                {filtersToDisplay.includes("duration") &&
+                {filtersToDisplay.includes("duration") && (
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Durée</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('duration')}</label>
                         <select
                             id="duration"
-                            value={searchFilters.duration ?? "default"} // <-- Contrôlé par useState
-                            onChange={(e) => handleChange('duration', e.target.value)} // <-- Géré par handleChange
+                            value={searchFilters.duration ?? "default"}
+                            onChange={(e) => handleChange("duration", e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                         >
-                            <option value="default">Toutes les durées</option>
-                            {Object.keys(DurationRecord).map((key) => {
-                                return (<option key={key} value={key}>{key}</option>)
-                            })}
+                            <option value="default">{t('allDurations')}</option>
+                            {Object.keys(DurationRecord).map(key => (
+                                <option key={key} value={key}>{key}</option>
+                            ))}
                         </select>
-                    </div>}
+                    </div>
+                )}
 
                 {/* Difficulté */}
-                {filtersToDisplay.includes("difficulty") &&
+                {filtersToDisplay.includes("difficulty") && (
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Difficulté</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('difficultyLevel')}</label>
                         <select
                             id="difficulty"
-                            value={searchFilters.difficulty ?? "default"} // <-- Contrôlé par useState
-                            onChange={(e) => handleChange('difficulty', e.target.value)} // <-- Géré par handleChange
+                            value={searchFilters.difficulty ?? "default"}
+                            onChange={(e) => handleChange("difficulty", e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                         >
-                            <option value="default">Toutes les difficultés</option>
-                            {
-                                Object.keys(DifficultyRecord).map((key) => (
-                                    <option key={key} value={key}>{key}</option>
-                                ))
-                            }
+                            <option value="default">{t('allDifficulties')}</option>
+                            {Object.keys(DifficultyRecord).map(key => (
+                                <option key={key} value={key}>{key}</option>
+                            ))}
                         </select>
-                    </div>}
+                    </div>
+                )}
 
                 {/* Prix max */}
-                {filtersToDisplay.includes("maxPrice") && <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Prix maximum</label>
-                    <select
-                        id="maxPrice"
-                        value={searchFilters.maxPrice ?? "default"}
-                        onChange={(e) => handleChange('maxPrice', e.target.value)} // <-- Géré par handleChange
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    >
-                        <option value="default">Tous les prix</option>
-                        {
-                            Object.keys(PriceRecord).map((key) => (
+                {filtersToDisplay.includes("maxPrice") && (
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('maxPrice')}</label>
+                        <select
+                            id="maxPrice"
+                            value={searchFilters.maxPrice ?? "default"}
+                            onChange={(e) => handleChange("maxPrice", e.target.value)}
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        >
+                            <option value="default">{t('allPrices')}</option>
+                            {Object.keys(PriceRecord).map(key => (
                                 <option key={key} value={key}>{key}</option>
-                            ))
-                        }
-                    </select>
-                </div>}
+                            ))}
+                        </select>
+                    </div>
+                )}
+
             </div>
 
             {/* Recherche textuelle */}
-            {filtersToDisplay.includes("search") && <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Recherche libre</label>
-                <div className="relative">
-                    <input
-                        type="text"
-                        placeholder="Rechercher par nom, région, description..."
-                        value={searchFilters.search}
-                        onChange={e => handleChange('search', e.target.value)}
-                        className="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    />
-                    <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            {filtersToDisplay.includes("search") && (
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('freeSearch')}</label>
+                    <div className="relative">
+                        <input
+                            type="text"
+                            placeholder={t('searchPlaceholder')}
+                            value={searchFilters.search}
+                            onChange={e => handleChange("search", e.target.value)}
+                            className="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        />
+                        <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                    </div>
                 </div>
-            </div>}
+            )}
 
-            {/* Boutons */}
+            {/* Bouton */}
             <div className="flex justify-between items-center">
-                <button
-                    type="submit"
-                    className="bg-green-900 text-white px-6 py-2 hover:bg-green-800 transition-colors"
-                >
-                    Rechercher
+                <button type="submit" className="bg-green-900 text-white px-6 py-2 hover:bg-green-800 transition-colors">
+                    {t('searchButton')}
                 </button>
             </div>
         </form>

@@ -1,9 +1,13 @@
 import PostPreview from '@/components/blog/PostPreview';
+import type { Locale } from '@/i18n.config';
 import { blogService } from '@/services/blogService';
-import { Suspense } from 'react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Suspense, use } from 'react';
 
 export default async function BlogPage() {
+
   const posts = await blogService.getAllPosts("published")
+  const t = await getTranslations('blogPage');
 
   return (
     <div className="pt-24">
@@ -12,6 +16,8 @@ export default async function BlogPage() {
         <div className="grid md:grid-cols-3 gap-8">
           {posts.map((post) => (
             <Suspense key={post.slug} fallback={<div>Chargement...</div>}>
+              <h1>{t('title')}</h1>
+              <p>{t('subtitle')}</p>
               <PostPreview post={post} />
             </Suspense>
           ))}

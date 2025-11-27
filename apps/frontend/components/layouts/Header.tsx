@@ -5,10 +5,12 @@ import Link from "next/link";
 import { Instagram, Facebook, Phone, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import LanguageSwitcher from "../shared/LanguageSwitcher";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const isRootPage = usePathname() === '/';
+  const pathname = usePathname();
+  const isRootPage = /^\/(en|fr)?$/.test(pathname);
 
 
   return (
@@ -48,6 +50,7 @@ export default function Header() {
             <Phone className="w-4 h-4 mr-2" />
             +33 7 82 23 20 16
           </Link>
+          <LanguageSwitcher></LanguageSwitcher>
         </div>
 
         {/* Mobile menu button */}

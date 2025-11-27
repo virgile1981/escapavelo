@@ -1,0 +1,44 @@
+{
+    "HomePage":{
+    "title":"Welcome to Escapavelo",
+    "subtitle":"Your ultimate guide to cycling adventures",   
+    "exploreButton":"Explore Destinations",
+    "blogSectionTitle":"Latest from Our Blog",    
+    "readMoreButton":"Read More",
+    "contactUs":"Contact Us",
+    "footerText":"© 2025 Escapavelo. All rights reserved.",
+    "newsletterSignup":"Subscribe to our Newsletter",
+    "subscribeButton":"Subscribe",
+    
+    "popularDestinations":"Popular Destinations",
+    "testimonialsTitle":"What Our Cyclists Say",
+    "learnMoreButton":"Learn More",
+    "aboutUs":"About Us",
+    "privacyPolicy":"Privacy Policy",
+    "termsOfService":"Terms of Service",    
+    "followUs":"Follow Us on Social Media",
+    "latestArticles":"Latest Articles",
+    "viewAllArticles":"View All Articles",
+    "cyclingTips":"Cycling Tips & Tricks"
+    },
+    "blogPage": {
+      "title": "Escapavelo Blog",
+      "subtitle": "Discover our latest articles and tips for your cycling adventures.",
+      "backToPosts": "See all posts"
+    },
+
+    "searchDestination": {
+      "region":"Region",
+      "difficultyLevel":"Difficulty Level",
+      "duration":"Duration",
+      "maxPrice":"Max Price",
+      "freeSearch":"Free search",
+      "allPrices":"All Prices",
+      "allDurations":"All Durations",
+      "allDifficulties":"All Difficulties",
+      "allRegions":"All Regions",
+      "searchButton": "Search",
+      "searchPlaceholder":"Search with words"
+    }
+
+}

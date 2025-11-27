@@ -3,9 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronLeft } from 'lucide-react';
 import { blogService } from '@/services/blogService';
+import { i18n } from '@/i18n.config';
+import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
 interface PostPageSSGProps {
-  params: { slug: string };
+  params: { locale: string, slug: string };
 }
 
 const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
@@ -37,13 +40,13 @@ export async function generateMetadata({ params }: PostPageSSGProps) {
 export async function generateStaticParams() {
   const posts = await blogService.getAllPosts('published');
 
-  return posts.map(v => ({ slug: v.slug }));
+  return i18n.locales.flatMap((locale) => posts.map(v => ({ locale: locale })))
 }
 
 
 export default async function BlogPostPage({ params }: PostPageSSGProps) {
-  const { slug } = params;
-
+  const { locale, slug } = params;
+  const t = await getTranslations({ locale, namespace: 'blogPage' });
 
   if (Array.isArray(params.slug)) {
     notFound();
@@ -89,7 +92,7 @@ export default async function BlogPostPage({ params }: PostPageSSGProps) {
               className="inline-flex items-center text-green-900 hover:text-green-700"
             >
               <ChevronLeft className="h-5 w-5 mr-2" />
-              Retour aux articles
+              {t('backToPosts')}
             </Link>
           </div>
         </article>
