@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { type CreatedDestination } from '@/types/destination'
 import { destinationService } from '@/services/destinationService'
+import type { Locale } from '@escapavelo/shared-types'
 
 
-export default function TripAdminPage() {
+export default function TripAdminPage({ params }: { params: { locale: Locale } }) {
+    const { locale } = params;
     const [destinations, setDestinations] = useState<CreatedDestination[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
@@ -15,7 +17,7 @@ export default function TripAdminPage() {
         try {
             setLoading(true)
             setError('')
-            const data = await destinationService.getAllTrips()
+            const data = await destinationService.getAllTrips(locale)
             setDestinations(data)
         } catch (err) {
             console.error('Erreur :', err)

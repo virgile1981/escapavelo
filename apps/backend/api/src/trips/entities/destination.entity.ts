@@ -1,29 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Image } from '@root/common/dto/image.dto';
 import { DifficultyType, Status, TravelType } from '@escapavelo/shared-types';
 import { DefaultEntity } from '@root/shared/entity/default.entity';
+import { DestinationTranslation } from './destination-translation';
 @Entity()
-export class Trip extends DefaultEntity {
+export class Destination extends DefaultEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  promoted: boolean; 
-
-  @Column()
-  title: string;
-
-  @Column()
-  slug: string;
-
-  @Column()
-  region: string;
-
-  @Column()
-  description: string;
-
-  @Column('text')
-  longDescription: string;
+  promoted: boolean;
 
   @Column({ type: 'varchar' })
   difficulty: DifficultyType;
@@ -44,17 +30,11 @@ export class Trip extends DefaultEntity {
   status: Status;
 
   @Column('simple-json', { nullable: true })
-  included: string[];
-
-  @Column('simple-json', { nullable: true })
-  notIncluded: string[];
-
-  @Column('simple-json', { nullable: true })
-  program: { day: number;  title: string; description: string; distance: number; accommodation?: string }[];
-
-  @Column('simple-json', {nullable: true})
   imageUrl: Image;
 
-  @Column('simple-json', {nullable: true})
+  @Column('simple-json', { nullable: true })
   imageUrls: Image[];
+
+  @OneToMany(() => DestinationTranslation, t => t.destination, { cascade: true })
+  translations: DestinationTranslation[];
 }

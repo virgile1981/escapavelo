@@ -3,7 +3,7 @@ export interface StyleProps {
   textColor?: string;
 }
 
-export interface JustifiedGalleryProps  {
+export interface JustifiedGalleryProps {
   images: MultiFormatImageUrl[];
   baseUrl: string;
 }
@@ -12,3 +12,7 @@ export interface MultiFormatImageUrl {
   url: string;
 }
 
+export interface PersitedDatedObject {
+  createdAt: string;
+  updatedAt: string;
+}

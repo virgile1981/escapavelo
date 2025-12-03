@@ -1,0 +1,12 @@
+
+# Autoriser tous les moteurs de recherche à explorer le site
+User-agent: *
+Allow: /
+
+# Bloquer les espaces strictement techniques (si vous en avez)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /assets/tinymce/
+
+# Indiquer l’URL de votre sitemap
+Sitemap: https://escapavelo.fr/sitemap.xml

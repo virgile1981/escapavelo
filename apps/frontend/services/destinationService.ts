@@ -1,6 +1,6 @@
-import { type Status } from "@escapavelo/shared-types"
+import { type Locale, type Status } from "@escapavelo/shared-types"
 import { type CreatedDestination, Destination } from "../types/destination"
-import { API_URL } from "@/utils/urlBuilder"
+import { API_URL, DestinationApiUrl } from "@/utils/urlBuilder"
 
 class DestinationService {
 
@@ -14,15 +14,13 @@ class DestinationService {
     return response.json()
   }
 
-
-  async getDestinationBySlug(slug: string): Promise<Destination> {
-    const response = await fetch(`${this.baseUrl}/${slug}`)
+  async getDestinationBySlug(locale: Locale, slug: string): Promise<Destination> {
+    const response = await fetch(`${DestinationApiUrl(locale)}/${slug}`)
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération du voyage')
     }
     return response.json()
   }
-  
 
   async updateTrip(id: string, trip: Destination): Promise<Destination> {
     const response = await fetch(`${this.baseUrl}/${id}`, {
@@ -41,18 +39,18 @@ class DestinationService {
     return response.json()
   }
 
-  async getAllTrips(status?: Status): Promise<CreatedDestination[]> {
+  async getAllTrips(locale: Locale, status?: Status): Promise<CreatedDestination[]> {
     const statusQuery = status ? `?status=${status}` : ''
 
-    const response = await fetch(`${this.baseUrl}${statusQuery}`)
+    const response = await fetch(`${DestinationApiUrl(locale)}${statusQuery}`)
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des voyages')
     }
     return response.json()
   }
 
-  async getPromotedTrips(): Promise<Destination[]> {
-    const response = await fetch(this.baseUrl + '?promoted=true')
+  async getPromotedTrips(locale: Locale): Promise<Destination[]> {
+    const response = await fetch(DestinationApiUrl(locale) + '?promoted=true')
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des voyages')
     }
@@ -72,10 +70,8 @@ class DestinationService {
     if (!response.ok) {
       throw new Error('Erreur lors de la création du voyage')
     }
-
     return response.json()
   }
-
 
   async deleteTrip(id: number): Promise<void> {
     const response = await fetch(`${this.baseUrl}/${id}`, {

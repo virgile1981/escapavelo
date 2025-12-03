@@ -23,8 +23,8 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/admin/:path*', '/((?!_next|.*\\..*).*)'],
-    
+    matcher: ['/admin/:path*', '/((?!_next/|api/|.*\\..*).*)'],
+
 };
 
 function isAdminRoute(req: NextRequest) { return req.nextUrl.pathname.startsWith('/admin'); }

@@ -3,22 +3,21 @@ import Link from 'next/link'
 import Image from 'next/image'
 import JustifiedGallery from '@/components/shared/JustifiedGallery'
 import DifficultyIndicator from '@/components/shared/DifficultyIndicator'
-import { type TripDay } from '@/types/destination'
+import { Destination, type TripDay } from '@/types/destination'
 import ContactPopup from '@/components/contact/ContactPopup'
 import { ChevronLeft } from 'lucide-react'
 import { destinationService } from '@/services/destinationService'
-import { notFound } from 'next/navigation'
-import { i18n } from '@/i18n.config'
+import type { Locale } from '@escapavelo/shared-types'
 
 const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
 
 interface DestinationPageSSGProps {
-  params: { slug: string };
+  params: { locale: Locale, slug: string };
 }
 
 export async function generateMetadata({ params }: DestinationPageSSGProps) {
-  const { slug } = params;
-  const destination = await destinationService.getDestinationBySlug(slug);
+  const { locale, slug } = params;
+  const destination = await destinationService.getDestinationBySlug(locale, slug);
 
   if (!destination) {
     return {
@@ -41,20 +40,21 @@ export async function generateMetadata({ params }: DestinationPageSSGProps) {
 }
 
 export async function generateStaticParams() {
-  const destinations = await destinationService.getAllTrips('published');
+  const destinationsFr = await destinationService.getAllTrips('fr', 'published');
+  const destinationsEn = await destinationService.getAllTrips('en', 'published');
 
-  return i18n.locales.flatMap((locale) => destinations.map(v => ({ locale })));
+  const parameters = [...destinationsFr.map((dest: Destination) => { return ({ locale: "fr", slug: dest.slug }) }),
+  ...destinationsEn.map((dest: Destination) => { return ({ locale: "en", slug: dest.slug }) })];
+
+  return parameters;
+  // return i18n.locales;
 }
 
-export default async function DestinationPage({ params }: { params: { locale: string, slug: string } }) {
-  const { slug } = params;
-
-  if (Array.isArray(params.slug)) {
-    notFound();
-  }
+export default async function DestinationPage({ params }: { params: { locale: Locale, slug: string } }) {
+  const { locale, slug } = params;
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ''
-  const destination = await destinationService.getDestinationBySlug(slug);
+  const destination = await destinationService.getDestinationBySlug(locale, slug);
 
   return (
     <div className="pt-24">
@@ -88,13 +88,13 @@ export default async function DestinationPage({ params }: { params: { locale: st
             )}
 
             {/* Description */}
-            <section className="mb-12">
+            {destination.longDescription && <section className="mb-12">
               <h2 className="text-3xl font-bold mb-6">Description</h2>
               <div
                 className="prose prose-lg"
                 dangerouslySetInnerHTML={{ __html: destination.longDescription }}
               />
-            </section>
+            </section>}
 
             {/* Itinéraire */}
             {destination.program?.length > 0 && (

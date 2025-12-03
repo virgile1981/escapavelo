@@ -14,7 +14,7 @@ class DayTrip {
 
   @IsNumber()
   @IsOptional()
-  distance: number; 
+  distance: number;
 
   @IsString()
   @IsOptional()
@@ -29,21 +29,6 @@ export class CreateTripDto {
 
   @IsBoolean()
   promoted: boolean;
-
-  @IsString()
-  @IsNotEmpty()
-  title: string;
-
-  @IsString()
-  @IsNotEmpty()
-  region: string;
-
-  @IsString()
-  description: string;
-
-  @IsString()
-  @IsNotEmpty()
-  longDescription: string;
 
   @IsString()
   difficulty: DifficultyType;
@@ -76,6 +61,32 @@ export class CreateTripDto {
   @Type(() => Image)
   @IsOptional()
   imageUrls: Image[];
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateTripTranslationDto)
+  translations: CreateTripTranslationDto[];
+}
+
+export class CreateTripTranslationDto {
+  @IsString()
+  @IsNotEmpty()
+  locale: string;
+
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsString()
+  @IsNotEmpty()
+  region: string;
+
+  @IsString()
+  description: string;
+
+  @IsString()
+  @IsOptional()
+  longDescription: string;
 
   @IsString()
   @IsOptional()

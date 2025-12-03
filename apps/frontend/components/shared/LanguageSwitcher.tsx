@@ -1,5 +1,6 @@
 'use client';
 import { i18n } from '@/i18n.config';
+import type { Locale } from '@escapavelo/shared-types';
 import { useRouter, usePathname } from 'next/navigation';
 
 export default function LanguageSwitcher() {
@@ -11,7 +12,7 @@ export default function LanguageSwitcher() {
         const segments = pathname.split("/").filter(Boolean); // ex "/en/blog/x" → ["en","blog","x"]
 
         // Si le premier segment est une locale, on l'enlève
-        if (i18n.locales.includes(segments[0])) {
+        if (i18n.locales.includes(segments[0] as Locale)) {
             segments.shift(); // → ["blog","x"]
         }
 

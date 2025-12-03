@@ -1,11 +1,12 @@
 import { type DifficultyType, type DurationType, type Status, type TravelType } from "@escapavelo/shared-types";
-import { type MultiFormatImageUrl } from "./common"
+import { type MultiFormatImageUrl, type PersitedDatedObject } from "./common"
 export type NewDestination = Omit<Destination, "id">;
 export type CreatedDestination = Destination & { id: number };
 export type DestinationAttribute = keyof Destination;
 
-export class Destination {
+export class Destination implements PersitedDatedObject {
   id?: number
+  locale: string
   promoted: boolean
   title: string
   slug: string
@@ -22,11 +23,12 @@ export class Destination {
   included: string[]
   notIncluded: string[]
   program: TripDay[]
-  createdAt?: string
-  updatedAt?: string
+  createdAt: string
+  updatedAt: string
   travelType?: TravelType
 
   constructor() {
+    this.locale = 'fr'
     this.promoted = false
     this.title = ''
     this.slug = ''
@@ -43,6 +45,8 @@ export class Destination {
     this.included = []
     this.notIncluded = []
     this.program = []
+    this.createdAt = new Date().toISOString()
+    this.updatedAt = new Date().toISOString()
   }
 }
 

@@ -8,11 +8,14 @@ import SearchTripSection from "../../components/homepage/SearchTripSection";
 import { destinationService } from "@/services/destinationService";
 import { Destination } from "@/types/destination";
 import { getTranslations } from "next-intl/server";
+import type { Locale } from "@escapavelo/shared-types";
 
-export default async function Home() {
-  const destinations = await destinationService.getAllTrips('published');
-  const regions = destinations.map((t: Destination) => t.region)
+export default async function Home(params: Promise<{ params: { locale: Locale } }>) {
+  const { locale } = (await params).params;
+  const destinations = await destinationService.getAllTrips(locale, 'published');
+  const regions = destinations.map((t: Destination) => t.region);
   const t = await getTranslations('HomePage');
+
   return (
     <div className="flex flex-col items-center">
       <p>{t('title')}</p>

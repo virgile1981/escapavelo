@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TripsModule } from './trips/trips.module';
 import { BlogModule } from './blog/blog.module';
 import { join } from 'path';
-import { Trip } from './trips/entities/trip.entity';
+import { Destination } from './trips/entities/destination.entity';
 import { BlogPost } from './blog/entities/blog.entity';
 import { UploadController } from './upload/upload.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -15,6 +15,8 @@ import { Subscribers } from './contact/entities/subscriber.entity';
 import { User } from './auth/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import { DestinationTranslation } from './trips/entities/destination-translation';
+import { LoggingMiddleware } from './logging.middleware';
 
 
 @Module({
@@ -23,26 +25,27 @@ import { CacheModule } from '@nestjs/cache-manager';
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}` || '.env', // exemple : .env.production
     }),
-    
+
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) =>  {
+      useFactory: (configService: ConfigService) => {
         return {
-        type: 'mariadb',
-        host: configService.get<string>('DB_HOST', 'localhost'),
-        port: configService.get<number>('DB_PORT', 3306),
-        username: configService.get<string>('DB_USERNAME', 'root'),
-        password: configService.get<string>('DB_PASSWORD', 'root'),
-        database: configService.get<string>('DB_NAME', 'cyclotopia'),
-        entities: [join(__dirname, '**', '*.entity{.ts,.js}'), Trip, BlogPost,Subscribers, User],
-        synchronize: configService.get<boolean>('DB_SYNCHRONIZE', true), // Désactiver en prod
-      } as TypeOrmModuleOptions
-    },
+          type: 'mariadb',
+          host: configService.get<string>('DB_HOST', 'localhost'),
+          port: configService.get<number>('DB_PORT', 3306),
+          username: configService.get<string>('DB_USERNAME', 'root'),
+          password: configService.get<string>('DB_PASSWORD', 'root'),
+          database: configService.get<string>('DB_NAME', 'escapavelo'),
+          entities: [Destination, DestinationTranslation, BlogPost, Subscribers, User],
+          synchronize: configService.get<boolean>('DB_SYNCHRONIZE', true), // Désactiver en prod
+          logging: true
+        } as TypeOrmModuleOptions
+      },
     }),
     MailerModule.forRoot({
       transport: {
-        host: 'ssl0.ovh.net', 
+        host: 'ssl0.ovh.net',
         port: 587,
         secure: false, // true pour 465, false pour 587
         auth: {
@@ -63,4 +66,8 @@ import { CacheModule } from '@nestjs/cache-manager';
   controllers: [AppController, UploadController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggingMiddleware).forRoutes('*'); // log toutes les routes
+  }
+}

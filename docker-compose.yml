@@ -27,7 +27,7 @@ services:
       - DB_PORT=3306
       - DB_USERNAME=escapavelo_user
       - DB_PASSWORD=vb03831s
-      - DB_NAME=cyclotopia
+      - DB_NAME=escapavelo
       - DB_SYNCHRONIZE=true
     env_file:
       - apps/backend/.env
@@ -40,7 +40,7 @@ services:
     image: mariadb:11
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: cyclotopia
+      MYSQL_DATABASE: escapavelo
       MYSQL_USER: escapavelo_user
       MYSQL_PASSWORD: vb03831s
     ports:

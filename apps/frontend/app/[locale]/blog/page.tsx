@@ -1,5 +1,4 @@
 import PostPreview from '@/components/blog/PostPreview';
-import type { Locale } from '@/i18n.config';
 import { blogService } from '@/services/blogService';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Suspense, use } from 'react';

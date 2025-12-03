@@ -6,7 +6,6 @@ import Image from "next/image";
 
 export default function DestinationCard({ destination }: { destination: Destination }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
   return (
     <div
       key={destination.id}

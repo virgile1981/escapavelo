@@ -1,48 +1,70 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between } from 'typeorm';
-import { Trip } from './entities/trip.entity';
+import { Destination } from './entities/destination.entity';
 import { CreateTripDto } from './dto/create-trip.dto';
-import { DifficultyType, TravelType } from '@escapavelo/shared-types';
+import { DifficultyType, TravelType, Locale, Status } from '@escapavelo/shared-types';
 
 @Injectable()
 export class TripsService {
   constructor(
-    @InjectRepository(Trip)
-    private tripsRepository: Repository<Trip>,
+    @InjectRepository(Destination)
+    private tripsRepository: Repository<Destination>,
   ) {
   }
-  async getAllTrips(difficulty?: DifficultyType, travelType?: TravelType, promoted? :boolean, duration?: number): Promise<Trip[]> {
-    const query: any = {};
-    
+  async getAllTrips(
+    locale: Locale,
+    difficulty?: DifficultyType,
+    travelType?: TravelType,
+    promoted?: boolean,
+    status?: Status,
+    duration?: number
+  ): Promise<Destination[]> {
+
+    const qb = this.tripsRepository
+      .createQueryBuilder('d')
+      .leftJoinAndSelect('d.translations', 't', 't.locale = :locale', { locale });
+
+    // Construction dynamique des conditions
     if (difficulty !== undefined) {
-      query.difficulty = difficulty;
+      qb.andWhere('d.difficulty = :difficulty', { difficulty });
     }
-    
+
     if (travelType) {
-      query.travelType = travelType;
+      qb.andWhere('d.travelType = :travelType', { travelType });
     }
-    
-    if(promoted) {
-      query.promoted = promoted;
+
+    if (promoted !== undefined) {
+      qb.andWhere('d.promoted = :promoted', { promoted });
+    }
+
+    if (status !== undefined) {
+      qb.andWhere('d.status = :status', { status });
     }
 
     if (duration !== undefined) {
-      // Filtrer par durée avec une marge de +/- 2 jours
-      const minDuration = duration - 2;
+      const minDuration = Math.max(duration - 2, 1);
       const maxDuration = duration + 2;
-      return this.tripsRepository.find({
-        where: {
-          ...query,
-          duration: Between(minDuration > 0 ? minDuration : 1, maxDuration)
-        }
-      });
+      qb.andWhere('d.duration BETWEEN :min AND :max', { min: minDuration, max: maxDuration });
     }
-    
-    return this.tripsRepository.find({ where: query, select: ['id', 'title', 'slug', 'imageUrl','description','price','difficulty','duration','region','travelType'] });
+
+    // Exécuter la requête
+    const trips = await qb.getMany();
+
+    // Aplatir les données de traduction
+    return trips.map(trip => ({
+      ...trip,
+      locale: trip.translations?.[0]?.locale,
+      region: trip.translations?.[0]?.region,
+      title: trip.translations?.[0]?.title,
+      slug: trip.translations?.[0]?.slug,
+      description: trip.translations?.[0]?.description,
+      // Supprimer le tableau translations si tu veux
+      translations: undefined,
+    }));
   }
 
-  async getTripById(id: number): Promise<Trip> {
+  async getTripById(id: number): Promise<Destination> {
     const trip = await this.tripsRepository.findOne({ where: { id } });
     if (!trip) {
       throw new NotFoundException(`Voyage avec l'ID ${id} non trouvé`);
@@ -50,23 +72,39 @@ export class TripsService {
     return trip;
   }
 
-  async getTripBySlug(slug: string): Promise<Trip> {
-    const trip = await this.tripsRepository.findOne({ where: { slug }  });
-    if (!trip) {
-      throw new NotFoundException(`Voyage avec l'ID ${slug} non trouvé`);
+  async getTripBySlug(locale: Locale, slug: string): Promise<any> {
+    const trip = await this.tripsRepository
+      .createQueryBuilder('d')
+      .leftJoinAndSelect('d.translations', 't')
+      .where('t.locale = :locale AND t.slug = :slug', { locale, slug })
+      .getOne()
+
+    console.log('Trip fetched by slug:', trip);
+    if (!trip || !trip.translations?.length) {
+      throw new NotFoundException(`Voyage avec le slug "${slug}" non trouvé`);
     }
-    return trip;
+
+    // Aplatir les données de traduction dans l'objet principal
+    const translation = trip.translations[0];
+    return {
+      ...trip,
+      locale: translation.locale,
+      title: translation.title,
+      slug: translation.slug,
+      description: translation.description,
+      longDescription: translation.longDescription,
+      translations: undefined, // Optionnel : supprimer le tableau translations
+    };
   }
 
-
-  async createTrip(createTripDto: CreateTripDto): Promise<Trip> {
+  async createTrip(createTripDto: CreateTripDto): Promise<Destination> {
     const trip = this.tripsRepository.create(createTripDto);
     return this.tripsRepository.save(trip);
   }
- 
-  async updateTrip(id: number, updateTripDto: Partial<CreateTripDto>): Promise<Trip> {
-    this.tripsRepository.update(id,updateTripDto);
-    return this.tripsRepository.findOneBy({id});
+
+  async updateTrip(id: number, updateTripDto: Partial<CreateTripDto>): Promise<Destination> {
+    this.tripsRepository.update(id, updateTripDto);
+    return this.tripsRepository.findOneBy({ id });
   }
 
   async deleteTrip(id: number): Promise<void> {

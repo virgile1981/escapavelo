@@ -1,57 +1,34 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Query, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { TripsService } from './trips.service';
-import { Trip } from './entities/trip.entity';
-import { CreateTripDto } from './dto/create-trip.dto';
-import { JwtAuthGuard } from '@root/auth/jwt-auth.guard';
-import { DifficultyType, TravelType } from '@escapavelo/shared-types';
+import { Destination } from './entities/destination.entity';
+import { DifficultyType, Locale, Status, TravelType } from '@escapavelo/shared-types';
 
-@Controller('trips')
+@Controller(':locale/trips')
 export class TripsController {
-  constructor(private readonly tripsService: TripsService) {}
+  constructor(private readonly tripsService: TripsService) { }
 
   @Get()
   getAllTrips(
+    @Param('locale') locale: Locale,
     @Query('difficulty') difficulty?: DifficultyType,
     @Query('travelType') travelType?: TravelType,
+    @Query('status') status?: Status,
     @Query('duration') duration?: number,
-    @Query('promoted') promoted?: boolean
-  ): Promise<Trip[]> {
+    @Query('promoted') promoted?: boolean,
+  ): Promise<Destination[]> {
     return this.tripsService.getAllTrips(
+      locale,
       difficulty,
       travelType,
       promoted,
+      status,
       duration ? +duration : undefined
     );
   }
 
-  @Get('id/:id')
-  getTripById(@Param('id', ParseIntPipe) id: number): Promise<Trip> {
-    return this.tripsService.getTripById(id);
-  }
-
   @Get(':slug')
-  getTripBySlug(@Param('slug') slug: string): Promise<Trip> {
-    return this.tripsService.getTripBySlug(slug);
+  getTripBySlug(@Param('locale') locale: Locale, @Param('slug') slug: string): Promise<Destination> {
+    return this.tripsService.getTripBySlug(locale, slug);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post()
-  createTrip(@Body() createTripDto: CreateTripDto): Promise<Trip> {
-    return this.tripsService.createTrip(createTripDto);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Put(':id')
-  updateTrip(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateTripDto: Partial<CreateTripDto>,
-  ): Promise<Trip> {
-    return this.tripsService.updateTrip(id, updateTripDto);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Delete(':id')
-  deleteTrip(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    return this.tripsService.deleteTrip(id);
-  }
 }
