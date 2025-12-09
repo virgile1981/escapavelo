@@ -1,10 +1,10 @@
-import { Destination } from "@/types/destination";
 import { Calendar, MapPin } from "lucide-react";
 import DifficultyIndicator from "../shared/DifficultyIndicator";
 import Link from "next/link";
 import Image from "next/image";
+import type { FlattenDestination } from "@escapavelo/shared-types";
 
-export default function DestinationCard({ destination }: { destination: Destination }) {
+export default function DestinationCard({ destination }: { destination: FlattenDestination }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   return (
     <div

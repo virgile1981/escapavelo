@@ -1,10 +1,10 @@
-import { Destination } from '../../types/destination';
 import DestinationCard from '../destination/DestinationCard';
 import Link from 'next/link';
 import type { StyleProps } from '@/types/common';
+import type { FlattenDestination } from '@escapavelo/shared-types';
 
 interface PopularTripsProps extends StyleProps {
-  destinations?: Destination[];
+  destinations?: FlattenDestination[];
 }
 
 export default function PopularTrips({ background = 'bg-sable', textColor = 'text-green-900', destinations }: PopularTripsProps) {

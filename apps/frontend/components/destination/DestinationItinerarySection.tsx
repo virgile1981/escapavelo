@@ -18,7 +18,7 @@ interface DestinationItinerarySectionProps {
 }
 
 const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
-    itinerary,
+    itinerary = [],
     onUpdateItinerary,
 }) => {
     const addDay = () => {
@@ -49,7 +49,7 @@ const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
         <div className="pb-6">
             <h3 className="text-lg font-semibold mb-4">Itinéraire</h3>
             <div className="space-y-4">
-                {itinerary.map((day, index) => (
+                {itinerary?.map((day, index) => (
                     <div key={index} className="border rounded-lg p-4">
                         <div className="flex justify-between items-center mb-3">
                             <h4 className="font-medium">Jour {day.day}</h4>

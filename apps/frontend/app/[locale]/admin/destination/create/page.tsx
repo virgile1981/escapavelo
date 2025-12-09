@@ -1,30 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Destination } from "@/types/destination"; // si vous avez renommé Travel → Destination
+import { notFound, useParams, useRouter } from "next/navigation";
 import DestinationForm from "@/components/destination/DestinationForm";
 import { destinationService } from "@/services/destinationService";
 import Link from "next/link";
+import type { DestinationDTO, Locale } from "@escapavelo/shared-types";
 
 export default function CreateTripPage() {
     const router = useRouter();
     const [isSaving, setIsSaving] = useState(false);
     const [error, setError] = useState("");
 
-    const handleSubmit = async (destination: Destination) => {
+    const params = useParams()
+    if (Array.isArray(params.locale)) {
+        notFound();
+    }
+
+    const locale = params.locale as Locale;
+    const handleSubmit = async (destination: DestinationDTO) => {
         try {
             setIsSaving(true);
             setError("");
 
-            // Nettoyage des listes vides
-            const cleanedTravel = {
-                ...destination,
-                included: destination.included.filter((i) => i.trim() !== ""),
-                notIncluded: destination.notIncluded.filter((i) => i.trim() !== ""),
-            };
+            destination.translations.forEach(translation => {
+                translation.included = translation.included ? translation.included.filter(i => i.trim() !== '') : []
+                translation.notIncluded = translation.notIncluded ? translation.notIncluded.filter(i => i.trim() !== '') : []
+            })
 
-            await destinationService.createTrip(cleanedTravel);
+            await destinationService.createTrip(destination);
             router.push("/admin/destination");
         } catch (err) {
             console.error("Erreur lors de la sauvegarde :", err);
@@ -52,6 +56,7 @@ export default function CreateTripPage() {
                 </div>
 
                 <DestinationForm
+                    locale={locale}
                     isSaving={isSaving}
                     error={error}
                     onSubmit={handleSubmit}

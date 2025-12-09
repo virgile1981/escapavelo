@@ -2,20 +2,24 @@
 
 import { useEffect, useState } from 'react'
 import { notFound, useParams, useRouter } from 'next/navigation'
-import { Destination } from '@/types/destination'
 import DestinationForm from '@/components/destination/DestinationForm'
 import { destinationService } from '@/services/destinationService'
 import Link from 'next/link'
+import { DestinationDTO, DestinationTranslation, type Locale } from '@escapavelo/shared-types'
 
 export default function EditTripPage() {
     const params = useParams()
     if (Array.isArray(params.slug)) {
         notFound();
     }
+    if (Array.isArray(params.locale)) {
+        notFound();
+    }
 
     const router = useRouter()
-    const id = params?.slug as string
-    const [destination, setDestination] = useState<Destination>()
+    const id = params.slug as string
+    const locale = params.locale as Locale;
+    const [destination, setDestination] = useState<DestinationDTO>()
 
     const [loading, setLoading] = useState(true)
     const [loadError, setLoadError] = useState('')
@@ -27,6 +31,10 @@ export default function EditTripPage() {
             try {
                 setLoading(true)
                 const data = await destinationService.getDestination(id)
+                // If any translation is available for the current destination we create it
+                if (!data.translations.some(translation => translation.locale === locale)) {
+                    data.translations.push(new DestinationTranslation(locale))
+                }
                 setDestination(data)
             } catch (err) {
                 console.error('Erreur lors du chargement du voyage :', err)
@@ -38,14 +46,16 @@ export default function EditTripPage() {
         if (id) loadTravel()
     }, [id])
 
-    const handleSubmit = async (destination: Destination) => {
+    const handleSubmit = async (destination: DestinationDTO) => {
         try {
             setIsSaving(true)
             setError('')
 
             // Nettoyer les listes vides
-            destination.included = destination.included.filter(i => i.trim() !== '')
-            destination.notIncluded = destination.notIncluded.filter(i => i.trim() !== '')
+            destination.translations.forEach(translation => {
+                translation.included = translation.included ? translation.included.filter(i => i.trim() !== '') : []
+                translation.notIncluded = translation.notIncluded ? translation.notIncluded.filter(i => i.trim() !== '') : []
+            })
 
             await destinationService.updateTrip(id, destination)
             router.push('/admin/destination')
@@ -94,6 +104,7 @@ export default function EditTripPage() {
 
                 {!loading && destination && !loadError && (
                     <DestinationForm
+                        locale={locale}
                         destination={destination}
                         isSaving={isSaving}
                         error={error}

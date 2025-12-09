@@ -1,5 +1,4 @@
-import { type Status } from "@escapavelo/shared-types";
-import { type MultiFormatImageUrl, type PersitedDatedObject } from "./common"
+import { type MultiFormatImageUrl, type PersitedDatedObject, type Status } from "@escapavelo/shared-types";
 import { create } from "domain";
 
 export type BlogAttribute = keyof BlogPost;
@@ -15,8 +14,8 @@ export class BlogPost implements PersitedDatedObject {
   imageUrl: MultiFormatImageUrl | null;
   status: Status;
   date?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
   constructor() {
     this.title = '';
@@ -25,7 +24,5 @@ export class BlogPost implements PersitedDatedObject {
     this.content = '';
     this.status = 'draft';
     this.imageUrl = null;
-    this.createdAt = new Date().toISOString();
-    this.updatedAt = new Date().toISOString();
   }
 }

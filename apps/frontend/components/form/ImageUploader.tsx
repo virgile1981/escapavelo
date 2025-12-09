@@ -27,7 +27,7 @@ export default function ImageUploader({
     const inputRef = useRef<HTMLInputElement | null>(null)
     const uploadedImagesUrl = publicImageUrlBuilder(context);
 
-    const images: MultiFormatImageUrl[] = (multiple ? value : [value]) as MultiFormatImageUrl[]
+    const images: MultiFormatImageUrl[] = (multiple ? (value ?? []) : [value]) as MultiFormatImageUrl[]
 
     const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setError('')

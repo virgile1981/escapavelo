@@ -1,30 +1,35 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Between } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Destination } from './entities/destination.entity';
 import { CreateTripDto } from './dto/create-trip.dto';
-import { DifficultyType, TravelType, Locale, Status } from '@escapavelo/shared-types';
+import { DifficultyType, TravelType, Locale, Status, FlattenDestination, DestinationDTO } from '@escapavelo/shared-types';
+import { DestinationTranslation } from './entities/destination-translation';
 
 @Injectable()
 export class TripsService {
   constructor(
     @InjectRepository(Destination)
     private tripsRepository: Repository<Destination>,
+    @InjectRepository(DestinationTranslation)
+    private translationsRepository: Repository<DestinationTranslation>,
   ) {
   }
+
   async getAllTrips(
     locale: Locale,
+    withId?: boolean,
+    allowEmptyTranslation: boolean = false,
     difficulty?: DifficultyType,
     travelType?: TravelType,
     promoted?: boolean,
     status?: Status,
     duration?: number
-  ): Promise<Destination[]> {
+  ): Promise<Partial<FlattenDestination>[]> {
 
     const qb = this.tripsRepository
       .createQueryBuilder('d')
       .leftJoinAndSelect('d.translations', 't', 't.locale = :locale', { locale });
-
     // Construction dynamique des conditions
     if (difficulty !== undefined) {
       qb.andWhere('d.difficulty = :difficulty', { difficulty });
@@ -50,22 +55,43 @@ export class TripsService {
 
     // Exécuter la requête
     const trips = await qb.getMany();
-
     // Aplatir les données de traduction
-    return trips.map(trip => ({
-      ...trip,
-      locale: trip.translations?.[0]?.locale,
-      region: trip.translations?.[0]?.region,
-      title: trip.translations?.[0]?.title,
-      slug: trip.translations?.[0]?.slug,
-      description: trip.translations?.[0]?.description,
-      // Supprimer le tableau translations si tu veux
-      translations: undefined,
-    }));
+
+    const tripsValue = trips
+      .filter(destination => allowEmptyTranslation || destination.translations[0])
+      .map(destination => {
+
+        const {
+          createdAt, updatedAt,
+          translations,
+          ...destinationRest
+        } = destination;
+
+        if (!destination.translations || destination.translations.length <= 0) {
+          return destinationRest
+        }
+
+        const { ...translationRest } = destination.translations[0]
+        return {
+          ...translationRest,
+          ...destinationRest,
+
+          id: withId ? destination.id : undefined,
+        };
+      });
+
+
+    return tripsValue;
+
   }
 
   async getTripById(id: number): Promise<Destination> {
-    const trip = await this.tripsRepository.findOne({ where: { id } });
+    const trip = await this.tripsRepository
+      .createQueryBuilder('d')
+      .leftJoinAndSelect('d.translations', 't')
+      .where('d.id = :id', { id })
+      .getOne();
+
     if (!trip) {
       throw new NotFoundException(`Voyage avec l'ID ${id} non trouvé`);
     }
@@ -77,7 +103,7 @@ export class TripsService {
       .createQueryBuilder('d')
       .leftJoinAndSelect('d.translations', 't')
       .where('t.locale = :locale AND t.slug = :slug', { locale, slug })
-      .getOne()
+      .getOne();
 
     console.log('Trip fetched by slug:', trip);
     if (!trip || !trip.translations?.length) {
@@ -103,7 +129,7 @@ export class TripsService {
   }
 
   async updateTrip(id: number, updateTripDto: Partial<CreateTripDto>): Promise<Destination> {
-    this.tripsRepository.update(id, updateTripDto);
+    this.tripsRepository.save({ id, ...updateTripDto });
     return this.tripsRepository.findOneBy({ id });
   }
 

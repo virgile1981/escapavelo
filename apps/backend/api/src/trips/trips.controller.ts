@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { TripsService } from './trips.service';
 import { Destination } from './entities/destination.entity';
-import { DifficultyType, Locale, Status, TravelType } from '@escapavelo/shared-types';
+import { DifficultyType, FlattenDestination, Locale, Status, TravelType } from '@escapavelo/shared-types';
 
 @Controller(':locale/trips')
 export class TripsController {
@@ -10,14 +10,18 @@ export class TripsController {
   @Get()
   getAllTrips(
     @Param('locale') locale: Locale,
+    @Query('with_id') withId?: boolean,
+    @Query('allowEmptyTranslation') allowEmptyTranslation?: boolean,
     @Query('difficulty') difficulty?: DifficultyType,
     @Query('travelType') travelType?: TravelType,
     @Query('status') status?: Status,
     @Query('duration') duration?: number,
     @Query('promoted') promoted?: boolean,
-  ): Promise<Destination[]> {
+  ): Promise<FlattenDestination[]> {
     return this.tripsService.getAllTrips(
       locale,
+      withId,
+      allowEmptyTranslation,
       difficulty,
       travelType,
       promoted,

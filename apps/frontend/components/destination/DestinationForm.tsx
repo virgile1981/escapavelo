@@ -1,47 +1,67 @@
 "use client";
 
-import { Destination } from "@/types/destination";
 import { useState } from "react";
 import ImageUploader from "../form/ImageUploader";
 import TinyMCE from "@/components/form/HtmlEditor";
 import DestinationInclusionsSection from "./DestinationInclusionSection";
 import DestinationItinerarySection from "./DestinationItinerarySection";
-import { type MultiFormatImageUrl } from "@/types/common";
-import { DifficultyRecord, type DifficultyType, type Status, type TravelType } from "@escapavelo/shared-types";
+import { DestinationDTO, DifficultyRecord, type DifficultyType, type Locale, type MultiFormatImageUrl, type Status, type TravelType } from "@escapavelo/shared-types";
 
 interface TravelFormProps {
-    destination?: Destination;
+    destination?: DestinationDTO;
+    locale: Locale;
     isSaving?: boolean;
     error?: string;
-    onSubmit: (travel: Destination) => void;
+    onSubmit: (travel: DestinationDTO) => void;
     onCancel: () => void;
 }
 
 export default function DestinationForm({
     destination,
+    locale,
     isSaving = false,
     error = "",
     onSubmit,
     onCancel,
 }: TravelFormProps) {
-    const [localDestination, setLocalDestination] = useState<Destination>(
-        destination ?? new Destination()
+    const [localDestination, setLocalDestination] = useState<DestinationDTO>(
+        destination ?? new DestinationDTO(locale)
     );
 
+    const translation = localDestination.translations.find(t => t.locale === locale)
+    if (!translation) {
+        throw new Error("la traduction en " + locale + " n'a pas été trouvée")
+    }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSubmit(localDestination);
     };
 
-    function handleChange<K extends keyof Destination>(
+    // fonction immutable
+    function updateDestinationField<K extends keyof DestinationDTO>(
         name: K,
-        value: Destination[K]
+        value: DestinationDTO[K]
     ) {
         setLocalDestination(destination => ({
             ...destination,
             [name]: value,
         }));
     }
+
+    function updateTranslationField<
+        K extends keyof DestinationDTO["translations"][number]
+    >(key: K, value: DestinationDTO["translations"][number][K]) {
+        setLocalDestination(dest => ({
+            ...dest,
+            translations: dest.translations.map(t =>
+                t.locale === locale
+                    ? { ...t, [key]: value }
+                    : t
+            ),
+        }));
+    }
+
+
 
     return (
         <div className="bg-white rounded-lg shadow-md p-6">
@@ -58,8 +78,8 @@ export default function DestinationForm({
                             </label>
                             <input
                                 type="text"
-                                value={localDestination.title}
-                                onChange={(e) => handleChange("title", e.target.value)}
+                                value={translation.title}
+                                onChange={(e) => updateTranslationField("title", e.target.value)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             />
                         </div>
@@ -72,8 +92,8 @@ export default function DestinationForm({
                             <input
                                 id="slug"
                                 type="text"
-                                value={localDestination.slug}
-                                onChange={(e) => handleChange("slug", e.target.value)}
+                                value={translation.slug}
+                                onChange={(e) => updateTranslationField("slug", e.target.value)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             />
                         </div>
@@ -86,8 +106,8 @@ export default function DestinationForm({
                             <input
                                 id="region"
                                 type="text"
-                                value={localDestination.region}
-                                onChange={(e) => handleChange("region", e.target.value)}
+                                value={translation.region}
+                                onChange={(e) => updateTranslationField("region", e.target.value)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             />
                         </div>
@@ -100,7 +120,7 @@ export default function DestinationForm({
                             <input
                                 type="number"
                                 value={localDestination.duration}
-                                onChange={(e) => handleChange("duration", e.target.valueAsNumber)}
+                                onChange={(e) => updateDestinationField("duration", e.target.valueAsNumber)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             />
                         </div>
@@ -110,7 +130,7 @@ export default function DestinationForm({
                             <label className="block text-sm font-medium text-gray-700 mb-1">Images</label>
                             <ImageUploader
                                 value={localDestination.imageUrls}
-                                onChange={(imageUrls) => handleChange("imageUrls", imageUrls as MultiFormatImageUrl[])}
+                                onChange={(imageUrls) => updateDestinationField("imageUrls", imageUrls as MultiFormatImageUrl[])}
                                 multiple={true}
                                 context="destination"
                             />
@@ -125,7 +145,7 @@ export default function DestinationForm({
                                 id="price"
                                 type="number"
                                 value={localDestination.price}
-                                onChange={(e) => handleChange("price", e.target.valueAsNumber)}
+                                onChange={(e) => updateDestinationField("price", e.target.valueAsNumber)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             />
                         </div>
@@ -139,7 +159,7 @@ export default function DestinationForm({
                                 id="distance"
                                 type="number"
                                 value={localDestination.distance}
-                                onChange={(e) => handleChange("distance", e.target.valueAsNumber)}
+                                onChange={(e) => updateDestinationField("distance", e.target.valueAsNumber)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             />
                         </div>
@@ -152,7 +172,7 @@ export default function DestinationForm({
                             <select
                                 id="difficulty"
                                 value={localDestination.difficulty}
-                                onChange={(e) => handleChange("difficulty", e.target.value as DifficultyType)}
+                                onChange={(e) => updateDestinationField("difficulty", e.target.value as DifficultyType)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             >
                                 {
@@ -171,7 +191,7 @@ export default function DestinationForm({
                             <select
                                 id="travelType"
                                 value={localDestination.travelType}
-                                onChange={(e) => handleChange("travelType", e.target.value as TravelType)}
+                                onChange={(e) => updateDestinationField("travelType", e.target.value as TravelType)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             >
                                 <option value="friends">Entre amis</option>
@@ -188,7 +208,7 @@ export default function DestinationForm({
                             <select
                                 id="status"
                                 value={localDestination.status}
-                                onChange={(e) => handleChange("status", e.target.value as Status)}
+                                onChange={(e) => updateDestinationField("status", e.target.value as Status)}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                             >
                                 <option value="draft">Brouillon</option>
@@ -203,7 +223,7 @@ export default function DestinationForm({
                                     id="promoted"
                                     type="checkbox"
                                     checked={localDestination.promoted}
-                                    onChange={(e) => handleChange("promoted", Boolean(e.target.value))}
+                                    onChange={(e) => updateDestinationField("promoted", Boolean(e.target.value))}
                                     className="w-5 h-5"
                                 />
                                 Mettre en avant
@@ -218,8 +238,8 @@ export default function DestinationForm({
                         </label>
                         <textarea
                             id="description"
-                            value={localDestination.description}
-                            onChange={(e) => handleChange("description", e.target.value)}
+                            value={translation.description}
+                            onChange={(e) => updateTranslationField("description", e.target.value)}
                             rows={2}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                         />
@@ -231,8 +251,8 @@ export default function DestinationForm({
                             Description détaillée
                         </label>
                         <TinyMCE
-                            value={localDestination.longDescription}
-                            onChange={(content) => handleChange("longDescription", content)}
+                            value={translation.longDescription}
+                            onChange={(content) => updateTranslationField("longDescription", content)}
                             context="destination"
                         />
                     </div>
@@ -242,7 +262,7 @@ export default function DestinationForm({
                         <label className="block text-sm font-medium text-gray-700 mb-1">Image</label>
                         <ImageUploader
                             value={localDestination.imageUrl}
-                            onChange={(imageUrl) => handleChange("imageUrl", imageUrl as MultiFormatImageUrl | null)}
+                            onChange={(imageUrl) => updateDestinationField("imageUrl", imageUrl as MultiFormatImageUrl | null)}
                             multiple={false}
                             context="destination"
                         />
@@ -251,16 +271,16 @@ export default function DestinationForm({
 
                 {/* Inclus / Non inclus */}
                 <DestinationInclusionsSection
-                    included={localDestination.included}
-                    notIncluded={localDestination.notIncluded}
-                    onUpdateIncluded={(included) => handleChange("included", included)}
-                    onUpdateNotIncluded={(notIncluded) => handleChange("notIncluded", notIncluded)}
+                    included={translation.included}
+                    notIncluded={translation.notIncluded}
+                    onUpdateIncluded={(included) => updateTranslationField("included", included)}
+                    onUpdateNotIncluded={(notIncluded) => updateTranslationField("notIncluded", notIncluded)}
                 />
 
                 {/* Itinéraire */}
                 <DestinationItinerarySection
-                    itinerary={localDestination.program}
-                    onUpdateItinerary={(program) => handleChange("program", program)}
+                    itinerary={translation.program}
+                    onUpdateItinerary={(program) => updateTranslationField("program", program)}
                 />
 
                 {/* Buttons */}

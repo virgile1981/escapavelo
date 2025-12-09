@@ -3,11 +3,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import JustifiedGallery from '@/components/shared/JustifiedGallery'
 import DifficultyIndicator from '@/components/shared/DifficultyIndicator'
-import { Destination, type TripDay } from '@/types/destination'
 import ContactPopup from '@/components/contact/ContactPopup'
 import { ChevronLeft } from 'lucide-react'
 import { destinationService } from '@/services/destinationService'
-import type { Locale } from '@escapavelo/shared-types'
+import type { FlattenDestination, Locale, TripDay } from '@escapavelo/shared-types'
 
 const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
 
@@ -43,11 +42,9 @@ export async function generateStaticParams() {
   const destinationsFr = await destinationService.getAllTrips('fr', 'published');
   const destinationsEn = await destinationService.getAllTrips('en', 'published');
 
-  const parameters = [...destinationsFr.map((dest: Destination) => { return ({ locale: "fr", slug: dest.slug }) }),
-  ...destinationsEn.map((dest: Destination) => { return ({ locale: "en", slug: dest.slug }) })];
-
+  const parameters = [...destinationsFr.map((dest: FlattenDestination) => { return ({ locale: "fr", slug: dest.slug }) }),
+  ...destinationsEn.map((dest: FlattenDestination) => { return ({ locale: "en", slug: dest.slug }) })];
   return parameters;
-  // return i18n.locales;
 }
 
 export default async function DestinationPage({ params }: { params: { locale: Locale, slug: string } }) {
@@ -55,7 +52,6 @@ export default async function DestinationPage({ params }: { params: { locale: Lo
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ''
   const destination = await destinationService.getDestinationBySlug(locale, slug);
-
   return (
     <div className="pt-24">
       {/* Hero Section */}

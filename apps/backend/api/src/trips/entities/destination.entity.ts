@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Image } from '@root/common/dto/image.dto';
 import { DifficultyType, Status, TravelType } from '@escapavelo/shared-types';
 import { DefaultEntity } from '@root/shared/entity/default.entity';
@@ -35,6 +35,12 @@ export class Destination extends DefaultEntity {
   @Column('simple-json', { nullable: true })
   imageUrls: Image[];
 
-  @OneToMany(() => DestinationTranslation, t => t.destination, { cascade: true })
+  @OneToMany(() => DestinationTranslation, t => t.destination, { cascade: true, eager: false })
   translations: DestinationTranslation[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

@@ -1,7 +1,7 @@
 'use client'
 
-import { Destination, type SearchFilters } from "@/types/destination"
-import { DurationRecord, DifficultyRecord } from "@escapavelo/shared-types"
+import { type SearchFilters } from "@/types/destination"
+import { DurationRecord, DifficultyRecord, FlattenDestination } from "@escapavelo/shared-types"
 import { useEffect, useMemo, useState } from "react"
 import DestinationSearchForm from "./DestinationSearchForm"
 import { MapPin } from "lucide-react"
@@ -10,7 +10,7 @@ import { useSearchParams } from "next/navigation"
 
 interface DestinationResultsProps {
     regions: string[];
-    destinations: Destination[];
+    destinations: FlattenDestination[];
 }
 export function DestinationResults({ regions, destinations }: DestinationResultsProps) {
     const [currentPage, setCurrentPage] = useState(1)

@@ -10,8 +10,8 @@ interface DestinationInclusionsSectionProps {
 }
 
 const DestinationInclusionsSection: FC<DestinationInclusionsSectionProps> = ({
-    included,
-    notIncluded,
+    included = [],
+    notIncluded = [],
     onUpdateIncluded,
     onUpdateNotIncluded,
 }) => {
@@ -53,7 +53,7 @@ const DestinationInclusionsSection: FC<DestinationInclusionsSectionProps> = ({
             <div>
                 <h3 className="text-lg font-semibold mb-4">Inclus</h3>
                 <div className="space-y-2">
-                    {included.map((item, index) => (
+                    {included?.map((item, index) => (
                         <div key={index} className="flex gap-2">
                             <input
                                 type="text"
@@ -85,7 +85,7 @@ const DestinationInclusionsSection: FC<DestinationInclusionsSectionProps> = ({
             <div>
                 <h3 className="text-lg font-semibold mb-4">Non inclus</h3>
                 <div className="space-y-2">
-                    {notIncluded.map((item, index) => (
+                    {notIncluded?.map((item, index) => (
                         <div key={index} className="flex gap-2">
                             <input
                                 type="text"

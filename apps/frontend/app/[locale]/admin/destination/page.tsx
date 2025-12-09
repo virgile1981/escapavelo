@@ -2,14 +2,19 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { type CreatedDestination } from '@/types/destination'
 import { destinationService } from '@/services/destinationService'
-import type { Locale } from '@escapavelo/shared-types'
+import type { FlattenDestinationWithId, Locale } from '@escapavelo/shared-types'
+import { notFound, useParams } from 'next/navigation'
 
 
-export default function TripAdminPage({ params }: { params: { locale: Locale } }) {
-    const { locale } = params;
-    const [destinations, setDestinations] = useState<CreatedDestination[]>([])
+export default function TripAdminPage() {
+    const params = useParams()
+    if (Array.isArray(params.locale)) {
+        notFound();
+    }
+
+    const locale = params.locale as Locale;
+    const [destinations, setDestinations] = useState<FlattenDestinationWithId[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
     const [deletingId, setDeletingId] = useState<number | null>(null)
@@ -17,7 +22,7 @@ export default function TripAdminPage({ params }: { params: { locale: Locale } }
         try {
             setLoading(true)
             setError('')
-            const data = await destinationService.getAllTrips(locale)
+            const data = await destinationService.getAllTripsWithId(locale)
             setDestinations(data)
         } catch (err) {
             console.error('Erreur :', err)
