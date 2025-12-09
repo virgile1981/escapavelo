@@ -17,7 +17,7 @@ export class TripsController {
     @Query('status') status?: Status,
     @Query('duration') duration?: number,
     @Query('promoted') promoted?: boolean,
-  ): Promise<FlattenDestination[]> {
+  ): Promise<Partial<FlattenDestination>[]> {
     return this.tripsService.getAllTrips(
       locale,
       withId,
