@@ -39,6 +39,26 @@
       "allRegions":"All Regions",
       "searchButton": "Search",
       "searchPlaceholder":"Search with words"
+    },
+    "destination": {
+      "tripAdministrationTitle":"Trips management",
+      "createFirstTravelButton": "create the first trip",
+      "createNewTravelButton": "New trip",
+      "retryButton":"Retry",
+      "infoNoTrip": "No trip have been created so far",
+      "tripsLoading": "Trips loading",
+      "columnTravel": "Travel",
+      "columnRegion": "Region",
+      "columnDuration": "Duration",
+      "columnPrice": "Price",
+      "columnStatus": "Status",
+      "columnActions": "Actions",
+      "notDefined": "Champ non défini",
+      "updateButton": "update",
+      "deleteButton": "delete",
+      "deleteInProgress": "deleting...",
+      "published": "published",
+      "draft": "draft"
     }
 
 }

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageUploader from "../form/ImageUploader";
 import TinyMCE from "@/components/form/HtmlEditor";
 import DestinationInclusionsSection from "./DestinationInclusionSection";
 import DestinationItinerarySection from "./DestinationItinerarySection";
-import { DestinationDTO, DifficultyRecord, type DifficultyType, type Locale, type MultiFormatImageUrl, type Status, type TravelType } from "@escapavelo/shared-types";
+import { DestinationDTO, DestinationTranslation, DifficultyRecord, type DifficultyType, type Locale, type MultiFormatImageUrl, type Status, type TravelType } from "@escapavelo/shared-types";
 
 interface TravelFormProps {
     destination?: DestinationDTO;
@@ -27,14 +27,23 @@ export default function DestinationForm({
     const [localDestination, setLocalDestination] = useState<DestinationDTO>(
         destination ?? new DestinationDTO(locale)
     );
-
-    const translation = localDestination.translations.find(t => t.locale === locale)
-    if (!translation) {
+    const currentLocaleFields = localDestination.translations.find(t => t.locale === locale);
+    if (!currentLocaleFields) {
         throw new Error("la traduction en " + locale + " n'a pas été trouvée")
     }
+
+    const [translation, setTranslation] = useState<DestinationTranslation>(currentLocaleFields)
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit(localDestination);
+        // Merge modifications done on destination and translation
+        const updatedDestination: DestinationDTO = {
+            ...localDestination,
+            translations: localDestination.translations.map(t =>
+                t.locale === locale ? { ...t, ...translation } : t
+            ),
+        };
+
+        onSubmit(updatedDestination);
     };
 
     // fonction immutable
@@ -48,20 +57,25 @@ export default function DestinationForm({
         }));
     }
 
+
+    /**
+     * Updates a specific field of the translation corresponding
+     * to the currently selected locale.
+     *
+     * The update is performed immutably:
+     * - the `destination` object is recreated
+     * - the `translations` array is recreated
+     * - only the translation matching the locale is modified
+     *
+     * @typeParam K - Key of the translation field to update
+     * @param field - Name of the translation field to modify
+     * @param value - New value to set for the field
+     */
     function updateTranslationField<
         K extends keyof DestinationDTO["translations"][number]
-    >(key: K, value: DestinationDTO["translations"][number][K]) {
-        setLocalDestination(dest => ({
-            ...dest,
-            translations: dest.translations.map(t =>
-                t.locale === locale
-                    ? { ...t, [key]: value }
-                    : t
-            ),
-        }));
+    >(field: K, value: DestinationDTO["translations"][number][K]) {
+        setTranslation(prev => ({ ...prev, [field]: value }));
     }
-
-
 
     return (
         <div className="bg-white rounded-lg shadow-md p-6">

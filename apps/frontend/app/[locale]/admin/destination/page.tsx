@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { destinationService } from '@/services/destinationService'
 import type { FlattenDestinationWithId, Locale } from '@escapavelo/shared-types'
 import { notFound, useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 
 export default function TripAdminPage() {
@@ -12,7 +13,7 @@ export default function TripAdminPage() {
     if (Array.isArray(params.locale)) {
         notFound();
     }
-
+    const t = useTranslations('destination');
     const locale = params.locale as Locale;
     const [destinations, setDestinations] = useState<FlattenDestinationWithId[]>([])
     const [loading, setLoading] = useState(true)
@@ -54,7 +55,7 @@ export default function TripAdminPage() {
     if (loading) {
         return (
             <div className="text-center py-12">
-                <p className="text-gray-600">Chargement des voyages...</p>
+                <p className="text-gray-600">{t("tripsLoading")}</p>
             </div>
         )
     }
@@ -67,7 +68,7 @@ export default function TripAdminPage() {
                     onClick={() => loadTravels()}
                     className="mt-4 bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800"
                 >
-                    Réessayer
+                    {t("retryButton")}
                 </button>
             </div>
         )
@@ -76,23 +77,23 @@ export default function TripAdminPage() {
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-semibold">Gestion des voyages</h2>
+                <h2 className="text-2xl font-semibold">{t("tripAdministrationTitle")}</h2>
                 <Link
                     href="/admin/destination/create"
                     className="bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-colors"
                 >
-                    Nouveau voyage
+                    {t("createNewTravelButton")}
                 </Link>
             </div>
 
             {destinations.length === 0 ? (
                 <div className="text-center py-12">
-                    <p className="text-gray-600 mb-4">Aucun voyage créé pour le moment</p>
+                    <p className="text-gray-600 mb-4">{t("infoNoTrip")}</p>
                     <Link
                         href="/admin/destination/create"
                         className="inline-flex items-center bg-green-900 text-white px-6 py-3 rounded-lg hover:bg-green-800"
                     >
-                        Créer le premier voyage
+                        {t("createFirstTravelButton")}
                     </Link>
                 </div>
             ) : (
@@ -101,22 +102,22 @@ export default function TripAdminPage() {
                         <thead className="bg-gray-50">
                             <tr>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Voyage
+                                    {t("columnTravel")}
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Région
+                                    {t("columnRegion")}
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Durée
+                                    {t("columnDuration")}
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Prix
+                                    {t("columnPrice")}
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Statut
+                                    {t("columnStatus")}
                                 </th>
                                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Actions
+                                    {t("columnActions")}
                                 </th>
                             </tr>
                         </thead>
@@ -127,14 +128,14 @@ export default function TripAdminPage() {
                                         <div className="flex items-center">
                                             <div>
                                                 <div className="text-sm font-medium text-gray-900">
-                                                    {destination.title}
+                                                    {destination.title || t("notDefined")}
                                                 </div>
-                                                <div className="text-sm text-gray-500">{destination.slug}</div>
+                                                <div className="text-sm text-gray-500">{destination.slug || t("notDefined")}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {destination.region}
+                                        {destination.region || t("notDefined")}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {destination.duration}
@@ -149,7 +150,7 @@ export default function TripAdminPage() {
                                                 : 'bg-yellow-100 text-yellow-800'
                                                 }`}
                                         >
-                                            {destination.status === 'published' ? 'Publié' : 'Brouillon'}
+                                            {destination.status === 'published' ? t("published") : t("draft")}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -157,14 +158,14 @@ export default function TripAdminPage() {
                                             href={`/admin/destination/${destination.id}`}
                                             className="text-green-900 hover:text-green-700 mr-4"
                                         >
-                                            Modifier
+                                            {t("updateButton")}
                                         </a>
                                         <button
                                             onClick={() => deleteTravel(destination.id)}
                                             className="text-red-600 hover:text-red-900"
                                             disabled={deletingId === destination.id}
                                         >
-                                            {deletingId === destination.id ? 'Suppression...' : 'Supprimer'}
+                                            {deletingId === destination.id ? t("deleteInProgress") : t("deleteButton")}
                                         </button>
                                     </td>
                                 </tr>

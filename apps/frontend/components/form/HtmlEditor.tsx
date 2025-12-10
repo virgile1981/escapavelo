@@ -21,7 +21,7 @@ export default function TinyMCEEditor({ value, onChange, context }: TinyMCEProps
             tinymceScriptSrc="/assets/tinymce/tinymce.min.js" // <- script local, pas de clé Cloud
             onInit={(_, editor) => (editorRef.current = editor)}
             initialValue={value}
-            value={value}
+
             init={{
                 height: 400,
                 promotion: false, // désactive la bannière TinyMCE Cloud
