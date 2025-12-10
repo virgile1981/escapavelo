@@ -1,5 +1,4 @@
-import { type MultiFormatImageUrl } from "@/types/common";
-import { type  Context } from "@escapavelo/shared-types";
+import { type Context, type MultiFormatImageUrl } from "@escapavelo/shared-types";
 
 class ImageService {
   private apiUrl = process.env.NEXT_PUBLIC_API_URL;

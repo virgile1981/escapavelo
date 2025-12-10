@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Facebook, Instagram, MapPin, Mail, Phone, ArrowRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 // Exemple : vous pouvez remplacer ceci par un vrai service ou une API route
 async function subscribeToNewsletter(email: string) {
@@ -18,7 +19,7 @@ async function subscribeToNewsletter(email: string) {
 export default function Footer() {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-
+  const t = useTranslations('footer');
   const handleSubscribe = async () => {
     if (!email) return alert('Veuillez entrer une adresse email valide.')
     setIsSubmitting(true)
@@ -73,22 +74,24 @@ export default function Footer() {
               Découvrez les dernières actualités
             </p>
             <div className="flex space-x-4">
-              <a
+              <Link
                 href="https://www.instagram.com/escapavelo"
+                aria-label={t("instagramLink")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group bg-gradient-to-br from-pink-500 to-purple-600 p-3 rounded-xl hover:shadow-lg hover:shadow-pink-500/25 transition-all transform hover:scale-110"
               >
                 <Instagram className="w-6 h-6 text-white group-hover:rotate-12 transition-transform" />
-              </a>
-              <a
+              </Link>
+              <Link
                 href="https://www.facebook.com/carnetdespossibles/"
+                aria-label={t("facebookLink")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group bg-gradient-to-br from-blue-600 to-blue-800 p-3 rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all transform hover:scale-110"
               >
                 <Facebook className="w-6 h-6 text-white group-hover:rotate-12 transition-transform" />
-              </a>
+              </Link>
             </div>
 
             {/* Newsletter */}
@@ -107,6 +110,7 @@ export default function Footer() {
                   onClick={handleSubscribe}
                   disabled={isSubmitting}
                   className="bg-green-700 hover:bg-green-800 px-4 py-2 rounded-r-lg transition-colors"
+                  aria-label={t('mailingListButton')}
                 >
                   <ArrowRight className="w-4 h-4" />
                 </button>

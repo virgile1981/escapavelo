@@ -112,7 +112,7 @@ export function DestinationResults({ regions, destinations }: DestinationResults
                 {/* --- LISTE --- */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {displayed.map(destination => (
-                        <DestinationCard key={destination.id} destination={destination}></DestinationCard>
+                        <DestinationCard key={destination.slug} destination={destination}></DestinationCard>
                     ))}
                 </div>
 

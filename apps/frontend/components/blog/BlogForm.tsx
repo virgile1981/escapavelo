@@ -6,7 +6,7 @@ import TinyMCE from '@/components/form/HtmlEditor'
 import ImageUploader from '@/components/form/ImageUploader'
 import { type BlogAttribute, type BlogAttributesTypes, BlogPost } from '@/types/blog'
 import Link from 'next/link'
-import { type MultiFormatImageUrl } from '@/types/common'
+import type { MultiFormatImageUrl } from '@escapavelo/shared-types'
 
 interface BlogFormProps {
     postToUpdate?: BlogPost

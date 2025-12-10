@@ -36,7 +36,7 @@ export default function FeaturesSection({
 
   return (
     <div
-      className={`${background} relative py-20 bg-center pt-12 xs:pt-16 sm:pt-20 md:pt-24 pb-12 xs:pb-16 sm:pb-20 md:pb-24 scroll-my-28 z-10`}
+      className={`${background} w-full relative py-20 bg-center pt-12 xs:pt-16 sm:pt-20 md:pt-24 pb-12 xs:pb-16 sm:pb-20 md:pb-24 scroll-my-28 z-10`}
     >
       <div className="max-w-7xl mx-auto px-4 relative z-20">
         <h2 className={`${textColor} text-3xl font-bold text-center mb-16`}>

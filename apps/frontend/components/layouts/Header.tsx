@@ -6,12 +6,15 @@ import { Instagram, Facebook, Phone, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import LanguageSwitcher from "../shared/LanguageSwitcher";
+import { useTranslations } from "next-intl";
+import type { Locale } from "@escapavelo/shared-types";
 
-export default function Header() {
+export default function Header(params: { currentLocale: Locale }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const isRootPage = /^\/(en|fr)?$/.test(pathname);
-
+  const t = useTranslations('header');
+  const currentLocale = params.currentLocale
 
   return (
     <div className="relative text-white w-full top-0 z-50 bg-center">
@@ -20,7 +23,7 @@ export default function Header() {
         {/* Desktop logo */}
         <div className="flex items-center justify-between px-8">
           <Link href="/" className="hidden md:flex items-center space-x-2">
-            <Image src="/assets/logo.png" height={30} width={30} className="h-14 w-14" alt="Logo" />
+            <Image src="/assets/logo.webp" height={30} width={30} className="h-14 w-14" alt="Logo" />
             <span className="text-xl font-bold">Escapavélo</span>
           </Link>
         </div>
@@ -29,6 +32,7 @@ export default function Header() {
         <div className="hidden md:inline-flex space-x-1 items-center">
           <Link
             href="https://www.instagram.com/escapavelo"
+            aria-label={t("instagramLink")}
             target="_blank"
             rel="noopener noreferrer"
             className="group p-1 hover:shadow-lg transition-all transform hover:scale-110"
@@ -37,6 +41,7 @@ export default function Header() {
           </Link>
           <Link
             href="https://www.facebook.com/carnetdespossibles/"
+            aria-label={t("facebookLink")}
             target="_blank"
             rel="noopener noreferrer"
             className="group p-1 hover:shadow-lg transition-all transform hover:scale-110"
@@ -50,7 +55,7 @@ export default function Header() {
             <Phone className="w-4 h-4 mr-2" />
             +33 7 82 23 20 16
           </Link>
-          <LanguageSwitcher></LanguageSwitcher>
+          <LanguageSwitcher currentLocale={currentLocale}></LanguageSwitcher>
         </div>
 
         {/* Mobile menu button */}

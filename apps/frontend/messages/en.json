@@ -58,7 +58,17 @@
       "deleteButton": "delete",
       "deleteInProgress": "deleting...",
       "published": "published",
-      "draft": "draft"
+      "draft": "draft",
+      "difficultyMessage": "the level of difficulty is {level}"
+    },
+    "header": {
+      "instagramLink": "instagram link",
+      "facebookLink": "facebook link"
+    },
+    "footer": {
+      "mailingListButton": "Subscribe to the mailing list",
+      "instagramLink": "instagram link",
+      "facebookLink": "facebook link"
     }
 
 }

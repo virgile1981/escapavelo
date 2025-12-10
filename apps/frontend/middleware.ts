@@ -1,10 +1,10 @@
 
 // middleware.ts
-import { createI18nMiddleware } from 'next-international/middleware';
+import createMiddleware from 'next-intl/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const i18nMiddleware = createI18nMiddleware({
+const i18nMiddleware = createMiddleware({
     locales: ['en', 'fr'], // Liste des locales supportées
     defaultLocale: 'fr', // Locale par défaut
 });

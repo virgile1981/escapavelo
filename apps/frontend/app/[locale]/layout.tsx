@@ -4,6 +4,7 @@ import Header from "../../components/layouts/Header";
 import Footer from "../../components/layouts/Footer";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@escapavelo/shared-types";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://escapavelo.fr'),
@@ -13,16 +14,16 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children, params }: Readonly<{
   children: React.ReactNode, params: Promise<{ locale: string }>
 }>) {
-
-  setRequestLocale((await params).locale);
+  const locale = (await params).locale as Locale;
+  setRequestLocale(locale);
   return (
-    <html lang="fr">
+    <html lang={locale}>
       <body
-        className={` antialiased`}
+        className={`antialiased`}
       >
         <NextIntlClientProvider locale={(await params).locale}>
           <div className="min-h-screen bg-sable">
-            <Header></Header>
+            <Header currentLocale={locale}></Header>
             {children}
             <Footer></Footer>
           </div>

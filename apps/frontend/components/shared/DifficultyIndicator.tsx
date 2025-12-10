@@ -2,15 +2,17 @@
 
 import { type DifficultyType, DifficultyRecord } from '@escapavelo/shared-types'
 import { Bike } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 type DifficultyIndicatorProps = {
   level: DifficultyType
 }
 
 const DifficultyIndicator: React.FC<DifficultyIndicatorProps> = ({ level }) => {
+  const t = useTranslations('destination')
   const value = DifficultyRecord[level];
   return (
-    <div className="flex" aria-label="Niveau de difficulté">
+    <div className="flex" role="img" aria-label={t("difficultyMessage", { level })}>
       {
         Object.values(DifficultyRecord).map((n) => {
           return (<Bike

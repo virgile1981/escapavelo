@@ -1,42 +1,71 @@
 {
-  "HomePage":{
-  "title": "Bienvenue sur Escapavelo",
-  "subtitle": "Votre guide ultime des aventures à vélo",
-  "exploreButton": "Explorer les destinations",
-  "blogSectionTitle": "Les dernières nouvelles du blog",
-  "readMoreButton": "Lire la suite",
-  "contactUs": "Nous contacter",
-  "footerText": "© 2025 Escapavelo. Tous droits réservés.",
-  "newsletterSignup": "Inscrivez-vous à notre newsletter",
-  "subscribeButton": "S'abonner",
-  "popularDestinations": "Destinations populaires",
-  "testimonialsTitle": "Ce que disent nos cyclistes",
-  "learnMoreButton": "En savoir plus",
-  "aboutUs": "À propos de nous",
-  "privacyPolicy": "Politique de confidentialité",
-  "termsOfService": "Conditions d'utilisation",
-  "followUs": "Suivez-nous sur les réseaux sociaux",
-  "latestArticles": "Derniers articles",
-  "viewAllArticles": "Voir tous les articles",
-  "cyclingTips": "Astuces et conseils vélo"
+  "HomePage": {
+    "title": "Bienvenue sur Escapavelo",
+    "subtitle": "Votre guide ultime pour des aventures à vélo",
+    "exploreButton": "Explorer les destinations",
+    "blogSectionTitle": "Dernières actualités de notre blog",
+    "readMoreButton": "Lire la suite",
+    "contactUs": "Nous contacter",
+    "footerText": "© 2025 Escapavelo. Tous droits réservés.",
+    "newsletterSignup": "Abonnez-vous à notre Newsletter",
+    "subscribeButton": "S'abonner",
+    "popularDestinations": "Destinations populaires",
+    "testimonialsTitle": "Ce que disent nos cyclistes",
+    "learnMoreButton": "En savoir plus",
+    "aboutUs": "À propos de nous",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfService": "Conditions générales de service",
+    "followUs": "Suivez-nous sur les réseaux sociaux",
+    "latestArticles": "Derniers articles",
+    "viewAllArticles": "Voir tous les articles",
+    "cyclingTips": "Conseils et astuces vélo"
   },
   "blogPage": {
     "title": "Blog Escapavelo",
     "subtitle": "Découvrez nos derniers articles et conseils pour vos aventures à vélo.",
-    "backToPosts": "Retour à la page des articles"
+    "backToPosts": "Voir tous les articles"
   },
   "searchDestination": {
     "region": "Région",
-    "difficultyLevel": "Difficulté",
+    "difficultyLevel": "Niveau de difficulté",
     "duration": "Durée",
     "maxPrice": "Prix maximum",
-    "freeSearch": "Recherche",
+    "freeSearch": "Recherche libre",
     "allPrices": "Tous les prix",
     "allDurations": "Toutes les durées",
-    "allDifficulties": "Toutes les difficultés",
+    "allDifficulties": "Tous les niveaux",
     "allRegions": "Toutes les régions",
     "searchButton": "Rechercher",
-    "searchPlaceholder": "Rechercher par mots"
+    "searchPlaceholder": "Rechercher par mots-clés"
+  },
+  "destination": {
+    "tripAdministrationTitle": "Gestion des voyages",
+    "createFirstTravelButton": "Créer le premier voyage",
+    "createNewTravelButton": "Nouveau voyage",
+    "retryButton": "Réessayer",
+    "infoNoTrip": "Aucun voyage n'a été créé pour le moment",
+    "tripsLoading": "Chargement des voyages",
+    "columnTravel": "Voyage",
+    "columnRegion": "Région",
+    "columnDuration": "Durée",
+    "columnPrice": "Prix",
+    "columnStatus": "Statut",
+    "columnActions": "Actions",
+    "notDefined": "Champ non défini",
+    "updateButton": "Modifier",
+    "deleteButton": "Supprimer",
+    "deleteInProgress": "Suppression en cours...",
+    "published": "Publié",
+    "draft": "Brouillon",
+    "difficultyMessage": "le niveau de difficulté est {level}" 
+  },
+  "header": {
+    "instagramLink": "Lien Instagram",
+    "facebookLink": "Lien Facebook"
+  },
+  "footer": {
+    "mailingListButton": "S'abonner à la liste de diffusion",
+    "instagramLink": "Lien Instagram",
+    "facebookLink": "Lien Facebook"
   }
-  
 }

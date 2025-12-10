@@ -16,22 +16,21 @@ export default async function Home(params: Promise<{ params: { locale: Locale } 
 
   return (
     <div className="flex flex-col items-center">
-      <p>{t('title')}</p>
       <SearchTripSection regionsList={regions} />
 
       <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 border-dirt-brown -mb-12 bg-[url('/assets/border.webp')] filter-sable"></div>
-      <FeaturesSection background="bg-green-900 bg-[url('/assets/heightmap.png')]" textColor="text-white" />
+      <FeaturesSection background="bg-green-900 bg-[url('/assets/heightmap.webp')]" textColor="text-white" />
 
       <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 -scale-y-[1] border-dirt-brown -mt-12 bg-[url('/assets/border.webp')] filter-sable"></div>
       <BlogPreview background="bg-sable" textColor="text-green-900" />
 
       <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 border-dirt-brown -mb-12 bg-[url('/assets/border.webp')] filter-sable"></div>
-      <PopularTrips background="bg-green-900 bg-[url('/assets/heightmap.png')]" textColor="text-white" destinations={destinations} />
+      <PopularTrips background="bg-green-900 bg-[url('/assets/heightmap.webp')]" textColor="text-white" destinations={destinations} />
 
       <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 -scale-y-[1] border-dirt-brown -mt-12 bg-[url('/assets/border.webp')] filter-sable"></div>
       <AboutSection background="bg-sable" textColor="text-gray-900"></AboutSection>
-
-      <ContactSection background="bg-green-900 bg-[url('/assets/heightmap.png')]" textColor="text-white"></ContactSection>
+      <div className="w-full h-12 bg-contain bg-repeat-x relative z-20 border-dirt-brown -mb-12 bg-[url('/assets/border.webp')] filter-sable"></div>
+      <ContactSection background="bg-green-900 bg-[url('/assets/heightmap.webp')]" textColor="text-white"></ContactSection>
     </div>
   );
 }

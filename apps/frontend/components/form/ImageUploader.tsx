@@ -2,10 +2,9 @@
 
 import { useState, useRef } from 'react'
 import { cleanFilename } from '@/utils/files'
-import { type MultiFormatImageUrl } from '@/types/common'
 import Image from 'next/image'
 import { imageService } from '@/services/imageService'
-import { type Context } from '@escapavelo/shared-types'
+import { type Context, type MultiFormatImageUrl } from '@escapavelo/shared-types'
 import { publicImageUrlBuilder } from '@/utils/imageBuilder'
 
 interface ImageUploaderProps {

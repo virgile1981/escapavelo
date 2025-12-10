@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 .bg-sable {
   background-color: #EDE6DB;
 }
@@ -96,4 +95,59 @@ h3 {
 
 .bike.active {
   color: #14532d;
+}
+
+/*
+  ======================================================
+  1. DÉFINITION DE LA CLASSE DE BASE (APPLIQUÉE À TOUS LES BOUTONS)
+  ======================================================
+*/
+.lang-button {
+  @apply 
+    /* Forme et transitions de base */
+    uppercase px-3 py-1 text-sm rounded-full transition duration-150 ease-in-out;
+}
+
+
+/*
+  ======================================================
+  2. DÉFINITION DE LA CLASSE INACTIVE/PAR DÉFAUT
+  ======================================================
+*/
+.lang-button-default {
+  @apply 
+    /* Couleur et police par défaut */
+    cursor-pointer font-medium text-green-700;
+}
+
+/* Style de survol (hover) pour l'état inactif */
+.lang-button-default:hover {
+  @apply 
+    bg-gray-300 text-white;
+}
+
+
+/*
+  ======================================================
+  3. DÉFINITION DE LA CLASSE ACTIVE
+  ======================================================
+*/
+.lang-button-active {
+  @apply 
+    /* Couleur et police pour l'état actif */
+    font-semibold text-white bg-green-700 shadow-md;
+}
+
+
+
+
+/*
+  ======================================================
+  4. CONTENEUR (Optionnel, pour le fond de la pilule)
+  ======================================================
+*/
+.lang-switcher-container {
+  @apply 
+    flex items-center space-x-1 
+    p-1 bg-gray-100 rounded-full dark:bg-gray-800;
 }

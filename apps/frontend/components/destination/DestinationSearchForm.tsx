@@ -39,8 +39,9 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                 {/* Région */}
                 {filtersToDisplay.includes("region") && (
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('region')}</label>
+                        <label htmlFor="region" className="block text-sm font-medium text-gray-700 mb-2">{t('region')}</label>
                         <select
+                            id="region"
                             value={searchFilters.region ?? "default"}
                             onChange={e => handleChange("region", e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
@@ -56,7 +57,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                 {/* Durée */}
                 {filtersToDisplay.includes("duration") && (
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('duration')}</label>
+                        <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-2">{t('duration')}</label>
                         <select
                             id="duration"
                             value={searchFilters.duration ?? "default"}
@@ -74,7 +75,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                 {/* Difficulté */}
                 {filtersToDisplay.includes("difficulty") && (
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('difficultyLevel')}</label>
+                        <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700 mb-2">{t('difficultyLevel')}</label>
                         <select
                             id="difficulty"
                             value={searchFilters.difficulty ?? "default"}
@@ -92,7 +93,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                 {/* Prix max */}
                 {filtersToDisplay.includes("maxPrice") && (
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('maxPrice')}</label>
+                        <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-2">{t('maxPrice')}</label>
                         <select
                             id="maxPrice"
                             value={searchFilters.maxPrice ?? "default"}
@@ -112,9 +113,10 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
             {/* Recherche textuelle */}
             {filtersToDisplay.includes("search") && (
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('freeSearch')}</label>
+                    <label htmlFor="searchByWords" className="block text-sm font-medium text-gray-700 mb-2">{t('freeSearch')}</label>
                     <div className="relative">
                         <input
+                            id="searchByWords"
                             type="text"
                             placeholder={t('searchPlaceholder')}
                             value={searchFilters.search}
