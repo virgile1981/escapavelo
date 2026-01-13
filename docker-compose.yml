@@ -12,7 +12,8 @@ services:
     env_file:
       - apps/frontend/.env.production
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy # Attend que le healthcheck du backend soit OK
     expose:
       - "4000"
 
@@ -21,7 +22,7 @@ services:
       context: .
       dockerfile: docker/Dockerfiles/backend.Dockerfile
     container_name: escapavelo-backend
-    environment:
+    environment:  
       - NODE_ENV=production
       - DB_HOST=mariadb
       - DB_PORT=3306
@@ -35,6 +36,12 @@ services:
       - "3000:3000"
     depends_on:
       - mariadb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/fr/trips"] # Vérifie une route de santé
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   mariadb:
     image: mariadb:11
