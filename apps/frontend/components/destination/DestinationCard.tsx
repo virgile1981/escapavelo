@@ -3,9 +3,10 @@ import DifficultyIndicator from "../shared/DifficultyIndicator";
 import Link from "next/link";
 import Image from "next/image";
 import type { FlattenDestination } from "@escapavelo/shared-types";
+import { serverImageUrlBuilder } from "@/utils/imageBuilder";
 
 export default function DestinationCard({ destination }: { destination: FlattenDestination }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = serverImageUrlBuilder('destination');
   return (
     <div
       key={destination.id}
@@ -14,7 +15,7 @@ export default function DestinationCard({ destination }: { destination: FlattenD
 
       {destination.imageUrl && (
         <Image
-          src={`${baseUrl}/uploads/${destination.imageUrl.resizedUrl}`}
+          src={`${baseUrl}/${destination.imageUrl.resizedUrl}`}
           alt={destination.title}
           height={400}
           width={800}

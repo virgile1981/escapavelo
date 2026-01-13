@@ -22,7 +22,7 @@ export default function Header(params: { currentLocale: Locale }) {
 
         {/* Desktop logo */}
         <div className="flex items-center justify-between px-8">
-          <Link href="/" className="hidden md:flex items-center space-x-2">
+          <Link href="/#" className="hidden md:flex items-center space-x-2">
             <Image src="/assets/logo.webp" height={30} width={30} className="h-14 w-14" alt="Logo" />
             <span className="text-xl font-bold">Escapavélo</span>
           </Link>
@@ -53,7 +53,7 @@ export default function Header(params: { currentLocale: Locale }) {
             className="flex items-center px-2 py-1 text-white font-medium hover:underline border border-white rounded-full mx-auto"
           >
             <Phone className="w-4 h-4 mr-2" />
-            +33 7 82 23 20 16
+            +33 - -- -- --
           </Link>
           <LanguageSwitcher currentLocale={currentLocale}></LanguageSwitcher>
         </div>
@@ -124,7 +124,7 @@ export default function Header(params: { currentLocale: Locale }) {
 
       {/* Background image */}
       {isRootPage && (
-        <div className="relative h-[110vh] overflow-hidden">
+        <div className="relative h-[calc(100vh-1px)] overflow-hidden">
           <div className="absolute inset-0 -top-[7rem]">
             <Image
               src="/assets/full-quercy-cartoon.webp"

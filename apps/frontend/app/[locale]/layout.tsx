@@ -6,11 +6,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@escapavelo/shared-types";
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://escapavelo.fr'),
-  title: "Create Next App"
-};
-
 export default async function RootLayout({ children, params }: Readonly<{
   children: React.ReactNode, params: Promise<{ locale: string }>
 }>) {

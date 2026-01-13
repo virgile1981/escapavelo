@@ -7,6 +7,31 @@ import SearchTripSection from "../../components/homepage/SearchTripSection";
 import { destinationService } from "@/services/destinationService";
 import { getTranslations } from "next-intl/server";
 import type { FlattenDestination, Locale } from "@escapavelo/shared-types";
+import type { Metadata } from "next";
+
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('metadata.homepage');
+  return {
+    metadataBase: new URL('https://escapavelo.fr'),
+    title: t('title'),
+    description: t('description'),
+    alternates: {
+      canonical: 'https://escapavelo.fr',
+      languages: {
+        'fr-FR': 'https://escapavelo.fr/fr',
+        'en-US': 'https://escapavelo.fr/en'
+      }
+    },
+    openGraph: {
+      title: 'My Site',
+      description: 'Welcome to My Site',
+      url: 'https://example.com',
+      siteName: 'My Site',
+      images: [{ url: 'https://example.com/og.png' }]
+    },
+  };
+}
 
 export default async function Home(params: Promise<{ params: { locale: Locale } }>) {
   const { locale } = (await params).params;

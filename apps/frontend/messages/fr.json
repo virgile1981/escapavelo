@@ -1,4 +1,11 @@
 {
+
+  "metadata": {
+    "homepage": {
+      "title": "Escapavélo, une agence de voyages à vélo pour tous",
+      "description" : "Escapavelo vous propose des voyages accessibles à tous pour un weekend jusqu'à deux semaines. Des voyages rythmés entre visites, rencontres et moments de détente."
+     }
+  },
   "HomePage": {
     "title": "Bienvenue sur Escapavelo",
     "subtitle": "Votre guide ultime pour des aventures à vélo",
