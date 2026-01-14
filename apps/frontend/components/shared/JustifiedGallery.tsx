@@ -69,7 +69,7 @@ const JustifiedGallery: React.FC<JustifiedGalleryProps> = ({ images, baseUrl }) 
             onClick={() => openModal(index)}
           >
             <Image
-              src={`${baseUrl}/uploads/${image.resizedUrl}`}
+              src={`${baseUrl}/${image.resizedUrl}`}
               height={150} width={300}
               alt={`Photo ${index + 1}`}
               className={styles['gallery-image']}
@@ -109,7 +109,7 @@ const JustifiedGallery: React.FC<JustifiedGalleryProps> = ({ images, baseUrl }) 
 
             <div className={styles['modal-image-container']}>
               <Image
-                src={`${baseUrl}/uploads/${images[currentImageIndex].url}`}
+                src={`${baseUrl}/${images[currentImageIndex].url}`}
                 height={100} width={600}
                 alt={`Photo ${currentImageIndex + 1}`}
                 className="modal-image"
