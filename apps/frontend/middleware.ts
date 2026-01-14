@@ -27,4 +27,4 @@ export const config = {
 
 };
 
-function isAdminRoute(req: NextRequest) { return req.nextUrl.pathname.startsWith('/admin'); }
+function isAdminRoute(req: NextRequest) { return req.nextUrl.pathname.includes('/admin'); }
