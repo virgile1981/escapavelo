@@ -50,14 +50,14 @@ export async function generateStaticParams() {
 export default async function DestinationPage({ params }: { params: { locale: Locale, slug: string } }) {
   const { locale, slug } = params;
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ''
+  const baseImageUrl = `${process.env.NEXT_PUBLIC_CLIENT_UPLOADED_IMAGES_URL || ''}/destination`
   const destination = await destinationService.getDestinationBySlug(locale, slug);
   return (
     <div className="pt-24">
       {/* Hero Section */}
       <div className="relative h-96 overflow-hidden">
         {destination.imageUrl && <Image
-          src={`${baseUrl}/uploads/${destination.imageUrl.url}`}
+          src={`${baseImageUrl}/${destination.imageUrl.url}`}
           height={150} width={300}
           alt={destination.title}
           className="object-cover"
@@ -79,7 +79,7 @@ export default async function DestinationPage({ params }: { params: { locale: Lo
             {destination.imageUrls?.length > 0 && (
               <section className="mb-12">
                 <h2 className="text-3xl font-bold mb-6">Galerie photos</h2>
-                <JustifiedGallery images={destination.imageUrls} baseUrl={baseUrl} />
+                <JustifiedGallery images={destination.imageUrls} baseUrl={baseImageUrl} />
               </section>
             )}
 
