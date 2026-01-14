@@ -1,17 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { notFound, useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { AuthService } from '@/services/authService'
-import type { Locale } from 'next-intl'
 
 export default function LoginPage() {
-    const params = useParams()
-    if (Array.isArray(params.slug)) {
-        notFound();
-    }
-    const locale = params.locale as Locale;
-
     const router = useRouter()
     const authService = new AuthService()
 
@@ -30,7 +23,7 @@ export default function LoginPage() {
         }
 
         // Redirige après succès
-        router.push(`${locale}/admin/blog`);
+        router.push('/admin/blog');
     }
 
     return (
