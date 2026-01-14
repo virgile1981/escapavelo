@@ -5,7 +5,6 @@ import { useRouter, useParams, notFound } from 'next/navigation'
 import BlogForm from '@/components/blog/BlogForm'
 import { BlogPost, type FullBlogPost } from '@/types/blog'
 import { blogService } from '@/services/blogService'
-import type { Locale } from '@escapavelo/shared-types'
 
 export default function EditPostPage() {
     const params = useParams()
@@ -19,7 +18,7 @@ export default function EditPostPage() {
 
     const [error, setError] = useState('')
     const postId = params.slug as string;
-    const locale = params.locale as Locale;
+
     // Chargement du post existant
     useEffect(() => {
         const loadPost = async () => {
@@ -41,7 +40,7 @@ export default function EditPostPage() {
         try {
             setError('')
             await blogService.updatePost(postId, updatedPost)
-            router.push(`${locale}/admin/blog`)
+            router.push('/admin/blog')
         } catch (err) {
             console.error('Erreur lors de la sauvegarde:', err)
             setError('Une erreur est survenue lors de la sauvegarde')

@@ -2,20 +2,14 @@
 
 import { RevalidateButton } from "@/components/admin/RevalidateButton";
 import { AuthService } from "@/services/authService";
-import type { Locale } from "@escapavelo/shared-types";
 import Link from "next/link";
-import { notFound, useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const params = useParams()
-    if (Array.isArray(params.locale)) {
-        notFound();
-    }
-    const locale = params.locale as Locale;
     const router = useRouter()
     const authService = new AuthService();
 
@@ -31,13 +25,13 @@ export default function RootLayout({
                 <div className="inline-flex items-center space-x-4">
                     <RevalidateButton />
                     <Link
-                        href={`${locale}/admin/blog`}
+                        href="/admin/blog"
                         className="bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-colors"
                     >
                         blog
                     </Link>
                     <Link
-                        href={`${locale}/admin/destination`}
+                        href="/admin/destination"
                         className="bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-colors"
                     >
                         destinations
