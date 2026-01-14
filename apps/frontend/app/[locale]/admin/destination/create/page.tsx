@@ -8,16 +8,15 @@ import Link from "next/link";
 import type { DestinationDTO, Locale } from "@escapavelo/shared-types";
 
 export default function CreateTripPage() {
-    const router = useRouter();
-    const [isSaving, setIsSaving] = useState(false);
-    const [error, setError] = useState("");
-
     const params = useParams()
     if (Array.isArray(params.locale)) {
         notFound();
     }
-
+    const router = useRouter();
+    const [isSaving, setIsSaving] = useState(false);
+    const [error, setError] = useState("");
     const locale = params.locale as Locale;
+
     const handleSubmit = async (destination: DestinationDTO) => {
         try {
             setIsSaving(true);
@@ -29,7 +28,7 @@ export default function CreateTripPage() {
             })
 
             await destinationService.createTrip(destination);
-            router.push("/admin/destination");
+            router.push(`${locale}/admin/destination`);
         } catch (err) {
             console.error("Erreur lors de la sauvegarde :", err);
             setError("Une erreur est survenue lors de la sauvegarde");

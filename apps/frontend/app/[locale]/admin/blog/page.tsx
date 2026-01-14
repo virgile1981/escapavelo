@@ -4,9 +4,15 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { type FullBlogPost } from '@/types/blog'
 import { blogService } from '@/services/blogService'
+import { notFound, useParams } from 'next/navigation'
+import type { Locale } from '@escapavelo/shared-types'
 
 export default function AdminBlogPage() {
-
+    const params = useParams()
+    if (Array.isArray(params.locale)) {
+        notFound();
+    }
+    const locale = params.locale as Locale;
     const [posts, setPosts] = useState<FullBlogPost[]>([])
     const [deletingId, setDeletingId] = useState<string | null>(null)
     const [error, setError] = useState('')
@@ -47,7 +53,7 @@ export default function AdminBlogPage() {
                 <h1 className="text-4xl font-bold">Administration du blog</h1>
                 <div className="flex items-center space-x-4">
                     <Link
-                        href="/admin/blog/create"
+                        href={`${locale}/admin/blog/create`}
                         className="bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-colors"
                     >
                         Nouvel article
@@ -82,7 +88,7 @@ export default function AdminBlogPage() {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <a
-                                        href={`/admin/blog/${post.id}`}
+                                        href={`${locale}/admin/blog/${post.id}`}
                                         className="text-green-900 hover:text-green-700 mr-4"
                                     >
                                         Modifier

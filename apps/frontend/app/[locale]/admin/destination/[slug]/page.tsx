@@ -58,7 +58,7 @@ export default function EditTripPage() {
             })
 
             await destinationService.updateTrip(id, destination)
-            router.push('/admin/destination')
+            router.push(`${locale}/admin/destination`)
         } catch (err) {
             console.error('Erreur lors de la sauvegarde :', err)
             setError('Une erreur est survenue lors de la sauvegarde')

@@ -39,16 +39,6 @@ export default function BlogForm({
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-12">
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-4xl font-bold">{isEdit ? "Modifier l'article" : "Créer un article"}</h1>
-                <Link
-                    href="/admin/blog"
-                    className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
-                >
-                    Retour
-                </Link>
-            </div>
-
             <div className="bg-white rounded-lg shadow-md p-6">
                 <form onSubmit={handleFormSubmit} className="space-y-6">
                     <div>

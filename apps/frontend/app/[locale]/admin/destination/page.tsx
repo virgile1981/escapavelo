@@ -79,7 +79,7 @@ export default function TripAdminPage() {
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-semibold">{t("tripAdministrationTitle")}</h2>
                 <Link
-                    href="/admin/destination/create"
+                    href={`${locale}/admin/destination/create`}
                     className="bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-colors"
                 >
                     {t("createNewTravelButton")}
@@ -90,7 +90,7 @@ export default function TripAdminPage() {
                 <div className="text-center py-12">
                     <p className="text-gray-600 mb-4">{t("infoNoTrip")}</p>
                     <Link
-                        href="/admin/destination/create"
+                        href={`${locale}/admin/destination/create`}
                         className="inline-flex items-center bg-green-900 text-white px-6 py-3 rounded-lg hover:bg-green-800"
                     >
                         {t("createFirstTravelButton")}
@@ -155,7 +155,7 @@ export default function TripAdminPage() {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <a
-                                            href={`/admin/destination/${destination.id}`}
+                                            href={`${locale}/admin/destination/${destination.id}`}
                                             className="text-green-900 hover:text-green-700 mr-4"
                                         >
                                             {t("updateButton")}

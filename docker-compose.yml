@@ -39,7 +39,7 @@ services:
   mariadb:
     image: mariadb:11
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: vb03831s
       MYSQL_DATABASE: escapavelo
       MYSQL_USER: escapavelo_user
       MYSQL_PASSWORD: vb03831s
