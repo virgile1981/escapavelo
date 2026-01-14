@@ -5,3 +5,5 @@ node_modules
 package-lock.json
 uploads
 .env
+.env.development
+.env.production
