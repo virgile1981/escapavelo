@@ -54,6 +54,9 @@ services:
       - "80:80"
     volumes:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro        # Partage les certificats
+      - /var/www/certbot:/var/www/certbot:ro        # Pour la vérification Let's Encrypt
+    restart: always
     depends_on:
       - frontend
       - backend
