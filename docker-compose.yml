@@ -35,7 +35,7 @@ services:
       - "3000:3000"
     volumes:
       # Format: [chemin_sur_le_vps]:[chemin_dans_le_conteneur]
-      - ./home/debian/data/escapavelo/images:./uploads:ro
+      - ./home/debian/data/escapavelo/images:/uploads:ro
     depends_on:
       - mariadb
 
