@@ -32,11 +32,11 @@ import { LoggingMiddleware } from './logging.middleware';
       useFactory: (configService: ConfigService) => {
         return {
           type: 'mariadb',
-          host: configService.get<string>('DB_HOST', 'localhost'),
+          host: configService.get<string>('DB_HOST'),
           port: configService.get<number>('DB_PORT', 3306),
           username: configService.get<string>('DB_USERNAME', 'root'),
-          password: configService.get<string>('DB_PASSWORD', 'root'),
-          database: configService.get<string>('DB_NAME', 'escapavelo'),
+          password: configService.get<string>('DB_PASSWORD'),
+          database: configService.get<string>('DB_NAME'),
           entities: [Destination, DestinationTranslation, BlogPost, Subscribers, User],
           synchronize: configService.get<boolean>('DB_SYNCHRONIZE', true), // Désactiver en prod
           logging: true
