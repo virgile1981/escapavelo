@@ -53,7 +53,7 @@ export default function Header(params: { currentLocale: Locale }) {
             className="flex items-center px-2 py-1 text-white font-medium hover:underline border border-white rounded-full mx-auto"
           >
             <Phone className="w-4 h-4 mr-2" />
-            +33 - -- -- --
+            +33 07 82 23 20 16
           </Link>
           <LanguageSwitcher currentLocale={currentLocale}></LanguageSwitcher>
         </div>
