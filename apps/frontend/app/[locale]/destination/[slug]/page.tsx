@@ -60,9 +60,9 @@ export default async function DestinationPage({ params }: { params: { locale: Lo
           src={`${baseImageUrl}/${destination.imageUrl.url}`}
           height={150} width={300}
           alt={destination.title}
-          className="object-cover"
+          className="object-cover w-full h-full"
         />}
-        <div className="absolute inset-0 bg-black bg-opacity-40" />
+        <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white">
             <h1 className="text-5xl font-bold mb-4">{destination.title}</h1>

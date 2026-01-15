@@ -105,7 +105,6 @@ export class TripsService {
       .where('t.locale = :locale AND t.slug = :slug', { locale, slug })
       .getOne();
 
-    console.log('Trip fetched by slug:', trip);
     if (!trip || !trip.translations?.length) {
       throw new NotFoundException(`Voyage avec le slug "${slug}" non trouvé`);
     }
@@ -118,6 +117,9 @@ export class TripsService {
       title: translation.title,
       slug: translation.slug,
       description: translation.description,
+      included: translation.included,
+      notIncluded: translation.notIncluded,
+      program: translation.program,
       longDescription: translation.longDescription,
       translations: undefined, // Optionnel : supprimer le tableau translations
     };
