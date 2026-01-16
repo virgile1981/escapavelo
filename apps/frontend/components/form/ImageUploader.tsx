@@ -45,7 +45,7 @@ export default function ImageUploader({
                     onChange([...images, data])
                 } else {
                     // supprimer l'ancien si nécessaire
-                    if (images.length > 0) await removeImageFile(0)
+                    if (images.length > 0) await removeImageFile(context, 0)
                     onChange(data)
                 }
             } catch (err) {
@@ -56,19 +56,19 @@ export default function ImageUploader({
         if (inputRef.current) inputRef.current.value = ''
     }
 
-    const removeImageFile = async (index?: number) => {
+    const removeImageFile = async (context: string, index?: number) => {
         const file = multiple ? images[index!] : images[0]
         if (!file) return
         try {
             const filenameCleaned = cleanFilename(file.url)
-            await imageService.delete(filenameCleaned)
+            await imageService.delete(context, filenameCleaned)
         } catch (err) {
             console.error('Erreur lors de la suppression du fichier:', err)
         }
     }
 
-    const removeImage = async (index?: number) => {
-        await removeImageFile(index)
+    const removeImage = async (context: string, index?: number) => {
+        await removeImageFile(context, index)
         if (multiple) {
             const newImages = [...images]
             newImages.splice(index!, 1)
@@ -110,7 +110,7 @@ export default function ImageUploader({
                             />
                             <button
                                 type="button"
-                                onClick={() => removeImage(idx)}
+                                onClick={() => removeImage(context, idx)}
                                 className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center"
                             >
                                 x
@@ -127,7 +127,7 @@ export default function ImageUploader({
                             />
                             <button
                                 type="button"
-                                onClick={() => removeImage()}
+                                onClick={() => removeImage(context)}
                                 className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center"
                             >
                                 x

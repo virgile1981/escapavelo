@@ -17,8 +17,8 @@ class ImageService {
     return response.json();
   }
 
-  async delete(fileName: string): Promise<void> {
-    const response = await fetch(`${this.apiUrl}/upload/${fileName}`, { method: 'DELETE', credentials: 'include' });
+  async delete(context: string, fileName: string): Promise<void> {
+    const response = await fetch(`${this.apiUrl}/upload/${context}/${fileName}`, { method: 'DELETE', credentials: 'include' });
     return response.json();
   }
 }

@@ -8,16 +8,16 @@ import { JwtAuthGuard } from '@root/auth/jwt-auth.guard';
 
 @Controller('upload')
 export class UploadController {
-  
+
   @UseGuards(JwtAuthGuard)
   @Post(':folder/image')
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
-        destination:  (req, file, callback) => {
+        destination: (req, file, callback) => {
           const folder = req.params.folder
           const uploadPath = path.join('./uploads', folder, 'tmp')
-          
+
           // Vérifie que le répertoire existe
           if (!fs.existsSync(uploadPath)) {
             return callback(
@@ -38,7 +38,7 @@ export class UploadController {
       },
     })
   )
-  
+
   async uploadFile(@UploadedFile() file: Express.Multer.File, @Param('folder') folder: string) {
     const sharp = require('sharp');
 
@@ -46,7 +46,7 @@ export class UploadController {
       throw new Error('Aucun fichier téléchargé');
     }
 
-    const uploadsDir = path.join(__dirname, '..', 'uploads',folder);
+    const uploadsDir = path.join(__dirname, '..', 'uploads', folder);
     const tmpPath = path.join(uploadsDir, 'tmp', file.filename);
 
     const baseName = path.parse(file.filename).name;
@@ -79,20 +79,20 @@ export class UploadController {
     };
   }
 
-    @UseGuards(JwtAuthGuard)
-    @Delete(':id')
-    remove(@Param('id') filename: string): Promise<void[]> {
+  @UseGuards(JwtAuthGuard)
+  @Delete(':folder/:id')
+  remove(@Param('id') filename: string, @Param('folder') folder: string): Promise<void[]> {
     if (!filename) {
       throw new HttpException('Nom de fichier requis', HttpStatus.BAD_REQUEST);
     }
-   
-    return this.deleteFile([filename+".webp", filename+"_600.webp"]);
+
+    return this.deleteFile([`${folder}/${filename}.webp`, `${folder}/${filename}_600.webp`]);
   }
 
 
   private async deleteFile(filePaths: string[]): Promise<void[]> {
     return await Promise.all(filePaths.map(filePath =>
-    fs.promises.unlink(path.join(path.join(__dirname, '..', 'uploads', filePath))
-  )))
+      fs.promises.unlink(path.join(path.join(__dirname, '..', 'uploads', filePath))
+      )))
   }
 }

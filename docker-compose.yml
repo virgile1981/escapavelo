@@ -20,8 +20,6 @@ services:
     container_name: escapavelo-backend
     env_file:
       - apps/backend/.env
-    ports:
-      - "3000:3000"
     volumes:
       # Format: [chemin_sur_le_vps]:[chemin_dans_le_conteneur]
       - images:/uploads
@@ -31,12 +29,10 @@ services:
   mariadb:
     image: mariadb:11
     environment:
-      MYSQL_ROOT_PASSWORD: vb03831s
+      MYSQL_ROOT_PASSWORD: D2G82Z7JsAj+
       MYSQL_DATABASE: escapavelo
       MYSQL_USER: escapavelo_user
-      MYSQL_PASSWORD: vb03831s
-    ports:
-      - "3306:3306"
+      MYSQL_PASSWORD: D2G82Z7JsAj+
     volumes:
       - mariadb_data:/var/lib/mysql
 
