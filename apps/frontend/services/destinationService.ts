@@ -40,7 +40,7 @@ class DestinationService {
 
   async getAllTrips(locale: Locale, status?: Status): Promise<FlattenDestination[]> {
     const statusQuery = status ? `?status=${status}` : ''
-
+    console.log("getAllTrips", `${DestinationApiUrl(locale)}${statusQuery}`);
     const response = await fetch(`${DestinationApiUrl(locale)}${statusQuery}`)
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des voyages')

@@ -23,7 +23,7 @@ import { LoggingMiddleware } from './logging.middleware';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}` || '.env', // exemple : .env.production
+      envFilePath: '.env',
     }),
 
     TypeOrmModule.forRootAsync({
