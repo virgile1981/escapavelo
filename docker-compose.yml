@@ -55,3 +55,4 @@ services:
       - backend
 volumes:
   mariadb_data:
+  images:
