@@ -3,7 +3,7 @@ import { BlogPost, type FullBlogPost } from "../types/blog"
 import { API_URL } from '@/utils/urlBuilder';
 
 class BlogService {
-   
+
   private baseUrl = API_URL + '/blog'
 
   async getPost(id: string): Promise<FullBlogPost> {
@@ -31,17 +31,17 @@ class BlogService {
       },
       body: JSON.stringify(post)
     })
-    
+
     if (!response.ok) {
       throw new Error('Erreur lors de la sauvegarde de l\'article')
     }
-    
+
     return response.json()
   }
 
   async getAllPosts(status?: Status): Promise<FullBlogPost[]> {
     const statusQuery = status ? `?status=${status}` : ''
-
+    console.log('Fetching posts from:', `${this.baseUrl}${statusQuery}`)
     const response = await fetch(`${this.baseUrl}${statusQuery}`)
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des articles')
@@ -66,11 +66,11 @@ class BlogService {
       },
       body: JSON.stringify(post)
     })
-    
+
     if (!response.ok) {
       throw new Error('Erreur lors de la création de l\'article')
     }
-    
+
     return response.json()
   }
 
@@ -79,7 +79,7 @@ class BlogService {
       method: 'DELETE',
       credentials: 'include',
     })
-    
+
     if (!response.ok) {
       throw new Error('Erreur lors de la suppression de l\'article')
     }
