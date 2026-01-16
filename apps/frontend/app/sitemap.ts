@@ -3,7 +3,7 @@ import { destinationService } from "@/services/destinationService";
 import type { MetadataRoute } from "next";
 
 export const revalidate = 60; // 1 hour
-
+export const dynamic = 'force-dynamic';
 export default async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
     console.log("Generating sitemap...");
     const destinationsFr = await destinationService.getAllTrips('fr', 'published');
