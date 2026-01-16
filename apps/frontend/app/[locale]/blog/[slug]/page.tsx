@@ -36,12 +36,12 @@ export async function generateMetadata({ params }: PostPageSSGProps) {
     },
   };
 }
+export const dynamicParams = true; // Génère les pages manquantes à la volée
+// export async function generateStaticParams() {
+//   const posts = await blogService.getAllPosts('published');
 
-export async function generateStaticParams() {
-  const posts = await blogService.getAllPosts('published');
-
-  return i18n.locales.flatMap((locale) => posts.map(v => ({ locale: locale })))
-}
+//   return i18n.locales.flatMap((locale) => posts.map(v => ({ locale: locale })))
+// }
 
 
 export default async function BlogPostPage({ params }: PostPageSSGProps) {

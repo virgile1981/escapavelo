@@ -38,14 +38,15 @@ export async function generateMetadata({ params }: DestinationPageSSGProps) {
   };
 }
 
-export async function generateStaticParams() {
-  const destinationsFr = await destinationService.getAllTrips('fr', 'published');
-  const destinationsEn = await destinationService.getAllTrips('en', 'published');
+export const dynamicParams = true; // Génère les pages manquantes à la volée
+// export async function generateStaticParams() {
+//   const destinationsFr = await destinationService.getAllTrips('fr', 'published');
+//   const destinationsEn = await destinationService.getAllTrips('en', 'published');
 
-  const parameters = [...destinationsFr.map((dest: FlattenDestination) => { return ({ locale: "fr", slug: dest.slug }) }),
-  ...destinationsEn.map((dest: FlattenDestination) => { return ({ locale: "en", slug: dest.slug }) })];
-  return parameters;
-}
+//   const parameters = [...destinationsFr.map((dest: FlattenDestination) => { return ({ locale: "fr", slug: dest.slug }) }),
+//   ...destinationsEn.map((dest: FlattenDestination) => { return ({ locale: "en", slug: dest.slug }) })];
+//   return parameters;
+// }
 
 export default async function DestinationPage({ params }: { params: { locale: Locale, slug: string } }) {
   const { locale, slug } = params;
