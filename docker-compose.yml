@@ -7,7 +7,7 @@ services:
       dockerfile: docker/Dockerfiles/frontend.Dockerfile
     container_name: escapavelo-frontend 
     env_file:
-      - apps/backend/.env
+      - apps/frontend/.env
     depends_on:
       - backend
     expose:
