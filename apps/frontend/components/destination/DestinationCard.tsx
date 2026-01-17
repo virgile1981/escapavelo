@@ -3,10 +3,10 @@ import DifficultyIndicator from "../shared/DifficultyIndicator";
 import Link from "next/link";
 import Image from "next/image";
 import type { FlattenDestination } from "@escapavelo/shared-types";
-import { serverImageUrlBuilder } from "@/utils/imageBuilder";
+import { publicImageUrlBuilder } from "@/utils/imageBuilder";
 
 export default function DestinationCard({ destination }: { destination: FlattenDestination }) {
-  const baseUrl = serverImageUrlBuilder('destination');
+  const baseUrl = publicImageUrlBuilder('destination');
   return (
     <div
       key={destination.id}
