@@ -3,6 +3,7 @@ name: Unit Tests
 on:
   push:
     branches: [ main ]
+  workflow_dispatch: # Ajoute ceci pour avoir le bouton "Run" manuel sur GitHub
 
 jobs:
   test:
