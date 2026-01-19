@@ -21,6 +21,7 @@ jobs:
           node-version: '24' # Utilise la version de ton projet
           cache: 'npm'       # Accélère les builds futurs
           cache-dependency-path: package-lock.json # GitHub now looks at the root package-lock.json
+          
       - name: Install dependencies
         run: npm ci          # 'npm ci' est plus propre pour les environnements de CI
 
