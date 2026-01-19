@@ -12,14 +12,14 @@ const contactSchema = z.object({
   message: z.string().min(10, 'Le message est trop court'),
 });
 
-export async function contactAction(state: State<ContactFields>, formData: FormData): Promise<State<ContactFields>> {
+export async function contactAction(formData: FormData): Promise<State<ContactFields>> {
   const payload = {
     name: String(formData.get('name') ?? ''),
     email: String(formData.get('email') ?? ''),
     message: String(formData.get('message') ?? '')
   } as ContactFields
   const parsed = contactSchema.safeParse(payload);   // Validation serveur
- 
+
   if (!parsed.success) {
     return {
       success: false,
@@ -32,6 +32,6 @@ export async function contactAction(state: State<ContactFields>, formData: FormD
     return { success: true };
   } catch (err) {
     console.error(err);
-    return { success: false, errors: { general: ['Impossible d’envoyer le message.'] }, payload};
+    return { success: false, errors: { general: ['Impossible d’envoyer le message.'] }, payload };
   }
 }

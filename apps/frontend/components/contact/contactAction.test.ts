@@ -6,7 +6,7 @@ import { contactAction } from './ContactAction';
 // Crée une fonction mock pour sendEmail
 vi.mock('@/services/contactService', () => ({
   contactService: {
-    sendEmail: vi.fn(), 
+    sendEmail: vi.fn(),
   },
 }));
 
@@ -38,9 +38,9 @@ describe('contactAction (Server Action)', () => {
     (contactService.sendEmail as ReturnType<typeof vi.fn>).mockResolvedValue(undefined);
 
     const formData = createFormData(VALID_FORM_DATA);
-    
+
     // Act
-    const result = await contactAction({}, formData);
+    const result = await contactAction(formData);
 
     // Assert
     // 2. Vérifier que la réponse est un succès
@@ -55,12 +55,12 @@ describe('contactAction (Server Action)', () => {
     // Arrange: Données invalides (name: 'A' => min(2) échoue)
     const invalidData = {
       ...VALID_FORM_DATA,
-      name: 'A', 
+      name: 'A',
     };
     const formData = createFormData(invalidData);
-    
+
     // Act
-    const result = await contactAction({}, formData);
+    const result = await contactAction(formData);
 
     // Assert
     // 1. Vérifier que c'est un échec
@@ -78,12 +78,12 @@ describe('contactAction (Server Action)', () => {
     // Arrange: Données invalides (email mal formaté)
     const invalidData = {
       ...VALID_FORM_DATA,
-      email: 'not-an-email', 
+      email: 'not-an-email',
     };
     const formData = createFormData(invalidData);
-    
+
     // Act
-    const result = await contactAction({}, formData);
+    const result = await contactAction(formData);
 
     // Assert
     expect(result.success).toBe(false);
@@ -102,7 +102,7 @@ describe('contactAction (Server Action)', () => {
     const formData = createFormData(VALID_FORM_DATA);
 
     // Act
-    const result = await contactAction({}, formData);
+    const result = await contactAction(formData);
 
     // Assert
     // 2. Vérifier que c'est un échec

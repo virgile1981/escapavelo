@@ -21,6 +21,7 @@
   "scripts": {
     "build": "npm run build --workspaces",
     "start:backend": "npm --workspace apps/backend start",
-    "start:frontend": "npm --workspace apps/frontend start"
+    "start:frontend": "npm --workspace apps/frontend start",
+    "test": "npm run test --workspaces"
   }
 }
