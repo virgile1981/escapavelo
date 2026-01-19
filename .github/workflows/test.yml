@@ -12,6 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: List files (Debug)
+        run: ls -R  # This will show us exactly where package-lock.json is
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
