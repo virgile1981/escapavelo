@@ -13,7 +13,7 @@
     "blogSectionTitle": "Dernières actualités de notre blog",
     "readMoreButton": "Lire la suite",
     "contactUs": "Nous contacter",
-    "footerText": "© 2025 Escapavelo. Tous droits réservés.",
+    "footerText": "© 2026 Escapavelo. Tous droits réservés.",
     "newsletterSignup": "Abonnez-vous à notre Newsletter",
     "subscribeButton": "S'abonner",
     "popularDestinations": "Destinations populaires",
@@ -35,6 +35,20 @@
   "searchDestination": {
     "region": "Région",
     "difficultyLevel": "Niveau de difficulté",
+    "difficultyLabel": {
+      "easy": "Facile",
+      "moderate": "Modérée",
+      "difficult": "Sportif"
+    },
+    "durationLabels": {
+       "weekend": "week-end", 
+       "weekend+": "week-end étendu", 
+       "week": "semaine", 
+       "extended": "prolongé"
+    },
+    "facile":"facile",
+    "moderee":"Modérée",
+    "difficile":"sportif",
     "duration": "Durée",
     "maxPrice": "Prix maximum",
     "freeSearch": "Recherche libre",

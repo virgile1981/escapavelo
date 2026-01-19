@@ -66,7 +66,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                         >
                             <option value="default">{t('allDurations')}</option>
                             {Object.keys(DurationRecord).map(key => (
-                                <option key={key} value={key}>{key}</option>
+                                <option key={key} value={key}>{t('durationLabels.' + key)}</option>
                             ))}
                         </select>
                     </div>
@@ -84,7 +84,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                         >
                             <option value="default">{t('allDifficulties')}</option>
                             {Object.keys(DifficultyRecord).map(key => (
-                                <option key={key} value={key}>{key}</option>
+                                <option key={key} value={key}>{t('difficultyLabels.' + key)}</option>
                             ))}
                         </select>
                     </div>
