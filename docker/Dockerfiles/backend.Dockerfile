@@ -9,7 +9,7 @@ COPY apps/backend ./apps/backend
 COPY packages ./packages
 
 # Build du backend
-RUN npm install 
+RUN npm install --ignore-scripts
 RUN npm run build --workspace packages/shared-types
 RUN npm run build --workspace packages/utils       
 #to install the packages modules in node_modules

@@ -15,7 +15,7 @@ RUN npm run build --workspace packages/shared-types
 RUN npm run build --workspace packages/utils       
 
 #to install the packages modules in node_modules
-RUN npm install 
+RUN npm install --ignore-scripts
 
 # 1. Définir l'hôte de l'API (assurez-vous que c'est bien le nom du service Docker Compose)
 # Remplacez "backend-api" et le port 3000 par vos valeurs si elles sont différentes
