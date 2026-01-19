@@ -1,5 +1,4 @@
 node_modules/
 .turbo/
 .vscode/
-package-lock.json
 uploads/
