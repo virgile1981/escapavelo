@@ -32,7 +32,7 @@ export function DestinationResults({ regions, destinations }: DestinationResults
         return destinations.filter(d => {
             if (searchFilters.region && d.region !== searchFilters.region) return false
             if (searchFilters.difficulty && d.difficulty !== searchFilters.difficulty) return false
-            if (searchFilters.maxPrice && d.price > parseInt(searchFilters.maxPrice)) return false
+            if (searchFilters.maxPrice && d.price > Number.parseInt(searchFilters.maxPrice)) return false
 
             if (searchFilters.duration) {
                 const dur = d.duration

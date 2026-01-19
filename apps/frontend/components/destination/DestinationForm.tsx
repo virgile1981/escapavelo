@@ -89,145 +89,147 @@ export default function DestinationForm({
                         <div>
                             <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
                                 Titre
+                                <input
+                                    type="text"
+                                    value={translation.title}
+                                    onChange={(e) => updateTranslationField("title", e.target.value)}
+                                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                />
                             </label>
-                            <input
-                                type="text"
-                                value={translation.title}
-                                onChange={(e) => updateTranslationField("title", e.target.value)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            />
                         </div>
 
                         {/* Slug */}
                         <div>
                             <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-1">
                                 Slug
+                                <input
+                                    id="slug"
+                                    type="text"
+                                    value={translation.slug}
+                                    onChange={(e) => updateTranslationField("slug", e.target.value)}
+                                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                />
                             </label>
-                            <input
-                                id="slug"
-                                type="text"
-                                value={translation.slug}
-                                onChange={(e) => updateTranslationField("slug", e.target.value)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            />
                         </div>
 
                         {/* Region */}
                         <div>
                             <label htmlFor="region" className="block text-sm font-medium text-gray-700 mb-1">
                                 Région
+                                <input
+                                    id="region"
+                                    type="text"
+                                    value={translation.region}
+                                    onChange={(e) => updateTranslationField("region", e.target.value)}
+                                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                />
                             </label>
-                            <input
-                                id="region"
-                                type="text"
-                                value={translation.region}
-                                onChange={(e) => updateTranslationField("region", e.target.value)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            />
                         </div>
 
                         {/* Duration */}
                         <div>
                             <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">
                                 Durée (en jours)
+                                <input
+                                    type="number"
+                                    value={localDestination.duration}
+                                    onChange={(e) => updateDestinationField("duration", e.target.valueAsNumber)}
+                                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                />
                             </label>
-                            <input
-                                type="number"
-                                value={localDestination.duration}
-                                onChange={(e) => updateDestinationField("duration", e.target.valueAsNumber)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            />
                         </div>
 
                         {/* Images */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Images</label>
-                            <ImageUploader
-                                value={localDestination.imageUrls}
-                                onChange={(imageUrls) => updateDestinationField("imageUrls", imageUrls as MultiFormatImageUrl[])}
-                                multiple={true}
-                                context="destination"
-                            />
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Images
+                                <ImageUploader
+                                    value={localDestination.imageUrls}
+                                    onChange={(imageUrls) => updateDestinationField("imageUrls", imageUrls as MultiFormatImageUrl[])}
+                                    multiple={true}
+                                    context="destination"
+                                />
+                            </label>
                         </div>
 
                         {/* Price */}
                         <div>
                             <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
                                 Prix (€)
+                                <input
+                                    id="price"
+                                    type="number"
+                                    value={localDestination.price}
+                                    onChange={(e) => updateDestinationField("price", e.target.valueAsNumber)}
+                                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                />
                             </label>
-                            <input
-                                id="price"
-                                type="number"
-                                value={localDestination.price}
-                                onChange={(e) => updateDestinationField("price", e.target.valueAsNumber)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            />
                         </div>
 
                         {/* Distance */}
                         <div>
                             <label htmlFor="distance" className="block text-sm font-medium text-gray-700 mb-1">
                                 Distance totale (km)
+                                <input
+                                    id="distance"
+                                    type="number"
+                                    value={localDestination.distance}
+                                    onChange={(e) => updateDestinationField("distance", e.target.valueAsNumber)}
+                                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                />
                             </label>
-                            <input
-                                id="distance"
-                                type="number"
-                                value={localDestination.distance}
-                                onChange={(e) => updateDestinationField("distance", e.target.valueAsNumber)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            />
                         </div>
 
                         {/* Difficulty */}
                         <div>
                             <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700 mb-1">
                                 Difficulté
+                                <select
+                                    id="difficulty"
+                                    value={localDestination.difficulty}
+                                    onChange={(e) => updateDestinationField("difficulty", e.target.value as DifficultyType)}
+                                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                >
+                                    {
+                                        Object.keys(DifficultyRecord).map((key) => (
+                                            <option key={key} value={key}>{key}</option>
+                                        ))
+                                    }
+                                </select>
                             </label>
-                            <select
-                                id="difficulty"
-                                value={localDestination.difficulty}
-                                onChange={(e) => updateDestinationField("difficulty", e.target.value as DifficultyType)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            >
-                                {
-                                    Object.keys(DifficultyRecord).map((key) => (
-                                        <option key={key} value={key}>{key}</option>
-                                    ))
-                                }
-                            </select>
                         </div>
 
                         {/* TravelType */}
                         <div>
                             <label htmlFor="travelType" className="block text-sm font-medium text-gray-700 mb-1">
                                 Profil ciblé
+                                <select
+                                    id="travelType"
+                                    value={localDestination.travelType}
+                                    onChange={(e) => updateDestinationField("travelType", e.target.value as TravelType)}
+                                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                >
+                                    <option value="friends">Entre amis</option>
+                                    <option value="family">En famille</option>
+                                    <option value="couple">En couple</option>
+                                </select>
                             </label>
-                            <select
-                                id="travelType"
-                                value={localDestination.travelType}
-                                onChange={(e) => updateDestinationField("travelType", e.target.value as TravelType)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            >
-                                <option value="friends">Entre amis</option>
-                                <option value="family">En famille</option>
-                                <option value="couple">En couple</option>
-                            </select>
                         </div>
 
                         {/* Status */}
                         <div>
                             <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
                                 Statut
+                                <select
+                                    id="status"
+                                    value={localDestination.status}
+                                    onChange={(e) => updateDestinationField("status", e.target.value as Status)}
+                                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                                >
+                                    <option value="draft">Brouillon</option>
+                                    <option value="published">Publié</option>
+                                </select>
                             </label>
-                            <select
-                                id="status"
-                                value={localDestination.status}
-                                onChange={(e) => updateDestinationField("status", e.target.value as Status)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            >
-                                <option value="draft">Brouillon</option>
-                                <option value="published">Publié</option>
-                            </select>
                         </div>
 
                         {/* Promoted */}
@@ -249,37 +251,39 @@ export default function DestinationForm({
                     <div className="mt-4">
                         <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
                             Description
+                            <textarea
+                                id="description"
+                                value={translation.description}
+                                onChange={(e) => updateTranslationField("description", e.target.value)}
+                                rows={2}
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            />
                         </label>
-                        <textarea
-                            id="description"
-                            value={translation.description}
-                            onChange={(e) => updateTranslationField("description", e.target.value)}
-                            rows={2}
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                        />
                     </div>
 
                     {/* Long Description */}
                     <div className="mt-4">
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Description détaillée
+                            <TinyMCE
+                                value={translation.longDescription}
+                                onChange={(content) => updateTranslationField("longDescription", content)}
+                                context="destination"
+                            />
                         </label>
-                        <TinyMCE
-                            value={translation.longDescription}
-                            onChange={(content) => updateTranslationField("longDescription", content)}
-                            context="destination"
-                        />
                     </div>
 
                     {/* Main Image */}
                     <div className="mt-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Image</label>
-                        <ImageUploader
-                            value={localDestination.imageUrl}
-                            onChange={(imageUrl) => updateDestinationField("imageUrl", imageUrl as MultiFormatImageUrl | null)}
-                            multiple={false}
-                            context="destination"
-                        />
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Image
+                            <ImageUploader
+                                value={localDestination.imageUrl}
+                                onChange={(imageUrl) => updateDestinationField("imageUrl", imageUrl as MultiFormatImageUrl | null)}
+                                multiple={false}
+                                context="destination"
+                            />
+                        </label>
                     </div>
                 </div>
 

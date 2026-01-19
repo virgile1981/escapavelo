@@ -65,8 +65,16 @@ const JustifiedGallery: React.FC<JustifiedGalleryProps> = ({ images, baseUrl }) 
         {images.map((image, index) => (
           <div
             key={index}
+            role="button"
+            tabIndex={index}               // Permet de naviguer vers l'élément avec la touche Tab
             className={`${styles['gallery-item']} ${getItemClass(index)}`}
             onClick={() => openModal(index)}
+            onKeyDown={(e) => {        // Ajout du listener clavier pour l'accessibilité
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                openModal(index);
+              }
+            }}
           >
             <Image
               src={`${baseUrl}/${image.resizedUrl}`}
@@ -88,9 +96,9 @@ const JustifiedGallery: React.FC<JustifiedGalleryProps> = ({ images, baseUrl }) 
 
       {/* Modal */}
       {isModalOpen && (
-        <div className={styles['modal-overlay']} onClick={closeModal}>
-          <div className={styles['modal-content']} onClick={(e) => e.stopPropagation()}>
-            <button className={styles['modal-close']} onClick={closeModal}>
+        <div className={styles['modal-overlay']} >
+          <div className={styles['modal-content']} >
+            <button className={styles['modal-close']}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />

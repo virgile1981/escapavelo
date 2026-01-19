@@ -40,7 +40,9 @@ describe('contactAction (Server Action)', () => {
     const formData = createFormData(VALID_FORM_DATA);
 
     // Act
-    const result = await contactAction(formData);
+    const result = await contactAction({
+      success: false
+    }, formData);
 
     // Assert
     // 2. Vérifier que la réponse est un succès
@@ -60,7 +62,9 @@ describe('contactAction (Server Action)', () => {
     const formData = createFormData(invalidData);
 
     // Act
-    const result = await contactAction(formData);
+    const result = await contactAction({
+      success: false
+    }, formData);
 
     // Assert
     // 1. Vérifier que c'est un échec
@@ -83,7 +87,9 @@ describe('contactAction (Server Action)', () => {
     const formData = createFormData(invalidData);
 
     // Act
-    const result = await contactAction(formData);
+    const result = await contactAction({
+      success: false
+    }, formData);
 
     // Assert
     expect(result.success).toBe(false);
@@ -102,7 +108,9 @@ describe('contactAction (Server Action)', () => {
     const formData = createFormData(VALID_FORM_DATA);
 
     // Act
-    const result = await contactAction(formData);
+    const result = await contactAction({
+      success: false
+    }, formData);
 
     // Assert
     // 2. Vérifier que c'est un échec

@@ -17,20 +17,20 @@
 
 /* Title definitions */
 h1 {
-  font-family: "Calibri" ;
+  font-family: "Calibri", sans-serif;
   font-style: normal;
   font-weight: bold;
   text-transform: uppercase;
 }
 
 h2 {
-  font-family: "Calibri";
+  font-family: "Calibri", sans-serif;
   font-weight:200;
   font-style: normal;
 }
 
 h3 {
-  font-family: "Calibri";
+  font-family: "Calibri", sans-serif;
   font-weight:100;
   font-style: normal;
 }

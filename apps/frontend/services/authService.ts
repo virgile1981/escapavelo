@@ -4,7 +4,6 @@ export class AuthService {
     private baseUrl = process.env.NEXT_PUBLIC_API_URL + '/auth'
 
     async login(login: string, password: string): Promise<any> {
-        console.log('URL', `${this.baseUrl}/login`);
         const response = await fetch(`${this.baseUrl}/login`, {
             method: 'POST',
             headers: {

@@ -66,50 +66,50 @@ const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     Titre du jour
+                                    <input
+                                        type="text"
+                                        value={day.title}
+                                        onChange={(e) => updateDay(index, "title", e.target.value)}
+                                        className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
+                                    />
                                 </label>
-                                <input
-                                    type="text"
-                                    value={day.title}
-                                    onChange={(e) => updateDay(index, "title", e.target.value)}
-                                    className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
-                                />
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     Distance (km)
+                                    <input
+                                        type="number"
+                                        value={day.distance}
+                                        onChange={(e) => updateDay(index, "distance", Number(e.target.value))}
+                                        className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
+                                    />
                                 </label>
-                                <input
-                                    type="number"
-                                    value={day.distance}
-                                    onChange={(e) => updateDay(index, "distance", Number(e.target.value))}
-                                    className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
-                                />
                             </div>
                         </div>
 
                         <div className="mt-3">
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Description
+                                <textarea
+                                    rows={2}
+                                    value={day.description}
+                                    onChange={(e) => updateDay(index, "description", e.target.value)}
+                                    className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
+                                />
                             </label>
-                            <textarea
-                                rows={2}
-                                value={day.description}
-                                onChange={(e) => updateDay(index, "description", e.target.value)}
-                                className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
-                            />
                         </div>
 
                         <div className="mt-3">
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Hébergement (optionnel)
+                                <input
+                                    type="text"
+                                    value={day.accommodation || ""}
+                                    onChange={(e) => updateDay(index, "accommodation", e.target.value)}
+                                    className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
+                                />
                             </label>
-                            <input
-                                type="text"
-                                value={day.accommodation || ""}
-                                onChange={(e) => updateDay(index, "accommodation", e.target.value)}
-                                className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
-                            />
                         </div>
                     </div>
                 ))}
