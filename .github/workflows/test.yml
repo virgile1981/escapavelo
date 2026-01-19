@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Utilise la version de ton projet
+          node-version: '24' # Utilise la version de ton projet
           cache: 'npm'       # Accélère les builds futurs
           cache-dependency-path: package-lock.json # GitHub now looks at the root package-lock.json
       - name: Install dependencies
