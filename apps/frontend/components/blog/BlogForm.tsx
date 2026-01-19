@@ -54,43 +54,40 @@ export default function BlogForm({
                     <div>
                         <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
                             Titre
-
-                            <input
-                                type="text"
-                                value={localPost.title}
-                                onChange={(e) => handleChange("title", e.target.value)}
-                                required
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            />
                         </label>
+                        <input
+                            type="text"
+                            value={localPost.title}
+                            onChange={(e) => handleChange("title", e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-1">
-                            Slug
-
-                            <input
-                                type="text"
-                                value={localPost.slug || ''}
-                                onChange={(e) => handleChange("slug", e.target.value)}
-                                required
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            />
+                            Slug{' '}
                         </label>
+                        <input
+                            type="text"
+                            value={localPost.slug || ''}
+                            onChange={(e) => handleChange("slug", e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 mb-1">
                             Extrait
-
-                            <textarea
-                                rows={2}
-                                value={localPost.excerpt}
-                                onChange={(e) => handleChange("excerpt", e.target.value)}
-                                required
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            />
                         </label>
+                        <textarea
+                            rows={2}
+                            value={localPost.excerpt}
+                            onChange={(e) => handleChange("excerpt", e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        />
                     </div>
 
                     <div>
@@ -115,15 +112,15 @@ export default function BlogForm({
                     <div>
                         <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
                             Statut
-                            <select
-                                value={localPost.status}
-                                onChange={(e) => handleChange("status", e.target.value)}
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                            >
-                                <option value="draft">Brouillon</option>
-                                <option value="published">Publié</option>
-                            </select>
                         </label>
+                        <select
+                            value={localPost.status}
+                            onChange={(e) => handleChange("status", e.target.value)}
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                        >
+                            <option value="draft">Brouillon</option>
+                            <option value="published">Publié</option>
+                        </select>
                     </div>
 
                     <div className="flex justify-end space-x-4">
