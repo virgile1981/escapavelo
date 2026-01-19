@@ -64,9 +64,10 @@ const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
 
                         <div className="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
                                     Titre du jour
                                     <input
+                                        id="title"
                                         type="text"
                                         value={day.title}
                                         onChange={(e) => updateDay(index, "title", e.target.value)}
@@ -76,9 +77,10 @@ const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label htmlFor="distance" className="block text-sm font-medium text-gray-700 mb-1">
                                     Distance (km)
                                     <input
+                                        id="distance"
                                         type="number"
                                         value={day.distance}
                                         onChange={(e) => updateDay(index, "distance", Number(e.target.value))}
@@ -89,9 +91,10 @@ const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
                         </div>
 
                         <div className="mt-3">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
                                 Description
                                 <textarea
+                                    id="description"
                                     rows={2}
                                     value={day.description}
                                     onChange={(e) => updateDay(index, "description", e.target.value)}
@@ -101,9 +104,10 @@ const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
                         </div>
 
                         <div className="mt-3">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label htmlFor="accommodation" className="block text-sm font-medium text-gray-700 mb-1">
                                 Hébergement (optionnel)
                                 <input
+                                    id="accommodation"
                                     type="text"
                                     value={day.accommodation || ""}
                                     onChange={(e) => updateDay(index, "accommodation", e.target.value)}

@@ -234,7 +234,7 @@ export default function DestinationForm({
 
                         {/* Promoted */}
                         <div className="flex items-end pb-4">
-                            <label className="inline-flex items-center gap-2 text-sm">
+                            <label htmlFor="promoted" className="inline-flex items-center gap-2 text-sm">
                                 Mettre en avant
                             </label>
                             <input
