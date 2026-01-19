@@ -66,54 +66,54 @@ const TravelItinerarySection: FC<DestinationItinerarySectionProps> = ({
                             <div>
                                 <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
                                     Titre du jour
-                                    <input
-                                        id="title"
-                                        type="text"
-                                        value={day.title}
-                                        onChange={(e) => updateDay(index, "title", e.target.value)}
-                                        className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
-                                    />
                                 </label>
+                                <input
+                                    id="title"
+                                    type="text"
+                                    value={day.title}
+                                    onChange={(e) => updateDay(index, "title", e.target.value)}
+                                    className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
+                                />
                             </div>
 
                             <div>
                                 <label htmlFor="distance" className="block text-sm font-medium text-gray-700 mb-1">
                                     Distance (km)
-                                    <input
-                                        id="distance"
-                                        type="number"
-                                        value={day.distance}
-                                        onChange={(e) => updateDay(index, "distance", Number(e.target.value))}
-                                        className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
-                                    />
                                 </label>
+                                <input
+                                    id="distance"
+                                    type="number"
+                                    value={day.distance}
+                                    onChange={(e) => updateDay(index, "distance", Number(e.target.value))}
+                                    className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
+                                />
                             </div>
                         </div>
 
                         <div className="mt-3">
                             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
                                 Description
-                                <textarea
-                                    id="description"
-                                    rows={2}
-                                    value={day.description}
-                                    onChange={(e) => updateDay(index, "description", e.target.value)}
-                                    className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
-                                />
                             </label>
+                            <textarea
+                                id="description"
+                                rows={2}
+                                value={day.description}
+                                onChange={(e) => updateDay(index, "description", e.target.value)}
+                                className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
+                            />
                         </div>
 
                         <div className="mt-3">
                             <label htmlFor="accommodation" className="block text-sm font-medium text-gray-700 mb-1">
                                 Hébergement (optionnel)
-                                <input
-                                    id="accommodation"
-                                    type="text"
-                                    value={day.accommodation || ""}
-                                    onChange={(e) => updateDay(index, "accommodation", e.target.value)}
-                                    className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
-                                />
                             </label>
+                            <input
+                                id="accommodation"
+                                type="text"
+                                value={day.accommodation || ""}
+                                onChange={(e) => updateDay(index, "accommodation", e.target.value)}
+                                className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500"
+                            />
                         </div>
                     </div>
                 ))}
