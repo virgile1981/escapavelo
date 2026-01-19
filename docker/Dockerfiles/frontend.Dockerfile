@@ -9,7 +9,7 @@ COPY apps/frontend ./apps/frontend
 COPY packages ./packages
 
 # Build du frontend
-RUN npm install 
+RUN npm install --ignore-scripts
 
 RUN npm run build --workspace packages/shared-types
 RUN npm run build --workspace packages/utils       
