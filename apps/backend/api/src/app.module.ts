@@ -17,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { DestinationTranslation } from './trips/entities/destination-translation';
 import { LoggingMiddleware } from './logging.middleware';
+import { UploadModule } from './upload/upload.module';
 
 
 @Module({
@@ -61,9 +62,10 @@ import { LoggingMiddleware } from './logging.middleware';
     TripsModule,
     BlogModule,
     ContactModule,
-    AuthModule
+    AuthModule,
+    UploadModule
   ],
-  controllers: [AppController, UploadController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {

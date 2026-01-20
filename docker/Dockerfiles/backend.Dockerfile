@@ -19,10 +19,12 @@ RUN npm run build --workspace apps/backend
 
 FROM node:20-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV=production
+RUN addgroup -S nonroot \
+  && adduser -S nonroot -G nonroot
 COPY --from=builder /app/apps/backend/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/backend/package.json ./
+USER nonroot
 RUN mkdir -p uploads/blog/tmp 
 RUN mkdir -p uploads/destination/tmp 
 

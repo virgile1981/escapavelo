@@ -23,18 +23,19 @@ services:
     volumes:
       # Format: [chemin_sur_le_vps]:[chemin_dans_le_conteneur]
       - images:/uploads
+    networks:
+      - backend
     depends_on:
       - mariadb
 
   mariadb:
-    image: mariadb:11
-    environment:
-      MYSQL_ROOT_PASSWORD: D2G82Z7JsAj+
-      MYSQL_DATABASE: escapavelo
-      MYSQL_USER: escapavelo_user
-      MYSQL_PASSWORD: D2G82Z7JsAj+
+    image: mariadb:11.8.5
+    env_file:
+      - .env
     volumes:
       - mariadb_data:/var/lib/mysql
+    networks:
+      - backend
 
   nginx:
     image: nginx:alpine

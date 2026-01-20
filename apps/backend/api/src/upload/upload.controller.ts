@@ -5,10 +5,12 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { JwtAuthGuard } from '@root/auth/jwt-auth.guard';
+import { UploadService } from './upload.service';
 
 @Controller('upload')
 export class UploadController {
 
+  constructor(private readonly uploadeService: UploadService) { }
   @UseGuards(JwtAuthGuard)
   @Post(':folder/image')
   @UseInterceptors(
@@ -34,50 +36,15 @@ export class UploadController {
         },
       }),
       limits: {
-        fileSize: 10 * 1024 * 1024,
+        fileSize: 8 * 1024 * 1024,
       },
     })
   )
-
   async uploadFile(@UploadedFile() file: Express.Multer.File, @Param('folder') folder: string) {
-    const sharp = require('sharp');
-
-    if (!file) {
-      throw new Error('Aucun fichier téléchargé');
-    }
-
-    const uploadsDir = path.join(__dirname, '..', 'uploads', folder);
-    const tmpPath = path.join(uploadsDir, 'tmp', file.filename);
-
-    const baseName = path.parse(file.filename).name;
-    const outputOriginal = path.join(uploadsDir, `${baseName}.webp`);
-    const outputResized = path.join(uploadsDir, `${baseName}_600.webp`);
-
-    try {
-      // Convertir version originale en WebP (sans redimensionnement)
-      await sharp(tmpPath)
-        .webp({ quality: 90 })
-        .toFile(outputOriginal);
-
-      // Redimensionner et convertir version 600px
-      await sharp(tmpPath)
-        .resize(600)
-        .webp({ quality: 80 })
-        .toFile(outputResized);
-
-      // Supprimer le fichier temporaire
-      // fs.unlinkSync(tmpPath);
-
-    } catch (err) {
-      console.error('Erreur Sharp :', err);
-      throw new Error('Erreur lors de la conversion de l’image');
-    }
-
-    return {
-      url: `${baseName}.webp`,
-      resizedUrl: `${baseName}_600.webp`,
-    };
+    return await this.uploadeService.uploadFile(file, folder);
   }
+
+
 
   @UseGuards(JwtAuthGuard)
   @Delete(':folder/:id')
@@ -86,13 +53,9 @@ export class UploadController {
       throw new HttpException('Nom de fichier requis', HttpStatus.BAD_REQUEST);
     }
 
-    return this.deleteFile([`${folder}/${filename}.webp`, `${folder}/${filename}_600.webp`]);
+    return this.uploadeService.deleteFile([`${folder}/${filename}.webp`, `${folder}/${filename}_600.webp`]);
   }
 
 
-  private async deleteFile(filePaths: string[]): Promise<void[]> {
-    return await Promise.all(filePaths.map(filePath =>
-      fs.promises.unlink(path.join(path.join(__dirname, '..', 'uploads', filePath))
-      )))
-  }
+
 }
