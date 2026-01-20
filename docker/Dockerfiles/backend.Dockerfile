@@ -24,10 +24,12 @@ RUN addgroup -S nonroot \
 COPY --from=builder /app/apps/backend/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/backend/package.json ./
-USER nonroot
 RUN mkdir -p uploads/blog/tmp 
 RUN mkdir -p uploads/destination/tmp 
-
+RUN mkdir -p uploads/blog/tmp \
+    && mkdir -p uploads/destination/tmp \
+    && chown -R nonroot:nonroot /app
+USER nonroot
 
 EXPOSE 4000
 CMD ["node", "dist/main.js"]
