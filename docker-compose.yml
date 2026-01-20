@@ -45,6 +45,8 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro        # Partage les certificats
       - /var/www/certbot:/var/www/certbot:ro        # Pour la vérification Let's Encrypt
     restart: always
+    networks:
+      - backend
     depends_on:
       - frontend
       - backend
