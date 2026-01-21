@@ -7,7 +7,7 @@ services:
     env_file:
       - apps/frontend/.env
     networks:
-      - backend
+      - private_backend
     depends_on:
       - backend
     expose:
@@ -24,7 +24,7 @@ services:
       # Format: [chemin_sur_le_vps]:[chemin_dans_le_conteneur]
       - images:/uploads
     networks:
-      - backend
+      - private_backend
     depends_on:
       - mariadb
 
@@ -35,7 +35,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
-      - backend
+      - private_backend
 
   nginx:
     image: nginx:alpine
@@ -48,7 +48,7 @@ services:
       - /var/www/certbot:/var/www/certbot:ro        # Pour la vérification Let's Encrypt
     restart: always
     networks:
-      - backend
+      - private_backend
     depends_on:
       - frontend
       - backend
@@ -57,5 +57,6 @@ volumes:
   images:
 
 networks:
-  backend:
+  private_backend:
     driver: bridge
+    internal: true
