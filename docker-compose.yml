@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfiles/frontend.Dockerfile
-    container_name: escapavelo-frontend 
+    container_name: frontend 
     env_file:
       - apps/frontend/.env
     networks:
@@ -17,7 +17,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfiles/backend.Dockerfile
-    container_name: escapavelo-backend
+    container_name: backend
     env_file:
       - apps/backend/.env
     volumes:
@@ -32,6 +32,7 @@ services:
 
   mariadb:
     image: mariadb:11.8.5
+    container_name: mariadb
     env_file:
       - .env
     volumes:
@@ -41,6 +42,7 @@ services:
 
   nginx:
     image: nginx:alpine
+    container_name: nginx
     ports:
       - "80:80"
       - "443:443"
