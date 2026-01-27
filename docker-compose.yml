@@ -59,4 +59,3 @@ volumes:
 networks:
   private_backend:
     driver: bridge
-    internal: true
