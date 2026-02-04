@@ -7,7 +7,7 @@ services:
     env_file:
       - apps/frontend/.env
     networks:
-      - private_backend
+      - global_private_network
     depends_on:
       - backend
     expose:
@@ -24,7 +24,7 @@ services:
       # Format: [chemin_sur_le_vps]:[chemin_dans_le_conteneur]
       - images:/uploads
     networks:
-      - private_backend
+      - global_private_network
     depends_on:
       - mariadb
     expose: 
@@ -53,7 +53,7 @@ services:
       - /var/www/certbot:/var/www/certbot:ro        # Pour la vérification Let's Encrypt
     restart: always
     networks:
-      - private_backend
+      - global_private_network
     depends_on:
       - frontend
       - backend
@@ -63,4 +63,5 @@ volumes:
 
 networks:
   private_backend:
+    name: global_private_network
     driver: bridge
