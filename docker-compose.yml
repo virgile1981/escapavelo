@@ -38,7 +38,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
-      - private_backend
+      - global_private_network
 
   nginx:
     image: nginx:alpine
