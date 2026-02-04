@@ -28,7 +28,7 @@ export default function AboutSection({
           <div>
             <h2 className={` ${textColor} text-3xl font-bold mb-6 mt-6`}>Qui suis-je ?</h2>
             <p className={` ${textColor} opacity-80'text-lg mb-6`}>
-              Je m&apos;appelle Virgile et il y a vingt ans, je découvrais le
+              Je m&apos;appelle Sylvain et il y a vingt ans, je découvrais le
               voyage à vélo avec des amis. Au cours de cette aventure, un
               sentiment de liberté est né et ne m&apos;a jamais quitté. Partir avec une
               tente, un réchaud, quelques vêtements et prendre le temps. Le
