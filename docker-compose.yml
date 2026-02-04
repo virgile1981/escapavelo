@@ -62,6 +62,6 @@ volumes:
   images:
 
 networks:
-  private_backend:
+  global_private_network:
     name: global_private_network
     driver: bridge
