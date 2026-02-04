@@ -64,4 +64,5 @@ volumes:
 networks:
   global_private_network:
     name: global_private_network
+    external: true
     driver: bridge
