@@ -24,17 +24,17 @@ export async function generateMetadata(): Promise<Metadata> {
       }
     },
     openGraph: {
-      title: 'My Site',
-      description: 'Welcome to My Site',
-      url: 'https://example.com',
-      siteName: 'My Site',
+      title: 'escapavelo',
+      description: 'travel by bicycle',
+      url: 'https://escapavelo.fr',
+      siteName: 'escapavelo',
       images: [{ url: 'https://example.com/og.png' }]
     },
   };
 }
 
-export default async function Home(params: Promise<{ params: { locale: Locale } }>) {
-  const { locale } = (await params).params;
+export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
   const destinations = await destinationService.getAllTrips(locale, 'published');
   const regions = destinations.map((t: FlattenDestination) => t.region);
   const t = await getTranslations('HomePage');

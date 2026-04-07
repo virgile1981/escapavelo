@@ -1,7 +1,7 @@
 'use client'
 
 import { Editor } from '@tinymce/tinymce-react'
-import { Editor as TinyMCEEditorType } from '@/public/assets/tinymce/tinymce'
+import { Editor as TinyMCEEditorType } from '../../public/assets/tinymce/tinymce'
 import { useRef } from 'react'
 import { imageService } from '@/services/imageService'
 import { type Context } from '@escapavelo/shared-types'
@@ -19,7 +19,7 @@ export default function TinyMCEEditor({ value, onChange, context }: TinyMCEProps
     return (
         <Editor
             tinymceScriptSrc="/assets/tinymce/tinymce.min.js" // <- script local, pas de clé Cloud
-            onInit={(_, editor) => (editorRef.current = editor)}
+            onInit={(_, editor: TinyMCEEditorType) => (editorRef.current = editor)}
             initialValue={value}
 
             init={{

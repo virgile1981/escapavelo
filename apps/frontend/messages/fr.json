@@ -35,26 +35,30 @@
   "searchDestination": {
     "region": "Région",
     "difficultyLevel": "Niveau de difficulté",
-    "difficultyLabel": {
+    "difficultyLabels": {
+      "allDifficulties": "Tous les niveaux",
       "easy": "Facile",
       "moderate": "Modérée",
       "difficult": "Sportif"
     },
+    "priceLabels": {
+      "maxPrice": "Prix maximum",
+      "allPrices": "Tous les prix",
+      "until300": "Jusqu'à 300€",
+      "until500": "Jusqu'à 500€",
+      "until800": "Jusqu'à 800€",
+      "morethan1000": "Au dessus de 1000€"
+    },
     "durationLabels": {
+       "duration": "Durée",
+       "allDurations": "Toutes les durées",
        "weekend": "week-end", 
        "weekend+": "week-end étendu", 
        "week": "semaine", 
        "extended": "prolongé"
     },
-    "facile":"facile",
-    "moderee":"Modérée",
-    "difficile":"sportif",
-    "duration": "Durée",
-    "maxPrice": "Prix maximum",
+   
     "freeSearch": "Recherche libre",
-    "allPrices": "Tous les prix",
-    "allDurations": "Toutes les durées",
-    "allDifficulties": "Tous les niveaux",
     "allRegions": "Toutes les régions",
     "searchButton": "Rechercher",
     "searchPlaceholder": "Rechercher par mots-clés"
@@ -84,6 +88,7 @@
     "instagramLink": "Lien Instagram",
     "facebookLink": "Lien Facebook"
   },
+  
   "footer": {
     "mailingListButton": "S'abonner à la liste de diffusion",
     "instagramLink": "Lien Instagram",

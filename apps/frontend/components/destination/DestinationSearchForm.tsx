@@ -57,14 +57,14 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                 {/* Durée */}
                 {filtersToDisplay.includes("duration") && (
                     <div>
-                        <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-2">{t('duration')}</label>
+                        <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-2">{t('durationLabels.duration')}</label>
                         <select
                             id="duration"
                             value={searchFilters.duration ?? "default"}
                             onChange={(e) => handleChange("duration", e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                         >
-                            <option value="default">{t('allDurations')}</option>
+                            <option value="default">{t('durationLabels.allDurations')}</option>
                             {Object.keys(DurationRecord).map(key => (
                                 <option key={key} value={key}>{t('durationLabels.' + key)}</option>
                             ))}
@@ -82,7 +82,7 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                             onChange={(e) => handleChange("difficulty", e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                         >
-                            <option value="default">{t('allDifficulties')}</option>
+                            <option value="default">{t('difficultyLabels.allDifficulties')}</option>
                             {Object.keys(DifficultyRecord).map(key => (
                                 <option key={key} value={key}>{t('difficultyLabels.' + key)}</option>
                             ))}
@@ -93,16 +93,16 @@ export default function DestinationSearchForm({ onSubmit, regionsList, filters: 
                 {/* Prix max */}
                 {filtersToDisplay.includes("maxPrice") && (
                     <div>
-                        <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-2">{t('maxPrice')}</label>
+                        <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-2">{t('priceLabels.maxPrice')}</label>
                         <select
                             id="maxPrice"
                             value={searchFilters.maxPrice ?? "default"}
                             onChange={(e) => handleChange("maxPrice", e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                         >
-                            <option value="default">{t('allPrices')}</option>
+                            <option value="default">{t('priceLabels.allPrices')}</option>
                             {Object.keys(PriceRecord).map(key => (
-                                <option key={key} value={key}>{key}</option>
+                                <option key={key} value={key}>{t('priceLabels.' + key)}</option>
                             ))}
                         </select>
                     </div>

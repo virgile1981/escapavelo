@@ -31,22 +31,30 @@
       "region":"Region",
       "difficultyLevel":"Difficulty Level",
       "difficultyLabels": {
+        "allDifficulties":"All Difficulties",
         "easy": "Easy",
         "moderate": "Moderate",
         "difficult": "Advanced"
       },
-      "duration":"Duration",
-      "durationLabels": {
-       "weekend": "week-end", 
-       "weekend+": "extended week-end", 
-       "week": "week", 
-       "extended": "extended"
+      "priceLabels": {
+        "maxPrice":"Max Price",
+        "allPrices": "All prices",
+        "until300": "Up to €300",
+        "until500": "Up to €500",
+        "until800": "Up to €800",
+        "morethan1000": "Over €1000"
       },
-      "maxPrice":"Max Price",
+      "durationLabels": {
+        "duration":"Duration",
+        "allDurations":"All Durations",
+        "weekend": "week-end", 
+        "weekend+": "extended week-end", 
+        "week": "week", 
+        "extended": "extended"
+      },
+      
       "freeSearch":"Free search",
-      "allPrices":"All Prices",
-      "allDurations":"All Durations",
-      "allDifficulties":"All Difficulties",
+     
       "allRegions":"All Regions",
       "searchButton": "Search",
       "searchPlaceholder":"Search with words"
