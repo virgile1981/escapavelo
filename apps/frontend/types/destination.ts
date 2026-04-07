@@ -1,4 +1,4 @@
-import type { DurationType, DifficultyType } from "@escapavelo/shared-types";
+import type { DurationType, DifficultyType, Locale } from "@escapavelo/shared-types";
 
 // Search definitions
 export type SearchFilters = {
@@ -16,3 +16,8 @@ export const defaultSearchFilters: SearchFilters = {
   maxPrice: undefined,
   search: undefined,
 };
+
+
+export interface DestinationPageSSGProps {
+  params: Promise<{ locale: Locale, slug: string }>;
+}

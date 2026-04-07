@@ -7,15 +7,13 @@ import ContactPopup from '@/components/contact/ContactPopup'
 import { ChevronLeft } from 'lucide-react'
 import { destinationService } from '@/services/destinationService'
 import type { FlattenDestination, Locale, TripDay } from '@escapavelo/shared-types'
+import type { DestinationPageSSGProps } from '@/types/destination'
 
 const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
 
-interface DestinationPageSSGProps {
-  params: { locale: Locale, slug: string };
-}
 
 export async function generateMetadata({ params }: DestinationPageSSGProps) {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
   const destination = await destinationService.getDestinationBySlug(locale, slug);
 
   if (!destination) {
@@ -48,8 +46,8 @@ export const dynamicParams = true; // Génère les pages manquantes à la volée
 //   return parameters;
 // }
 
-export default async function DestinationPage({ params }: { params: { locale: Locale, slug: string } }) {
-  const { locale, slug } = params;
+export default async function DestinationPage({ params }: DestinationPageSSGProps) {
+  const { locale, slug } = await params;
 
   const baseImageUrl = `${process.env.NEXT_PUBLIC_CLIENT_UPLOADED_IMAGES_URL || ''}/destination`
   const destination = await destinationService.getDestinationBySlug(locale, slug);
