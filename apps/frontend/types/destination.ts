@@ -18,6 +18,6 @@ export const defaultSearchFilters: SearchFilters = {
 };
 
 
-export interface DestinationPageSSGProps {
+export interface DataPageSSGProps {
   params: Promise<{ locale: Locale, slug: string }>;
 }

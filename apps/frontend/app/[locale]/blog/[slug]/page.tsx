@@ -3,18 +3,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronLeft } from 'lucide-react';
 import { blogService } from '@/services/blogService';
-import { i18n } from '@/i18n.config';
 import { getTranslations } from 'next-intl/server';
-import { useTranslations } from 'next-intl';
+import { publicImageUrlBuilder } from '@/utils/imageBuilder';
+import type { DataPageSSGProps } from '@/types/destination';
 
-interface PostPageSSGProps {
-  params: { locale: string, slug: string };
-}
+const uploadedImagesUrl = publicImageUrlBuilder('blog');
 
-const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
-
-export async function generateMetadata({ params }: PostPageSSGProps) {
-  const { slug } = params;
+export async function generateMetadata({ params }: DataPageSSGProps) {
+  const { slug } = await params;
   const post = await blogService.getPostBySlug(slug);
 
   if (!post) {
@@ -44,11 +40,11 @@ export const dynamicParams = true; // Génère les pages manquantes à la volée
 // }
 
 
-export default async function BlogPostPage({ params }: PostPageSSGProps) {
-  const { locale, slug } = params;
+export default async function BlogPostPage({ params }: DataPageSSGProps) {
+  const { locale, slug } = await params;
   const t = await getTranslations({ locale, namespace: 'blogPage' });
 
-  if (Array.isArray(params.slug)) {
+  if (Array.isArray(slug)) {
     notFound();
   }
 

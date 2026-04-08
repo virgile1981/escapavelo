@@ -1,7 +1,7 @@
 import PostPreview from '@/components/blog/PostPreview';
 import { blogService } from '@/services/blogService';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Suspense, use } from 'react';
+import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 
 export default async function BlogPage() {
 

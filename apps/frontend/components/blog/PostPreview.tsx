@@ -1,13 +1,13 @@
 import { BlogPost } from '@/types/blog';
 import Link from 'next/link';
 import Image from 'next/image';
-import { serverImageUrlBuilder } from '@/utils/imageBuilder';
+import { publicImageUrlBuilder } from '@/utils/imageBuilder';
 interface Props {
   post: BlogPost;
 }
 
 export default function PostPreview({ post }: Props) {
-  const uploadedImagesUrl = serverImageUrlBuilder('blog');
+  const uploadedImagesUrl = publicImageUrlBuilder('blog');
 
   return (
     <article className="bg-white shadow-md overflow-hidden">

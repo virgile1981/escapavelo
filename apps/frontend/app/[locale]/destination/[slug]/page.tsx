@@ -6,13 +6,13 @@ import DifficultyIndicator from '@/components/shared/DifficultyIndicator'
 import ContactPopup from '@/components/contact/ContactPopup'
 import { ChevronLeft } from 'lucide-react'
 import { destinationService } from '@/services/destinationService'
-import type { FlattenDestination, Locale, TripDay } from '@escapavelo/shared-types'
-import type { DestinationPageSSGProps } from '@/types/destination'
+import type { TripDay } from '@escapavelo/shared-types'
+import type { DataPageSSGProps } from '@/types/destination'
 
 const uploadedImagesUrl = process.env.NEXT_PUBLIC_UPLOADED_BLOG_IMAGES_URL || '';
 
 
-export async function generateMetadata({ params }: DestinationPageSSGProps) {
+export async function generateMetadata({ params }: DataPageSSGProps) {
   const { locale, slug } = await params;
   const destination = await destinationService.getDestinationBySlug(locale, slug);
 
@@ -46,7 +46,7 @@ export const dynamicParams = true; // Génère les pages manquantes à la volée
 //   return parameters;
 // }
 
-export default async function DestinationPage({ params }: DestinationPageSSGProps) {
+export default async function DestinationPage({ params }: DataPageSSGProps) {
   const { locale, slug } = await params;
 
   const baseImageUrl = `${process.env.NEXT_PUBLIC_CLIENT_UPLOADED_IMAGES_URL || ''}/destination`
