@@ -28,7 +28,7 @@ export default function ContactForm({
         </label>
         <input
           type="text"
-          id="name"
+          name="name"
           required
           disabled={pending}
           defaultValue={state.payload?.name}
@@ -49,7 +49,7 @@ export default function ContactForm({
         </label>
         <input
           type="email"
-          id="email"
+          name="email"
           required
           disabled={pending}
           defaultValue={state.payload?.email}
@@ -66,7 +66,7 @@ export default function ContactForm({
           Message
         </label>
         <textarea
-          id="message"
+          name="message"
           rows={4}
           required
           disabled={pending}

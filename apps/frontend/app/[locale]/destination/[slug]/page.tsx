@@ -120,7 +120,6 @@ export default async function DestinationPage({ params }: DataPageSSGProps) {
 
             {/* Inclus / Non inclus */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold mb-6">Ce qui est inclus</h2>
               <div className="grid md:grid-cols-2 gap-8">
                 {destination.included?.length > 0 && (
                   <div>
